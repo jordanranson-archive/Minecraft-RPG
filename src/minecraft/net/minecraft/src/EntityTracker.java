@@ -124,6 +124,12 @@ public class EntityTracker
         {
             this.addEntityToTracker(par1Entity, 256, Integer.MAX_VALUE, false);
         }
+		
+		// Minecraft RPG
+        else if (par1Entity instanceof EntityThrowingKnife)
+        {
+            this.addEntityToTracker(par1Entity, 64, 10, true);
+        }
     }
 
     public void addEntityToTracker(Entity par1Entity, int par2, int par3)

@@ -398,6 +398,13 @@ public class EntityTrackerEntry
                 {
                     return new Packet23VehicleSpawn(this.myEntity, 72);
                 }
+				
+				// Minecraft RPG
+				else if (this.myEntity instanceof EntityThrowingKnife)
+                {
+                    return new Packet23VehicleSpawn(this.myEntity, 99);
+                }
+				
                 else
                 {
                     Packet23VehicleSpawn var2;

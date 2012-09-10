@@ -12,6 +12,10 @@ public class RecipesMinecraftRPG
         par1CraftingManager.addRecipe(new ItemStack(Block.blockRuby), new Object[] {"###", "###", "###", '#', Item.ruby});
         par1CraftingManager.addRecipe(new ItemStack(Block.blockSapphire), new Object[] {"###", "###", "###", '#', Item.sapphire});
         par1CraftingManager.addRecipe(new ItemStack(Block.blockAmethyst), new Object[] {"###", "###", "###", '#', Item.amethyst});
+				
+		par1CraftingManager.addShapelessRecipe(new ItemStack(Item.ruby, 9), new Object[] {Block.blockRuby});
+		par1CraftingManager.addShapelessRecipe(new ItemStack(Item.sapphire, 9), new Object[] {Block.blockSapphire});
+		par1CraftingManager.addShapelessRecipe(new ItemStack(Item.amethyst, 9), new Object[] {Block.blockAmethyst});
 		
 		par1CraftingManager.addRecipe(new ItemStack(Item.rubyCharged), new Object[] {" P ", "P#P", " P ", '#', Block.blockRuby, 'P', Item.powderMagic});
 		par1CraftingManager.addRecipe(new ItemStack(Item.sapphireCharged), new Object[] {" P ", "P#P", " P ", '#', Block.blockSapphire, 'P', Item.powderMagic});

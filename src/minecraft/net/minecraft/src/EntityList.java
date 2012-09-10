@@ -202,5 +202,8 @@ public class EntityList
         addMapping(EntityIronGolem.class, "VillagerGolem", 99);
         addMapping(EntityVillager.class, "Villager", 120, 5651507, 12422002);
         addMapping(EntityEnderCrystal.class, "EnderCrystal", 200);
+		
+		// Minecraft RPG
+        addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
     }
 }

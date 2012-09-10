@@ -1956,6 +1956,10 @@ public class RenderGlobal implements IWorldAccess
                     {
                         var21 = new EntityFleeFX(this.theWorld, par2, par4, par6, par8, par10, par12);
                     }
+					else if (par1Str.equals("meatsplash"))
+                    {
+                        var21 = new EntityMeatSplashFX(this.theWorld, par2, par4, par6);
+                    }
                     else
                     {
                         int var24;

@@ -83,6 +83,10 @@ public class RenderManager
         this.entityRenderMap.put(EntityBoat.class, new RenderBoat());
         this.entityRenderMap.put(EntityFishHook.class, new RenderFish());
         this.entityRenderMap.put(EntityLightningBolt.class, new RenderLightningBolt());
+		
+		// Minecraft RPG
+        this.entityRenderMap.put(EntityThrowingKnife.class, new RenderThrowingKnife(Item.throwingKnifeStone.getIconFromDamage(0)));
+		
         Iterator var1 = this.entityRenderMap.values().iterator();
 
         while (var1.hasNext())

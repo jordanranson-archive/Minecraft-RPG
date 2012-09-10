@@ -259,6 +259,12 @@ public class NetClientHandler extends NetHandler
             var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, par1Packet23VehicleSpawn.throwerEntityId & 65535, par1Packet23VehicleSpawn.throwerEntityId >> 16);
             par1Packet23VehicleSpawn.throwerEntityId = 0;
         }
+		
+		// Minecraft RPG
+        else if (par1Packet23VehicleSpawn.type == 99)
+        {
+            var8 = new EntityThrowingKnife(this.worldClient, var2, var4, var6);
+        }
 
         if (var8 != null)
         {
