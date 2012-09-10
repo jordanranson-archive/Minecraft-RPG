@@ -1,4 +1,4 @@
-Minecraft-RPG
+Minecraft RPG
 =============
 
 The aim of the Minecraft RPG project is to enhance gameplay by adding new features and challenges while retaining balance and keeping the Minecraft “feel”. The experience should be increasingly immersive, exciting, and challenging.
