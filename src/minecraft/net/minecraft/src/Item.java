@@ -197,8 +197,8 @@ public class Item
 	
 	public static Item runicDiamond = (Item)(new ItemRunicDiamond(982)).setIconCoord(8, 13).setItemName("runicDiamond");
 	
-    public static Item throwingKnifeStone = (new ItemThrowingKnife(981, EnumToolMaterial.STONE)).setIconCoord(0, 9).setItemName("throwingKnifeStone");
-    public static Item throwingKnifeIron = (new ItemThrowingKnife(980, EnumToolMaterial.IRON)).setIconCoord(0, 10).setItemName("throwingKnifeIron");
+    //public static Item throwingKnifeStone = (new ItemThrowingKnife(981, EnumToolMaterial.STONE)).setIconCoord(0, 9).setItemName("throwingKnifeStone");
+    //public static Item throwingKnifeIron = (new ItemThrowingKnife(980, EnumToolMaterial.IRON)).setIconCoord(0, 10).setItemName("throwingKnifeIron");
 	
     /** Item index + 256 */
     public final int shiftedIndex;
