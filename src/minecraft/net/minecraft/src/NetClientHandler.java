@@ -261,10 +261,22 @@ public class NetClientHandler extends NetHandler
         }
 		
 		// Minecraft RPG
-        else if (par1Packet23VehicleSpawn.type == 99)
+		else if (par1Packet23VehicleSpawn.type == 99)
+        {
+            var8 = new EntitySackMeat(this.worldClient, var2, var4, var6);
+        }
+		else if (par1Packet23VehicleSpawn.type == 98)
+        {
+            var8 = new EntitySackTreasure(this.worldClient, var2, var4, var6);
+        }
+		else if (par1Packet23VehicleSpawn.type == 97)
+        {
+            var8 = new EntitySackJunk(this.worldClient, var2, var4, var6);
+        }
+        /*else if (par1Packet23VehicleSpawn.type == 99)
         {
             var8 = new EntityThrowingKnife(this.worldClient, var2, var4, var6);
-        }
+        }*/
 
         if (var8 != null)
         {

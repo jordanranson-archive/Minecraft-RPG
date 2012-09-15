@@ -1960,6 +1960,15 @@ public class RenderGlobal implements IWorldAccess
                     {
                         var21 = new EntityMeatSplashFX(this.theWorld, par2, par4, par6);
                     }
+                    else if (par1Str.equals("treasuresackimpact"))
+                    {
+                        var21 = new EntityBreakingFX(this.theWorld, par2, par4, par6, Item.treasureSack);
+                    }
+                    else if (par1Str.equals("junksackimpact"))
+                    {
+                        var21 = new EntityBreakingFX(this.theWorld, par2, par4, par6, Item.junkSack);
+                    }
+
                     else
                     {
                         int var24;

@@ -1023,6 +1023,10 @@ item.rodEmerald.name=Magic Rod
 
 item.runicDiamond.name=Runic Diamond
 
+item.meatSack.name=Sack of Meat
+item.treasureSack.name=Sack of Treasure
+item.junkSack.name=Sack of Junk
+
 container.prospect=Prospect
 
 potion.flee=Fleeing

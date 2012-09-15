@@ -126,10 +126,22 @@ public class EntityTracker
         }
 		
 		// Minecraft RPG
-        else if (par1Entity instanceof EntityThrowingKnife)
+        else if (par1Entity instanceof EntitySackMeat)
         {
             this.addEntityToTracker(par1Entity, 64, 10, true);
         }
+        else if (par1Entity instanceof EntitySackTreasure)
+        {
+            this.addEntityToTracker(par1Entity, 64, 10, true);
+        }
+        else if (par1Entity instanceof EntitySackJunk)
+        {
+            this.addEntityToTracker(par1Entity, 64, 10, true);
+        }
+		/*else if (par1Entity instanceof EntityThrowingKnife)
+        {
+            this.addEntityToTracker(par1Entity, 64, 10, true);
+        }*/
     }
 
     public void addEntityToTracker(Entity par1Entity, int par2, int par3)

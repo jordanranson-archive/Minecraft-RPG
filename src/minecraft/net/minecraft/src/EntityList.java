@@ -204,6 +204,9 @@ public class EntityList
         addMapping(EntityEnderCrystal.class, "EnderCrystal", 200);
 		
 		// Minecraft RPG
-        addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
+        addMapping(EntitySackMeat.class, "MeatSack", 199);
+        addMapping(EntitySackTreasure.class, "TreasureSack", 198);
+        addMapping(EntitySackJunk.class, "JunkSack", 197);
+        //addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
     }
 }

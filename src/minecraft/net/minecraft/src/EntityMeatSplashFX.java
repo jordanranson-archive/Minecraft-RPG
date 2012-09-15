@@ -18,8 +18,6 @@ public class EntityMeatSplashFX extends EntityFX
 		Random random = new Random();
 		int nextIcon = random.nextInt(this.meatIcon.length);
         this.setParticleTextureIndex(meatIcon[nextIcon]);
-		
-		System.out.println(nextIcon);
     }
 	
 	private int[] buildMeatIconList()

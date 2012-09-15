@@ -400,10 +400,22 @@ public class EntityTrackerEntry
                 }
 				
 				// Minecraft RPG
-				else if (this.myEntity instanceof EntityThrowingKnife)
+                else if (this.myEntity instanceof EntitySackMeat)
                 {
                     return new Packet23VehicleSpawn(this.myEntity, 99);
                 }
+                else if (this.myEntity instanceof EntitySackTreasure)
+                {
+                    return new Packet23VehicleSpawn(this.myEntity, 98);
+                }
+                else if (this.myEntity instanceof EntitySackJunk)
+                {
+                    return new Packet23VehicleSpawn(this.myEntity, 97);
+                }
+				/*else if (this.myEntity instanceof EntityThrowingKnife)
+                {
+                    return new Packet23VehicleSpawn(this.myEntity, 99);
+                }*/
 				
                 else
                 {
