@@ -9,7 +9,7 @@ public class ItemGem extends Item
         super(par1);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setTabToDisplayOn(CreativeTabs.tabMaterials);
+        this.setTabToDisplayOn(CreativeTabs.tabMisc);
     }
 	
 	public EnumRarity getRarity(ItemStack par1ItemStack)

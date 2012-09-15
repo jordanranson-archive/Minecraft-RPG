@@ -183,19 +183,19 @@ public class Item
 	
     public static Item powderFragrant = (new Item(992)).setIconCoord(14, 13).setItemName("powderFragrant").setTabToDisplayOn(CreativeTabs.tabMaterials);
     public static Item powderSparkling = (new Item(991)).setIconCoord(15, 13).setItemName("powderSparkling").setTabToDisplayOn(CreativeTabs.tabMaterials);
-    public static Item powderMagic = (new Item(990)).setIconCoord(15, 14).setItemName("powderMagic").setTabToDisplayOn(CreativeTabs.tabMaterials);
+    public static Item powderMagic = (new Item(990)).setIconCoord(15, 14).setItemName("powderMagic").setTabToDisplayOn(CreativeTabs.tabMisc);
 	
     public static Item plantPurplePod = (new ItemSeeds(989, Block.plantPurple.blockID, Block.dirt.blockID, Block.grass.blockID)).setIconCoord(13, 13).setItemName("plantPurplePod");
 	
-    public static Item roughStone = (new Item(988)).setIconCoord(7, 14).setItemName("roughStone").setTabToDisplayOn(CreativeTabs.tabMaterials);
-    public static Item hugeGeode = (new Item(987)).setIconCoord(6, 14).setItemName("hugeGeode").setTabToDisplayOn(CreativeTabs.tabMaterials);
+    public static Item roughStone = (new Item(988)).setIconCoord(7, 14).setItemName("roughStone").setTabToDisplayOn(CreativeTabs.tabMisc);
+    public static Item hugeGeode = (new Item(987)).setIconCoord(6, 14).setItemName("hugeGeode").setTabToDisplayOn(CreativeTabs.tabMisc);
 	
 	public static Item rodRuby = (new ItemMagicRod(986, EnumMagicRodMaterial.ruby)).setIconCoord(9, 13).setItemName("rodRuby");
 	public static Item rodSapphire = (new ItemMagicRod(985, EnumMagicRodMaterial.sapphire)).setIconCoord(11, 13).setItemName("rodSapphire");
 	public static Item rodAmethyst = (new ItemMagicRod(984, EnumMagicRodMaterial.amethyst)).setIconCoord(12, 13).setItemName("rodAmethyst");
 	public static Item rodEmerald = (new ItemMagicRod(983, EnumMagicRodMaterial.emerald)).setIconCoord(10, 13).setItemName("rodEmerald");
 	
-	public static Item runicDiamond = (Item)(new ItemRunicDiamond(982)).setIconCoord(8, 13).setItemName("runicDiamond");
+	public static Item runicDiamond = (Item)(new ItemRunicDiamond(982)).setIconCoord(8, 13).setItemName("runicDiamond").setTabToDisplayOn(CreativeTabs.tabMisc);
 	
 	public static Item meatSack = (Item)(new ItemSack(981, "meat")).setIconCoord(7, 13).setItemName("meatSack");
 	public static Item treasureSack = (Item)(new ItemSack(980, "treasure")).setIconCoord(6, 13).setItemName("treasureSack");
