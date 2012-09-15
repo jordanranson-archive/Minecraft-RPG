@@ -21,7 +21,7 @@ public class EntitySackJunk extends EntitySack
 	
 	protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
     {
-		for (int var3 = 0; var3 < 7; ++var3)
+		for (int var3 = 0; var3 < 9; ++var3)
 		{
 			this.worldObj.spawnParticle("junksackimpact", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
 		}
