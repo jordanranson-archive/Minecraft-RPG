@@ -5,7 +5,25 @@ import java.util.Random;
 
 public class StructureMineshaftPieces
 {
-    private static final WeightedRandomChestContent[] field_78818_a = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), new WeightedRandomChestContent(Item.redstone.shiftedIndex, 0, 4, 9, 5), new WeightedRandomChestContent(Item.dyePowder.shiftedIndex, 4, 4, 9, 5), new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 2, 3), new WeightedRandomChestContent(Item.coal.shiftedIndex, 0, 3, 8, 10), new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 1, 3, 15), new WeightedRandomChestContent(Item.pickaxeSteel.shiftedIndex, 0, 1, 1, 1), new WeightedRandomChestContent(Block.rail.blockID, 0, 4, 8, 1), new WeightedRandomChestContent(Item.melonSeeds.shiftedIndex, 0, 2, 4, 10), new WeightedRandomChestContent(Item.pumpkinSeeds.shiftedIndex, 0, 2, 4, 10)};
+    private static final WeightedRandomChestContent[] field_78818_a = new WeightedRandomChestContent[] {
+		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
+		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), 
+		new WeightedRandomChestContent(Item.redstone.shiftedIndex, 0, 4, 9, 5), 
+		new WeightedRandomChestContent(Item.dyePowder.shiftedIndex, 4, 4, 9, 5), 
+		new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 2, 3), 
+		new WeightedRandomChestContent(Item.coal.shiftedIndex, 0, 3, 8, 10), 
+		new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 1, 3, 15), 
+		new WeightedRandomChestContent(Item.pickaxeSteel.shiftedIndex, 0, 1, 1, 1), 
+		new WeightedRandomChestContent(Block.rail.blockID, 0, 4, 8, 1), 
+		new WeightedRandomChestContent(Item.melonSeeds.shiftedIndex, 0, 2, 4, 10), 
+		new WeightedRandomChestContent(Item.pumpkinSeeds.shiftedIndex, 0, 2, 4, 10),
+		new WeightedRandomChestContent(Item.ruby.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.sapphire.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.amethyst.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.meatSack.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.treasureSack.shiftedIndex, 0, 1, 1, 1),
+		new WeightedRandomChestContent(Item.junkSack.shiftedIndex, 0, 1, 1, 10)
+	};
 
     private static StructureComponent getRandomComponent(List par0List, Random par1Random, int par2, int par3, int par4, int par5, int par6)
     {

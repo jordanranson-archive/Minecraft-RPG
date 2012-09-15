@@ -8,8 +8,21 @@ public class ComponentScatteredFeatureJunglePyramid extends ComponentScatteredFe
     private boolean field_74948_i;
     private boolean field_74945_j;
     private boolean field_74946_k;
-    private static final WeightedRandomChestContent[] field_74943_l = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3), new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 2, 7, 15), new WeightedRandomChestContent(Item.emerald.shiftedIndex, 0, 1, 3, 2), new WeightedRandomChestContent(Item.bone.shiftedIndex, 0, 4, 6, 20), new WeightedRandomChestContent(Item.rottenFlesh.shiftedIndex, 0, 3, 7, 16)};
-    private static final WeightedRandomChestContent[] field_74944_m = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.arrow.shiftedIndex, 0, 2, 7, 30)};
+    private static final WeightedRandomChestContent[] field_74943_l = new WeightedRandomChestContent[] {
+		new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3), 
+		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
+		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 2, 7, 15), 
+		new WeightedRandomChestContent(Item.emerald.shiftedIndex, 0, 1, 3, 2), 
+		new WeightedRandomChestContent(Item.bone.shiftedIndex, 0, 4, 6, 20), 
+		new WeightedRandomChestContent(Item.rottenFlesh.shiftedIndex, 0, 3, 7, 16),
+		new WeightedRandomChestContent(Item.ruby.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.sapphire.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.amethyst.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.treasureSack.shiftedIndex, 0, 1, 1, 1)
+	};
+    private static final WeightedRandomChestContent[] field_74944_m = new WeightedRandomChestContent[] {
+		new WeightedRandomChestContent(Item.arrow.shiftedIndex, 0, 2, 7, 30)
+	};
     private static StructureScatteredFeatureStones field_74942_n = new StructureScatteredFeatureStones((ComponentScatteredFeaturePieces2)null);
 
     public ComponentScatteredFeatureJunglePyramid(Random par1Random, int par2, int par3)

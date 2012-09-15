@@ -5,7 +5,17 @@ import java.util.Random;
 
 public class ComponentStrongholdRoomCrossing extends ComponentStronghold
 {
-    private static final WeightedRandomChestContent[] field_75014_c = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), new WeightedRandomChestContent(Item.redstone.shiftedIndex, 0, 4, 9, 5), new WeightedRandomChestContent(Item.coal.shiftedIndex, 0, 3, 8, 10), new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 1, 3, 15), new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 1, 3, 15), new WeightedRandomChestContent(Item.pickaxeSteel.shiftedIndex, 0, 1, 1, 1)};
+    private static final WeightedRandomChestContent[] field_75014_c = new WeightedRandomChestContent[] {
+		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
+		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), 
+		new WeightedRandomChestContent(Item.redstone.shiftedIndex, 0, 4, 9, 5), 
+		new WeightedRandomChestContent(Item.coal.shiftedIndex, 0, 3, 8, 10), 
+		new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 1, 3, 15), 
+		new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 1, 3, 15), 
+		new WeightedRandomChestContent(Item.pickaxeSteel.shiftedIndex, 0, 1, 1, 1),
+		new WeightedRandomChestContent(Item.meatSack.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.junkSack.shiftedIndex, 0, 1, 1, 10)
+	};
     protected final EnumDoor doorType;
     protected final int roomType;
 

@@ -42,7 +42,17 @@ public class WorldServer extends World
      * applied locally and send to clients.
      */
     private int blockEventCacheIndex = 0;
-    private static final WeightedRandomChestContent[] bonusChestContent = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.stick.shiftedIndex, 0, 1, 3, 10), new WeightedRandomChestContent(Block.planks.blockID, 0, 1, 3, 10), new WeightedRandomChestContent(Block.wood.blockID, 0, 1, 3, 10), new WeightedRandomChestContent(Item.axeStone.shiftedIndex, 0, 1, 1, 3), new WeightedRandomChestContent(Item.axeWood.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.pickaxeStone.shiftedIndex, 0, 1, 1, 3), new WeightedRandomChestContent(Item.pickaxeWood.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 2, 3, 5), new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 2, 3, 3)};
+    private static final WeightedRandomChestContent[] bonusChestContent = new WeightedRandomChestContent[] {
+		new WeightedRandomChestContent(Item.stick.shiftedIndex, 0, 1, 3, 10),
+		new WeightedRandomChestContent(Block.planks.blockID, 0, 1, 3, 10), 
+		new WeightedRandomChestContent(Block.wood.blockID, 0, 1, 3, 10), 
+		new WeightedRandomChestContent(Item.axeStone.shiftedIndex, 0, 1, 1, 3), 
+		new WeightedRandomChestContent(Item.axeWood.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.pickaxeStone.shiftedIndex, 0, 1, 1, 3), 
+		new WeightedRandomChestContent(Item.pickaxeWood.shiftedIndex, 0, 1, 1, 5), 
+		new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 2, 3, 5),
+		new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 2, 3, 3)
+	};
 
     /** An IntHashMap of entity IDs (integers) to their Entity objects. */
     private IntHashMap entityIdMap;

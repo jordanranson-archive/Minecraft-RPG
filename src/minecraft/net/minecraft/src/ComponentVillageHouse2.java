@@ -5,7 +5,28 @@ import java.util.Random;
 
 public class ComponentVillageHouse2 extends ComponentVillage
 {
-    private static final WeightedRandomChestContent[] field_74918_a = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3), new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 1, 3, 15), new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 1, 3, 15), new WeightedRandomChestContent(Item.pickaxeSteel.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.swordSteel.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.plateSteel.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.helmetSteel.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.legsSteel.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.bootsSteel.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Block.obsidian.blockID, 0, 3, 7, 5), new WeightedRandomChestContent(Block.sapling.blockID, 0, 3, 7, 5)};
+    private static final WeightedRandomChestContent[] field_74918_a = new WeightedRandomChestContent[] {
+		new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3), 
+		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
+		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), 
+		new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 1, 3, 15),
+		new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 1, 3, 15),
+		new WeightedRandomChestContent(Item.pickaxeSteel.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.swordSteel.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.plateSteel.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.helmetSteel.shiftedIndex, 0, 1, 1, 5), 
+		new WeightedRandomChestContent(Item.legsSteel.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.bootsSteel.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Block.obsidian.blockID, 0, 3, 7, 5), 
+		new WeightedRandomChestContent(Block.sapling.blockID, 0, 3, 7, 5),
+		new WeightedRandomChestContent(Item.ruby.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.sapphire.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.amethyst.shiftedIndex, 0, 1, 2, 1),
+		new WeightedRandomChestContent(Item.meatSack.shiftedIndex, 0, 1, 1, 5),
+		new WeightedRandomChestContent(Item.treasureSack.shiftedIndex, 0, 1, 1, 1),
+		new WeightedRandomChestContent(Item.junkSack.shiftedIndex, 0, 1, 1, 10)
+	};
+	
     private int averageGroundLevel = -1;
     private boolean hasMadeChest;
 

@@ -167,8 +167,21 @@ public class WorldGenDungeons extends WorldGenerator
      */
     private ItemStack pickCheckLootItem(Random par1Random)
     {
-        int var2 = par1Random.nextInt(11);
-        return var2 == 0 ? new ItemStack(Item.saddle) : (var2 == 1 ? new ItemStack(Item.ingotIron, par1Random.nextInt(4) + 1) : (var2 == 2 ? new ItemStack(Item.bread) : (var2 == 3 ? new ItemStack(Item.wheat, par1Random.nextInt(4) + 1) : (var2 == 4 ? new ItemStack(Item.gunpowder, par1Random.nextInt(4) + 1) : (var2 == 5 ? new ItemStack(Item.silk, par1Random.nextInt(4) + 1) : (var2 == 6 ? new ItemStack(Item.bucketEmpty) : (var2 == 7 && par1Random.nextInt(100) == 0 ? new ItemStack(Item.appleGold) : (var2 == 8 && par1Random.nextInt(2) == 0 ? new ItemStack(Item.redstone, par1Random.nextInt(4) + 1) : (var2 == 9 && par1Random.nextInt(10) == 0 ? new ItemStack(Item.itemsList[Item.record13.shiftedIndex + par1Random.nextInt(2)]) : (var2 == 10 ? new ItemStack(Item.dyePowder, 1, 3) : null))))))))));
+        int var2 = par1Random.nextInt(12);
+        return
+			var2 == 0 ? new ItemStack(Item.saddle) : 
+			(var2 == 1 ? new ItemStack(Item.ingotIron, par1Random.nextInt(4) + 1) : 
+			(var2 == 2 ? new ItemStack(Item.bread) : 
+			(var2 == 3 ? new ItemStack(Item.wheat, par1Random.nextInt(4) + 1) : 
+			(var2 == 4 ? new ItemStack(Item.gunpowder, par1Random.nextInt(4) + 1) : 
+			(var2 == 5 ? new ItemStack(Item.silk, par1Random.nextInt(4) + 1) : 
+			(var2 == 6 ? new ItemStack(Item.bucketEmpty) : 
+			(var2 == 7 && par1Random.nextInt(100) == 0 ? new ItemStack(Item.appleGold) : 
+			(var2 == 8 && par1Random.nextInt(2) == 0 ? new ItemStack(Item.redstone, par1Random.nextInt(4) + 1) : 
+			(var2 == 9 && par1Random.nextInt(10) == 0 ? new ItemStack(Item.itemsList[Item.record13.shiftedIndex + par1Random.nextInt(2)]) : 
+			(var2 == 10 ? new ItemStack(Item.dyePowder, 1, 3) : 
+			(var2 == 11 ? new ItemStack(Item.itemsList[Item.meatSack.shiftedIndex - par1Random.nextInt(3)]) : 
+			null)))))))))));
     }
 
     /**
