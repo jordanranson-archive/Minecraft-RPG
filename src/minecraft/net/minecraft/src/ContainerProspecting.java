@@ -119,32 +119,28 @@ public class ContainerProspecting extends Container
 		{
 			if(input.getItem().shiftedIndex == Item.roughStone.shiftedIndex)
 			{
-				switch(nextRange(0, 8))
+				switch(nextRange(0, 7))
 				{
 					case 0:
-					case 8:
+					case 1:
 						this.lootList[0] = Item.goldNugget.shiftedIndex;
 						this.lootList[1] = nextRange(1, 2);
 						break;
-					case 1:
+					case 2:
 						this.lootList[0] = Item.emerald.shiftedIndex;
 						this.lootList[1] = 1;
 						break;
-					case 2:
+					case 3:
 						this.lootList[0] = Item.ruby.shiftedIndex;
 						this.lootList[1] = nextRange(1, 2);
 						break;
-					case 3:
+					case 4:
 						this.lootList[0] = Item.sapphire.shiftedIndex;
 						this.lootList[1] = nextRange(1, 2);
 						break;
-					case 4:
+					case 5:
 						this.lootList[0] = Item.amethyst.shiftedIndex;
 						this.lootList[1] = nextRange(1, 2);
-						break;
-					case 5:
-						this.lootList[0] = Item.diamond.shiftedIndex;
-						this.lootList[1] = 1;
 						break;
 					case 6:
 					case 7:
@@ -174,15 +170,15 @@ public class ContainerProspecting extends Container
 						this.lootList[1] = nextRange(1, 4);
 						break;
 					case 4:
-						this.lootList[0] = Item.diamond.shiftedIndex;
-						this.lootList[1] = nextRange(1, 2);
+						this.lootList[0] = Item.goldNugget.shiftedIndex;
+						this.lootList[1] = nextRange(2, 4);
 						break;
 				}
 				
 			}
 			else
 			{
-				if(nextRange(0, 4) == 0)
+				if(nextRange(0, 5) == 0)
 				{
 					this.lootList[0] = Item.hugeGeode.shiftedIndex;
 					this.lootList[1] = nextRange(1, 2);
