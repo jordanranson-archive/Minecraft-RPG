@@ -32,5 +32,8 @@ public class RecipesMinecraftRPG
 		par1CraftingManager.addRecipe(new ItemStack(Item.rodEmerald), new Object[] {"#", "G", "S", '#', Item.emeraldCharged, 'G', Item.ingotGold, 'S', Item.stick});
 		
 		par1CraftingManager.addShapelessRecipe(new ItemStack(Item.runicDiamond, 1), new Object[] {Item.diamond, Item.rubyCharged, Item.sapphireCharged, Item.amethystCharged, Item.emeraldCharged});
-    }
+		
+        par1CraftingManager.addRecipe(new ItemStack(Item.healthGem), new Object[] {" O ", "GRG", " O ", 'O', Block.obsidian, 'G', Item.ingotGold, 'R', Item.rubyCharged});
+        par1CraftingManager.addRecipe(new ItemStack(Item.backpack), new Object[] {"###", "# #", "#I#", '#', Item.leather, 'I', Item.ingotIron});
+	}
 }
