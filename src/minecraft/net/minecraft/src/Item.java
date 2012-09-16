@@ -201,6 +201,11 @@ public class Item
 	public static Item treasureSack = (Item)(new ItemSack(980, "treasure")).setIconCoord(6, 13).setItemName("treasureSack");
 	public static Item junkSack = (Item)(new ItemSack(979, "junk")).setIconCoord(5, 13).setItemName("junkSack");
 	
+	public static Item healthGem = (new Item(978)).setIconCoord(5, 14).setItemName("healthGem").setTabToDisplayOn(CreativeTabs.tabMisc);
+	public static Item backpack = (new Item(977)).setIconCoord(4, 14).setItemName("backpack").setTabToDisplayOn(CreativeTabs.tabMisc);
+	
+    public static Item bucketQuicksand = (new ItemBucket(976, Block.quicksandMoving.blockID)).setIconCoord(12, 4).setItemName("bucketQuicksand").setContainerItem(bucketEmpty);
+	
     //public static Item throwingKnifeStone = (new ItemThrowingKnife(981, EnumToolMaterial.STONE)).setIconCoord(0, 9).setItemName("throwingKnifeStone");
     //public static Item throwingKnifeIron = (new ItemThrowingKnife(980, EnumToolMaterial.IRON)).setIconCoord(0, 10).setItemName("throwingKnifeIron");
 	

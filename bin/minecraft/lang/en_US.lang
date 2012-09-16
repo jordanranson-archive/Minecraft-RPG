@@ -996,6 +996,8 @@ tile.blockAmethyst.name=Amethyst Block
 
 tile.prospectingTable.name=Prospecting Table
 
+tile.quicksand.name=Quicksand
+
 item.crossbow.name=Crossbow
 
 item.ruby.name=Ruby
@@ -1026,6 +1028,11 @@ item.runicDiamond.name=Runic Diamond
 item.meatSack.name=Sack of Meat
 item.treasureSack.name=Sack of Treasure
 item.junkSack.name=Sack of Junk
+
+item.healthGem.name=Health Gem
+item.backpack.name=Backpack
+
+item.bucketQuicksand.name=Quicksand Bucket
 
 container.prospect=Prospect
 

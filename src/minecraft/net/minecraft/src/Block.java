@@ -201,6 +201,9 @@ public class Block
 	
     public static final Block prospectingTable = (new BlockProspectingTable(249)).setHardness(5.0F).setResistance(2000.0F).setBlockName("prospectingTable");
     
+	public static final Block quicksandMoving = (new BlockFlowing(248, Material.sand)).setHardness(100.0F).setBlockName("quicksand").disableStats().setRequiresSelfNotify();
+    public static final Block quicksandStill = (new BlockStationary(247, Material.sand)).setHardness(100.0F).setBlockName("quicksand").disableStats().setRequiresSelfNotify();
+    
     /**
      * The index of the texture to be displayed for this block. May vary based on graphics settings. Mostly seems to
      * come from terrain.png, and the index is 0-based (grass is 0).
