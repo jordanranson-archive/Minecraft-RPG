@@ -91,20 +91,102 @@ public class BlockCauldron extends Block
             else
             {
                 int var11 = par1World.getBlockMetadata(par2, par3, par4);
-
+				
+				if(var11 < 0)
+				{
+					par1World.setBlockMetadataWithNotify(par2, par3, par4, 0);
+				}
+				else if(var11 > 3 && var11 <= 7)
+				{
+					par1World.setBlockMetadataWithNotify(par2, par3, par4, 0);
+				}
+				else if(var11 > 10)
+				{
+					par1World.setBlockMetadataWithNotify(par2, par3, par4, 10);
+				}
+				
                 if (var10.itemID == Item.bucketWater.shiftedIndex)
                 {
-                    if (var11 < 3)
-                    {
-                        if (!par5EntityPlayer.capabilities.isCreativeMode)
-                        {
-                            par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
-                        }
+					if (var11 < 8)
+					{
+						if (!par5EntityPlayer.capabilities.isCreativeMode)
+						{
+							par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
+						}
 
-                        par1World.setBlockMetadataWithNotify(par2, par3, par4, 3);
-                    }
+						par1World.setBlockMetadataWithNotify(par2, par3, par4, 3);
+					}
 
-                    return true;
+					return true;
+                }
+				else if (var10.itemID == Block.sand.blockID)
+                {
+					if (var11 > 0 && var11 <= 3)
+					{
+						if (!par5EntityPlayer.capabilities.isCreativeMode)
+						{
+							--var10.stackSize;
+						}
+						par1World.setBlockMetadataWithNotify(par2, par3, par4, 7 + var11);
+					}
+					
+					return true;
+                }
+				else if (var10.itemID == Item.bucketEmpty.shiftedIndex)
+                {
+					if (var11 == 3)
+					{
+						if (!par5EntityPlayer.capabilities.isCreativeMode)
+						{
+							ItemStack var12 = new ItemStack(Item.bucketWater);
+
+							if (!par5EntityPlayer.inventory.addItemStackToInventory(var12))
+							{
+								par1World.spawnEntityInWorld(new EntityItem(par1World, (double)par2 + 0.5D, (double)par3 + 1.5D, (double)par4 + 0.5D, var12));
+							}
+							else if (par5EntityPlayer instanceof EntityPlayerMP)
+							{
+								((EntityPlayerMP)par5EntityPlayer).sendContainerToPlayer(par5EntityPlayer.inventorySlots);
+							}
+
+							--var10.stackSize;
+
+							if (var10.stackSize <= 0)
+							{
+								par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+							}
+						}
+
+						par1World.setBlockMetadataWithNotify(par2, par3, par4, 0);
+					}
+					
+					if (var11 > 7)
+					{
+						if (!par5EntityPlayer.capabilities.isCreativeMode)
+						{
+							ItemStack var12 = new ItemStack(Item.bucketQuicksand);
+
+							if (!par5EntityPlayer.inventory.addItemStackToInventory(var12))
+							{
+								par1World.spawnEntityInWorld(new EntityItem(par1World, (double)par2 + 0.5D, (double)par3 + 1.5D, (double)par4 + 0.5D, var12));
+							}
+							else if (par5EntityPlayer instanceof EntityPlayerMP)
+							{
+								((EntityPlayerMP)par5EntityPlayer).sendContainerToPlayer(par5EntityPlayer.inventorySlots);
+							}
+
+							--var10.stackSize;
+
+							if (var10.stackSize <= 0)
+							{
+								par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, (ItemStack)null);
+							}
+						}
+
+						par1World.setBlockMetadataWithNotify(par2, par3, par4, var11 - 1);
+					}
+
+					return true;
                 }
                 else
                 {

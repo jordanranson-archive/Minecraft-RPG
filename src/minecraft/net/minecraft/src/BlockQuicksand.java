@@ -128,4 +128,9 @@ public class BlockQuicksand extends Block
     {
         return 0;
     }
+	
+	public int idPicked(World par1World, int par2, int par3, int par4)
+    {
+        return Item.bucketQuicksand.shiftedIndex;
+    }
 }

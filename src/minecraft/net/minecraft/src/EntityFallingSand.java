@@ -107,7 +107,6 @@ public class EntityFallingSand extends Entity
 				// set the 'don't force on ground flag' to false
 				if(this.canFall && this.worldObj.getBlockId(var1, var2 - 1, var3) == Block.quicksand.blockID)
 				{
-					System.out.println("canFall is false; " + var2);
 					this.canFall = false;
 					this.yOnGround = (double)var2 + 0.5; // not sure why the entity is offset by 0.5 units
 				}
@@ -115,7 +114,6 @@ public class EntityFallingSand extends Entity
 				// force to ground if landing on top of quicksand
 				if(!this.canFall && this.posY <= this.yOnGround)
 				{
-					System.out.println("force onGround");
 					this.onGround = true;
 				}
 				

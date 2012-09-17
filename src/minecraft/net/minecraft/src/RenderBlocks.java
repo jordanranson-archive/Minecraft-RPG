@@ -709,10 +709,10 @@ public class RenderBlocks
         this.renderTopFace(par1BlockCauldron, (double)par2, (double)((float)par3 - 1.0F + 0.25F), (double)par4, var17);
         this.renderBottomFace(par1BlockCauldron, (double)par2, (double)((float)par3 + 1.0F - 0.75F), (double)par4, var17);
         int var14 = this.blockAccess.getBlockMetadata(par2, par3, par4);
-
-        if (var14 > 0)
+		
+        if (var14 > 0 && var14 < 4)
         {
-            short var15 = 205;
+			short var15 = 205;		
 
             if (var14 > 3)
             {
@@ -720,6 +720,18 @@ public class RenderBlocks
             }
 
             this.renderTopFace(par1BlockCauldron, (double)par2, (double)((float)par3 - 1.0F + (6.0F + (float)var14 * 3.0F) / 16.0F), (double)par4, var15);
+        }
+		
+		if (var14 > 7)
+        {
+			short var15 = 201;		
+
+            if (var14 > 10)
+            {
+                var14 = 10;
+            }
+
+            this.renderTopFace(par1BlockCauldron, (double)par2, (double)((float)par3 - 1.0F + (6.0F + ((float)var14 - 7.0F) * 3.0F) / 16.0F), (double)par4, var15);
         }
 
         return true;
