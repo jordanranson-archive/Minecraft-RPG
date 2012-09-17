@@ -7,6 +7,9 @@ public class EntityFallingSand extends Entity
 
     /** How long the block has been falling for. */
     public int fallTime;
+	private boolean canFall = true;
+	private double yOnGround = 0.0D;
+	
     public boolean field_70284_d;
 
     public EntityFallingSand(World par1World)
@@ -86,8 +89,10 @@ public class EntityFallingSand extends Entity
                 int var2 = MathHelper.floor_double(this.posY);
                 int var3 = MathHelper.floor_double(this.posZ);
 
+				// starting to fall
                 if (this.fallTime == 1)
                 {
+					// if origin is same block, set origin to air
                     if (this.fallTime == 1 && this.worldObj.getBlockId(var1, var2, var3) == this.blockID)
                     {
                         this.worldObj.setBlockWithNotify(var1, var2, var3, 0);
@@ -97,7 +102,23 @@ public class EntityFallingSand extends Entity
                         this.setDead();
                     }
                 }
-
+				
+				// if path isn't obstructed and the next block to be collied with is quicksand
+				// set the 'don't force on ground flag' to false
+				if(this.canFall && this.worldObj.getBlockId(var1, var2 - 1, var3) == Block.quicksand.blockID)
+				{
+					System.out.println("canFall is false; " + var2);
+					this.canFall = false;
+					this.yOnGround = (double)var2 + 0.5; // not sure why the entity is offset by 0.5 units
+				}
+				
+				// force to ground if landing on top of quicksand
+				if(!this.canFall && this.posY <= this.yOnGround)
+				{
+					System.out.println("force onGround");
+					this.onGround = true;
+				}
+				
                 if (this.onGround)
                 {
                     this.motionX *= 0.699999988079071D;
@@ -107,8 +128,15 @@ public class EntityFallingSand extends Entity
                     if (this.worldObj.getBlockId(var1, var2, var3) != Block.pistonMoving.blockID)
                     {
                         this.setDead();
-
-                        if ((!this.worldObj.canPlaceEntityOnSide(this.blockID, var1, var2, var3, true, 1, (Entity)null) || BlockSand.canFallBelow(this.worldObj, var1, var2 - 1, var3) || !this.worldObj.setBlockAndMetadataWithNotify(var1, var2, var3, this.blockID, this.field_70285_b)) && !this.worldObj.isRemote && this.field_70284_d)
+						
+						if(this.blockID == Block.quicksand.blockID)
+						{
+							if ((!this.worldObj.canPlaceEntityOnSide(this.blockID, var1, var2, var3, true, 1, (Entity)null) || BlockQuicksand.canFallBelow(this.worldObj, var1, var2 - 1, var3) || !this.worldObj.setBlockAndMetadataWithNotify(var1, var2, var3, this.blockID, this.field_70285_b)) && !this.worldObj.isRemote)
+							{
+								;
+							}
+						}
+						else if ((!this.worldObj.canPlaceEntityOnSide(this.blockID, var1, var2, var3, true, 1, (Entity)null) || BlockSand.canFallBelow(this.worldObj, var1, var2 - 1, var3) || !this.worldObj.setBlockAndMetadataWithNotify(var1, var2, var3, this.blockID, this.field_70285_b)) && !this.worldObj.isRemote && this.field_70284_d)
                         {
                             this.entityDropItem(new ItemStack(this.blockID, 1, this.field_70285_b), 0.0F);
                         }
@@ -157,6 +185,11 @@ public class EntityFallingSand extends Entity
             this.blockID = Block.sand.blockID;
         }
     }
+	
+	public int getBlockID()
+	{
+		return this.blockID;
+	}
 
     public float getShadowSize()
     {

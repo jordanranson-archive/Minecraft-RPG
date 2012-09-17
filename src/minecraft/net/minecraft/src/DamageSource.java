@@ -15,6 +15,9 @@ public class DamageSource
     public static DamageSource explosion = (new DamageSource("explosion")).func_76351_m();
     public static DamageSource field_76375_l = new DamageSource("explosion");
     public static DamageSource magic = (new DamageSource("magic")).setDamageBypassesArmor();
+	
+	// Minecraft RPG
+    public static DamageSource suffocate = (new DamageSource("suffocate")).setDamageBypassesArmor();
 
     /** This kind of damage can be blocked or not. */
     private boolean isUnblockable = false;

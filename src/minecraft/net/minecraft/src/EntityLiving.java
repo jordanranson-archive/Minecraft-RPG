@@ -448,7 +448,14 @@ public abstract class EntityLiving extends Entity
 
         if (this.isEntityAlive() && this.isEntityInsideOpaqueBlock())
         {
-            this.attackEntityFrom(DamageSource.inWall, 1);
+			if(this.isInsideOfMaterial(Material.quicksand))
+			{
+				this.attackEntityFrom(DamageSource.suffocate, 2);
+			}
+			else
+			{
+				this.attackEntityFrom(DamageSource.inWall, 1);
+			}
         }
 
         if (this.isImmuneToFire() || this.worldObj.isRemote)

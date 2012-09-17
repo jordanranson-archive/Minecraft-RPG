@@ -3421,6 +3421,12 @@ public abstract class World implements IBlockAccess
         {
             var11 = null;
         }
+		
+		// makes it so you can place quicksand on other quicksand
+		if(var9 == Block.quicksand && var10 == Block.quicksand)
+		{
+			return true;
+		}
 
         if (var11 != null && !this.checkIfAABBIsClearExcludingEntity(var11, par7Entity))
         {

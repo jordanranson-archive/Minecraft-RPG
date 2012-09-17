@@ -984,6 +984,8 @@ itemGroup.brewing=Brewing
 itemGroup.materials=Materials
 itemGroup.inventory=Survival Inventory
 
+death.suffocate=%1$s suffocated
+
 inventory.binSlot=Destroy Item
 
 tile.glowFlower.name=Glowstalk

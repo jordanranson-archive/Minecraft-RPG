@@ -47,6 +47,9 @@ public class Material
 
     /** Pistons' material. */
     public static final Material piston = (new Material(MapColor.stoneColor)).setImmovableMobility();
+	
+	// Minecraft RPG
+    public static final Material quicksand = new Material(MapColor.sandColor);
 
     /** Bool defining if the block can burn or not. */
     private boolean canBurn;

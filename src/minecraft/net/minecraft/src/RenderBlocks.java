@@ -371,7 +371,39 @@ public class RenderBlocks
     {
         int var5 = par1Block.getRenderType();
         par1Block.setBlockBoundsBasedOnState(this.blockAccess, par2, par3, par4);
-        return var5 == 0 ? this.renderStandardBlock(par1Block, par2, par3, par4) : (var5 == 31 ? this.func_78581_r(par1Block, par2, par3, par4) : (var5 == 4 ? this.renderBlockFluids(par1Block, par2, par3, par4) : (var5 == 13 ? this.renderBlockCactus(par1Block, par2, par3, par4) : (var5 == 1 ? this.renderCrossedSquares(par1Block, par2, par3, par4) : (var5 == 19 ? this.renderBlockStem(par1Block, par2, par3, par4) : (var5 == 23 ? this.renderBlockLilyPad(par1Block, par2, par3, par4) : (var5 == 6 ? this.renderBlockCrops(par1Block, par2, par3, par4) : (var5 == 2 ? this.renderBlockTorch(par1Block, par2, par3, par4) : (var5 == 3 ? this.renderBlockFire(par1Block, par2, par3, par4) : (var5 == 5 ? this.renderBlockRedstoneWire(par1Block, par2, par3, par4) : (var5 == 8 ? this.renderBlockLadder(par1Block, par2, par3, par4) : (var5 == 7 ? this.renderBlockDoor(par1Block, par2, par3, par4) : (var5 == 9 ? this.renderBlockMinecartTrack((BlockRail)par1Block, par2, par3, par4) : (var5 == 10 ? this.renderBlockStairs(par1Block, par2, par3, par4) : (var5 == 27 ? this.renderBlockDragonEgg((BlockDragonEgg)par1Block, par2, par3, par4) : (var5 == 11 ? this.renderBlockFence((BlockFence)par1Block, par2, par3, par4) : (var5 == 12 ? this.renderBlockLever(par1Block, par2, par3, par4) : (var5 == 29 ? this.renderBlockTripWireSource(par1Block, par2, par3, par4) : (var5 == 30 ? this.renderBlockTripWire(par1Block, par2, par3, par4) : (var5 == 14 ? this.renderBlockBed(par1Block, par2, par3, par4) : (var5 == 15 ? this.renderBlockRepeater(par1Block, par2, par3, par4) : (var5 == 16 ? this.renderPistonBase(par1Block, par2, par3, par4, false) : (var5 == 17 ? this.renderPistonExtension(par1Block, par2, par3, par4, true) : (var5 == 18 ? this.renderBlockPane((BlockPane)par1Block, par2, par3, par4) : (var5 == 20 ? this.renderBlockVine(par1Block, par2, par3, par4) : (var5 == 21 ? this.renderBlockFenceGate((BlockFenceGate)par1Block, par2, par3, par4) : (var5 == 24 ? this.renderBlockCauldron((BlockCauldron)par1Block, par2, par3, par4) : (var5 == 25 ? this.renderBlockBrewingStand((BlockBrewingStand)par1Block, par2, par3, par4) : (var5 == 26 ? this.renderBlockEndPortalFrame(par1Block, par2, par3, par4) : (var5 == 28 ? this.func_78616_a((BlockCocoa)par1Block, par2, par3, par4) : false))))))))))))))))))))))))))))));
+        return var5 == 0 ? 
+			this.renderStandardBlock(par1Block, par2, par3, par4) : (var5 == 31 ? 
+			this.func_78581_r(par1Block, par2, par3, par4) : (var5 == 4 ? 
+			this.renderBlockFluids(par1Block, par2, par3, par4) : (var5 == 13 ? 
+			this.renderBlockCactus(par1Block, par2, par3, par4) : (var5 == 1 ? 
+			this.renderCrossedSquares(par1Block, par2, par3, par4) : (var5 == 19 ? 
+			this.renderBlockStem(par1Block, par2, par3, par4) : (var5 == 23 ? 
+			this.renderBlockLilyPad(par1Block, par2, par3, par4) : (var5 == 6 ? 
+			this.renderBlockCrops(par1Block, par2, par3, par4) : (var5 == 2 ? 
+			this.renderBlockTorch(par1Block, par2, par3, par4) : (var5 == 3 ? 
+			this.renderBlockFire(par1Block, par2, par3, par4) : (var5 == 5 ? 
+			this.renderBlockRedstoneWire(par1Block, par2, par3, par4) : (var5 == 8 ? 
+			this.renderBlockLadder(par1Block, par2, par3, par4) : (var5 == 7 ? 
+			this.renderBlockDoor(par1Block, par2, par3, par4) : (var5 == 9 ? 
+			this.renderBlockMinecartTrack((BlockRail)par1Block, par2, par3, par4) : (var5 == 10 ? 
+			this.renderBlockStairs(par1Block, par2, par3, par4) : (var5 == 27 ? 
+			this.renderBlockDragonEgg((BlockDragonEgg)par1Block, par2, par3, par4) : (var5 == 11 ? 
+			this.renderBlockFence((BlockFence)par1Block, par2, par3, par4) : (var5 == 12 ? 
+			this.renderBlockLever(par1Block, par2, par3, par4) : (var5 == 29 ? 
+			this.renderBlockTripWireSource(par1Block, par2, par3, par4) : (var5 == 30 ? 
+			this.renderBlockTripWire(par1Block, par2, par3, par4) : (var5 == 14 ? 
+			this.renderBlockBed(par1Block, par2, par3, par4) : (var5 == 15 ? 
+			this.renderBlockRepeater(par1Block, par2, par3, par4) : (var5 == 16 ? 
+			this.renderPistonBase(par1Block, par2, par3, par4, false) : (var5 == 17 ? 
+			this.renderPistonExtension(par1Block, par2, par3, par4, true) : (var5 == 18 ? 
+			this.renderBlockPane((BlockPane)par1Block, par2, par3, par4) : (var5 == 20 ?
+			this.renderBlockVine(par1Block, par2, par3, par4) : (var5 == 21 ? 
+			this.renderBlockFenceGate((BlockFenceGate)par1Block, par2, par3, par4) : (var5 == 24 ?
+			this.renderBlockCauldron((BlockCauldron)par1Block, par2, par3, par4) : (var5 == 25 ?
+			this.renderBlockBrewingStand((BlockBrewingStand)par1Block, par2, par3, par4) : (var5 == 26 ?
+			this.renderBlockEndPortalFrame(par1Block, par2, par3, par4) : (var5 == 28 ? 
+			this.func_78616_a((BlockCocoa)par1Block, par2, par3, par4) :
+			false))))))))))))))))))))))))))))));
     }
 
     /**

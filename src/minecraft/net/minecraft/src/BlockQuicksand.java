@@ -2,15 +2,29 @@ package net.minecraft.src;
 
 import java.util.Random;
 
-public class BlockSand extends Block
+public class BlockQuicksand extends Block
 {
     /** Do blocks fall instantly to where they stop or do they fall over time */
     public static boolean fallInstantly = false;
-
-    public BlockSand(int par1, int par2)
+	
+    public BlockQuicksand(int par1, int par2)
     {
-        super(par1, par2, Material.sand);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        super(par1, par2, Material.quicksand);
+    }
+	
+	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
+    {
+		par5Entity.setInWeb();
+    }
+	
+	/*public boolean isOpaqueCube()
+    {
+        return false;
+    }*/
+	
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
+    {
+		return null;
     }
 
     /**
@@ -55,7 +69,8 @@ public class BlockSand extends Block
                 if (!par1World.isRemote)
                 {
                     EntityFallingSand var9 = new EntityFallingSand(par1World, (double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F), this.blockID);
-                    par1World.spawnEntityInWorld(var9);
+                    var9.field_70284_d = false;
+					par1World.spawnEntityInWorld(var9);
                 }
             }
             else
@@ -107,5 +122,10 @@ public class BlockSand extends Block
             Material var5 = Block.blocksList[var4].blockMaterial;
             return var5 == Material.water ? true : var5 == Material.lava;
         }
+    }
+	
+	public int idDropped(int par1, Random par2Random, int par3)
+    {
+        return 0;
     }
 }

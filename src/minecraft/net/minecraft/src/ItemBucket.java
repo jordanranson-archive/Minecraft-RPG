@@ -92,6 +92,28 @@ public class ItemBucket extends Item
 
                         return par1ItemStack;
                     }
+					
+					if (par2World.getBlockMaterial(var13, var14, var15) == Material.quicksand && par2World.getBlockMetadata(var13, var14, var15) == 0)
+                    {
+                        par2World.setBlockWithNotify(var13, var14, var15, 0);
+
+                        if (par3EntityPlayer.capabilities.isCreativeMode)
+                        {
+                            return par1ItemStack;
+                        }
+
+                        if (--par1ItemStack.stackSize <= 0)
+                        {
+                            return new ItemStack(Item.bucketQuicksand);
+                        }
+
+                        if (!par3EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Item.bucketQuicksand)))
+                        {
+                            par3EntityPlayer.dropPlayerItem(new ItemStack(Item.bucketQuicksand.shiftedIndex, 1, 0));
+                        }
+
+                        return par1ItemStack;
+                    }
                 }
                 else
                 {
