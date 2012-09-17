@@ -33,8 +33,8 @@ class GuiSlotServer extends GuiSlot
             GuiMultiplayer.func_74015_a(this.parentGui, par1);
             boolean var4 = GuiMultiplayer.func_74020_c(this.parentGui) >= 0 && GuiMultiplayer.func_74020_c(this.parentGui) < this.getSize();
             boolean var5 = GuiMultiplayer.func_74020_c(this.parentGui) < GuiMultiplayer.func_74006_a(this.parentGui).countServers();
-            GuiMultiplayer.getButtonSelect(this.parentGui).enabled = var4;
-            GuiMultiplayer.getButtonEdit(this.parentGui).enabled = var5;
+            GuiMultiplayer.getButtonEdit(this.parentGui).enabled = var4;
+            GuiMultiplayer.getButtonDelete(this.parentGui).enabled = var5;
             GuiMultiplayer.getButtonDelete(this.parentGui).enabled = var5;
 
             if (par2 && var4)
@@ -90,7 +90,15 @@ class GuiSlotServer extends GuiSlot
         LanServer var6 = (LanServer)GuiMultiplayer.func_74003_b(this.parentGui).get(par1 - GuiMultiplayer.func_74006_a(this.parentGui).countServers());
         this.parentGui.drawString(this.parentGui.fontRenderer, StatCollector.translateToLocal("lanServer.title"), par2 + 2, par3 + 1, 16777215);
         this.parentGui.drawString(this.parentGui.fontRenderer, var6.func_77487_a(), par2 + 2, par3 + 12, 8421504);
-        this.parentGui.drawString(this.parentGui.fontRenderer, var6.func_77488_b(), par2 + 2, par3 + 12 + 11, 3158064);
+
+        if (this.parentGui.mc.gameSettings.hideServerAddress)
+        {
+            this.parentGui.drawString(this.parentGui.fontRenderer, "(Hidden)", par2 + 2, par3 + 12 + 11, 3158064);
+        }
+        else
+        {
+            this.parentGui.drawString(this.parentGui.fontRenderer, var6.func_77488_b(), par2 + 2, par3 + 12 + 11, 3158064);
+        }
     }
 
     private void func_77249_c(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
@@ -127,7 +135,7 @@ class GuiSlotServer extends GuiSlot
             {
                 var6.field_78841_f = true;
                 var6.pingToServer = -2L;
-                var6.hostname = "";
+                var6.serverMOTD = "";
                 var6.populationInfo = "";
                 GuiMultiplayer.func_74021_j();
                 (new ThreadPollServers(this, var6)).start();
@@ -135,9 +143,18 @@ class GuiSlotServer extends GuiSlot
         }
 
         this.parentGui.drawString(this.parentGui.fontRenderer, var6.serverName, par2 + 2, par3 + 1, 16777215);
-        this.parentGui.drawString(this.parentGui.fontRenderer, var6.hostname, par2 + 2, par3 + 12, 8421504);
+        this.parentGui.drawString(this.parentGui.fontRenderer, var6.serverMOTD, par2 + 2, par3 + 12, 8421504);
         this.parentGui.drawString(this.parentGui.fontRenderer, var6.populationInfo, par2 + 215 - this.parentGui.fontRenderer.getStringWidth(var6.populationInfo), par3 + 12, 8421504);
-        this.parentGui.drawString(this.parentGui.fontRenderer, var6.serverIP, par2 + 2, par3 + 12 + 11, 3158064);
+
+        if (this.parentGui.mc.gameSettings.hideServerAddress)
+        {
+            this.parentGui.drawString(this.parentGui.fontRenderer, "(Hidden)", par2 + 2, par3 + 12 + 11, 3158064);
+        }
+        else
+        {
+            this.parentGui.drawString(this.parentGui.fontRenderer, var6.serverIP, par2 + 2, par3 + 12 + 11, 3158064);
+        }
+
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.parentGui.mc.renderEngine.bindTexture(this.parentGui.mc.renderEngine.getTexture("/gui/icons.png"));
         String var9 = "";

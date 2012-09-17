@@ -8,12 +8,14 @@ public class GuiScreenAddServer extends GuiScreen
     private GuiScreen parentGui;
     private GuiTextField serverAddress;
     private GuiTextField serverName;
-    private ServerData field_73996_d;
+
+    /** ServerData to be modified by this GUI */
+    private ServerData newServerData;
 
     public GuiScreenAddServer(GuiScreen par1GuiScreen, ServerData par2ServerData)
     {
         this.parentGui = par1GuiScreen;
-        this.field_73996_d = par2ServerData;
+        this.newServerData = par2ServerData;
     }
 
     /**
@@ -37,10 +39,10 @@ public class GuiScreenAddServer extends GuiScreen
         this.controlList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
         this.serverName = new GuiTextField(this.fontRenderer, this.width / 2 - 100, 76, 200, 20);
         this.serverName.setFocused(true);
-        this.serverName.setText(this.field_73996_d.serverName);
+        this.serverName.setText(this.newServerData.serverName);
         this.serverAddress = new GuiTextField(this.fontRenderer, this.width / 2 - 100, 116, 200, 20);
         this.serverAddress.setMaxStringLength(128);
-        this.serverAddress.setText(this.field_73996_d.serverIP);
+        this.serverAddress.setText(this.newServerData.serverIP);
         ((GuiButton)this.controlList.get(0)).enabled = this.serverAddress.getText().length() > 0 && this.serverAddress.getText().split(":").length > 0 && this.serverName.getText().length() > 0;
     }
 
@@ -65,8 +67,8 @@ public class GuiScreenAddServer extends GuiScreen
             }
             else if (par1GuiButton.id == 0)
             {
-                this.field_73996_d.serverName = this.serverName.getText();
-                this.field_73996_d.serverIP = this.serverAddress.getText();
+                this.newServerData.serverName = this.serverName.getText();
+                this.newServerData.serverIP = this.serverAddress.getText();
                 this.parentGui.confirmClicked(true, 0);
             }
         }

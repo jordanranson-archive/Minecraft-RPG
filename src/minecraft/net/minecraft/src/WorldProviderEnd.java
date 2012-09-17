@@ -102,7 +102,7 @@ public class WorldProviderEnd extends WorldProvider
     }
 
     /**
-     * Gets the hard-coded portal location to use when entering this dimension.
+     * Gets the hard-coded portal location to use when entering this dimension
      */
     public ChunkCoordinates getEntrancePortalLocation()
     {
@@ -120,5 +120,13 @@ public class WorldProviderEnd extends WorldProvider
     public boolean doesXZShowFog(int par1, int par2)
     {
         return true;
+    }
+
+    /**
+     * Returns the dimension's name, e.g. "The End", "Nether", or "Overworld".
+     */
+    public String getDimensionName()
+    {
+        return "The End";
     }
 }

@@ -45,7 +45,7 @@ public interface ISaveHandler
     File getMapFileFromName(String var1);
 
     /**
-     * Returns the name of the directory where world information is saved.
+     * Returns the name of the directory where world information is saved
      */
     String getSaveDirectoryName();
 }

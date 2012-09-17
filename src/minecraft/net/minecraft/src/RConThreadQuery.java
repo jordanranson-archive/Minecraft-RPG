@@ -68,9 +68,9 @@ public class RConThreadQuery extends RConThreadBase
     public RConThreadQuery(IServer par1IServer)
     {
         super(par1IServer);
-        this.queryPort = par1IServer.getIntProperty("query.port", 0);
-        this.serverHostname = par1IServer.getHostname();
-        this.serverPort = par1IServer.getPort();
+        this.queryPort = par1IServer.getOrSetIntProperty("query.port", 0);
+        this.serverHostname = par1IServer.getHostName();
+        this.serverPort = par1IServer.getMyServerPort();
         this.serverMotd = par1IServer.getServerMOTD();
         this.maxPlayers = par1IServer.getMaxPlayers();
         this.worldName = par1IServer.getFolderName();
@@ -100,9 +100,9 @@ public class RConThreadQuery extends RConThreadBase
         {
             this.queryPort = this.serverPort;
             this.logInfo("Setting default query port to " + this.queryPort);
-            par1IServer.setProperty("query.port", Integer.valueOf(this.queryPort));
-            par1IServer.setProperty("debug", Boolean.valueOf(false));
-            par1IServer.saveProperties();
+            par1IServer.setArbitraryProperty("query.port", Integer.valueOf(this.queryPort));
+            par1IServer.setArbitraryProperty("debug", Boolean.valueOf(false));
+            par1IServer.saveSettingsToFile();
         }
 
         this.field_72644_p = new HashMap();
@@ -213,7 +213,7 @@ public class RConThreadQuery extends RConThreadBase
             this.output.writeString("version");
             this.output.writeString(this.server.getMinecraftVersion());
             this.output.writeString("plugins");
-            this.output.writeString(this.server.getPlugins());
+            this.output.writeString(this.server.returnAnEmptyString());
             this.output.writeString("map");
             this.output.writeString(this.worldName);
             this.output.writeString("numplayers");

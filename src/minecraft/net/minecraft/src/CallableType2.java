@@ -13,13 +13,13 @@ public class CallableType2 implements Callable
         this.minecraftServerType2 = par1Minecraft;
     }
 
-    public String func_74502_a()
+    public String getType()
     {
         return "Client";
     }
 
     public Object call()
     {
-        return this.func_74502_a();
+        return this.getType();
     }
 }

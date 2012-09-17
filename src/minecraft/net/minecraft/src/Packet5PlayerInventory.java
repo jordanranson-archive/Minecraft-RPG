@@ -11,7 +11,9 @@ public class Packet5PlayerInventory extends Packet
 
     /** Equipment slot: 0=held, 1-4=armor slot */
     public int slot;
-    private ItemStack field_73399_c;
+
+    /** The item in the slot format (an ItemStack) */
+    private ItemStack itemSlot;
 
     public Packet5PlayerInventory() {}
 
@@ -19,7 +21,7 @@ public class Packet5PlayerInventory extends Packet
     {
         this.entityID = par1;
         this.slot = par2;
-        this.field_73399_c = par3ItemStack == null ? null : par3ItemStack.copy();
+        this.itemSlot = par3ItemStack == null ? null : par3ItemStack.copy();
     }
 
     /**
@@ -29,7 +31,7 @@ public class Packet5PlayerInventory extends Packet
     {
         this.entityID = par1DataInputStream.readInt();
         this.slot = par1DataInputStream.readShort();
-        this.field_73399_c = readItemStack(par1DataInputStream);
+        this.itemSlot = readItemStack(par1DataInputStream);
     }
 
     /**
@@ -39,7 +41,7 @@ public class Packet5PlayerInventory extends Packet
     {
         par1DataOutputStream.writeInt(this.entityID);
         par1DataOutputStream.writeShort(this.slot);
-        writeItemStack(this.field_73399_c, par1DataOutputStream);
+        writeItemStack(this.itemSlot, par1DataOutputStream);
     }
 
     /**
@@ -58,9 +60,12 @@ public class Packet5PlayerInventory extends Packet
         return 8;
     }
 
-    public ItemStack func_73397_d()
+    /**
+     * Gets the item in the slot format (an ItemStack)
+     */
+    public ItemStack getItemSlot()
     {
-        return this.field_73399_c;
+        return this.itemSlot;
     }
 
     /**

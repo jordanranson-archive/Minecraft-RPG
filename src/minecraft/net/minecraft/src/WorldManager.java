@@ -99,7 +99,7 @@ public class WorldManager implements IWorldAccess
 
                 if (var8 * var8 + var10 * var10 + var12 * var12 < 1024.0D)
                 {
-                    var7.playerNetServerHandler.sendPacketToPlayer(new Packet55BlockDestroy(par1, par2, par3, par4, par5));
+                    var7.serverForThisPlayer.sendPacketToPlayer(new Packet55BlockDestroy(par1, par2, par3, par4, par5));
                 }
             }
         }

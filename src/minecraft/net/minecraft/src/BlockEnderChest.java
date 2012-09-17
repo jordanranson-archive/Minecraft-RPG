@@ -8,7 +8,7 @@ public class BlockEnderChest extends BlockContainer
     {
         super(par1, Material.rock);
         this.blockIndexInTexture = 37;
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

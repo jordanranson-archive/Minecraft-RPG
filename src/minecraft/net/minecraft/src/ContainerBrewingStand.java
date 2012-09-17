@@ -5,7 +5,9 @@ import java.util.Iterator;
 public class ContainerBrewingStand extends Container
 {
     private TileEntityBrewingStand tileBrewingStand;
-    private final Slot field_75186_f;
+
+    /** Instance of Slot. */
+    private final Slot theSlot;
     private int brewTime = 0;
 
     public ContainerBrewingStand(InventoryPlayer par1InventoryPlayer, TileEntityBrewingStand par2TileEntityBrewingStand)
@@ -14,7 +16,7 @@ public class ContainerBrewingStand extends Container
         this.addSlotToContainer(new SlotBrewingStandPotion(par1InventoryPlayer.player, par2TileEntityBrewingStand, 0, 56, 46));
         this.addSlotToContainer(new SlotBrewingStandPotion(par1InventoryPlayer.player, par2TileEntityBrewingStand, 1, 79, 53));
         this.addSlotToContainer(new SlotBrewingStandPotion(par1InventoryPlayer.player, par2TileEntityBrewingStand, 2, 102, 46));
-        this.field_75186_f = this.addSlotToContainer(new SlotBrewingStandIngredient(this, par2TileEntityBrewingStand, 3, 79, 17));
+        this.theSlot = this.addSlotToContainer(new SlotBrewingStandIngredient(this, par2TileEntityBrewingStand, 3, 79, 17));
         int var3;
 
         for (var3 = 0; var3 < 3; ++var3)
@@ -86,7 +88,7 @@ public class ContainerBrewingStand extends Container
 
             if ((par1 < 0 || par1 > 2) && par1 != 3)
             {
-                if (!this.field_75186_f.getHasStack() && this.field_75186_f.isItemValid(var4))
+                if (!this.theSlot.getHasStack() && this.theSlot.isItemValid(var4))
                 {
                     if (!this.mergeItemStack(var4, 3, 4, false))
                     {

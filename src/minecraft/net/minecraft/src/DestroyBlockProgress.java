@@ -2,47 +2,59 @@ package net.minecraft.src;
 
 public class DestroyBlockProgress
 {
-    private final int field_73115_a;
-    private final int field_73113_b;
-    private final int field_73114_c;
-    private final int field_73111_d;
-    private int field_73112_e;
+    /**
+     * entity ID of the player associated with this partially destroyed Block. Used to identify the Blocks in the client
+     * Renderer, max 1 per player on a server
+     */
+    private final int miningPlayerEntId;
+    private final int partialBlockX;
+    private final int partialBlockY;
+    private final int partialBlockZ;
+
+    /**
+     * damage ranges from 1 to 10. -1 causes the client to delete the partial block renderer.
+     */
+    private int partialBlockProgress;
 
     public DestroyBlockProgress(int par1, int par2, int par3, int par4)
     {
-        this.field_73115_a = par1;
-        this.field_73113_b = par2;
-        this.field_73114_c = par3;
-        this.field_73111_d = par4;
+        this.miningPlayerEntId = par1;
+        this.partialBlockX = par2;
+        this.partialBlockY = par3;
+        this.partialBlockZ = par4;
     }
 
-    public int func_73110_b()
+    public int getPartialBlockX()
     {
-        return this.field_73113_b;
+        return this.partialBlockX;
     }
 
-    public int func_73109_c()
+    public int getPartialBlockY()
     {
-        return this.field_73114_c;
+        return this.partialBlockY;
     }
 
-    public int func_73108_d()
+    public int getPartialBlockZ()
     {
-        return this.field_73111_d;
+        return this.partialBlockZ;
     }
 
-    public void func_73107_a(int par1)
+    /**
+     * inserts damage value into this partially destroyed Block. -1 causes client renderer to delete it, otherwise
+     * ranges from 1 to 10
+     */
+    public void setPartialBlockDamage(int par1)
     {
         if (par1 > 10)
         {
             par1 = 10;
         }
 
-        this.field_73112_e = par1;
+        this.partialBlockProgress = par1;
     }
 
-    public int func_73106_e()
+    public int getPartialBlockDamage()
     {
-        return this.field_73112_e;
+        return this.partialBlockProgress;
     }
 }

@@ -137,7 +137,7 @@ public class GuiSelectWorld extends GuiScreen
                 if (var2 != null)
                 {
                     this.deleting = true;
-                    GuiYesNo var3 = func_74061_a(this, var2, this.selectedWorld);
+                    GuiYesNo var3 = getDeleteWorldScreen(this, var2, this.selectedWorld);
                     this.mc.displayGuiScreen(var3);
                 }
             }
@@ -220,7 +220,10 @@ public class GuiSelectWorld extends GuiScreen
         super.drawScreen(par1, par2, par3);
     }
 
-    public static GuiYesNo func_74061_a(GuiScreen par0GuiScreen, String par1Str, int par2)
+    /**
+     * Gets a GuiYesNo screen with the warning, buttons, etc.
+     */
+    public static GuiYesNo getDeleteWorldScreen(GuiScreen par0GuiScreen, String par1Str, int par2)
     {
         StringTranslate var3 = StringTranslate.getInstance();
         String var4 = var3.translateKey("selectWorld.deleteQuestion");

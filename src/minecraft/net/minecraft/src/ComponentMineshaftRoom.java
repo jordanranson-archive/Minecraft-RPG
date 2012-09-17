@@ -7,7 +7,8 @@ import java.util.Random;
 
 public class ComponentMineshaftRoom extends StructureComponent
 {
-    private List field_74949_a = new LinkedList();
+    /** List of other Mineshaft components linked to this room. */
+    private List roomsLinkedToTheRoom = new LinkedList();
 
     public ComponentMineshaftRoom(int par1, Random par2Random, int par3, int par4)
     {
@@ -46,7 +47,7 @@ public class ComponentMineshaftRoom extends StructureComponent
             if (var7 != null)
             {
                 var8 = var7.getBoundingBox();
-                this.field_74949_a.add(new StructureBoundingBox(var8.minX, var8.minY, this.boundingBox.minZ, var8.maxX, var8.maxY, this.boundingBox.minZ + 1));
+                this.roomsLinkedToTheRoom.add(new StructureBoundingBox(var8.minX, var8.minY, this.boundingBox.minZ, var8.maxX, var8.maxY, this.boundingBox.minZ + 1));
             }
         }
 
@@ -64,7 +65,7 @@ public class ComponentMineshaftRoom extends StructureComponent
             if (var7 != null)
             {
                 var8 = var7.getBoundingBox();
-                this.field_74949_a.add(new StructureBoundingBox(var8.minX, var8.minY, this.boundingBox.maxZ - 1, var8.maxX, var8.maxY, this.boundingBox.maxZ));
+                this.roomsLinkedToTheRoom.add(new StructureBoundingBox(var8.minX, var8.minY, this.boundingBox.maxZ - 1, var8.maxX, var8.maxY, this.boundingBox.maxZ));
             }
         }
 
@@ -82,7 +83,7 @@ public class ComponentMineshaftRoom extends StructureComponent
             if (var7 != null)
             {
                 var8 = var7.getBoundingBox();
-                this.field_74949_a.add(new StructureBoundingBox(this.boundingBox.minX, var8.minY, var8.minZ, this.boundingBox.minX + 1, var8.maxY, var8.maxZ));
+                this.roomsLinkedToTheRoom.add(new StructureBoundingBox(this.boundingBox.minX, var8.minY, var8.minZ, this.boundingBox.minX + 1, var8.maxY, var8.maxZ));
             }
         }
 
@@ -100,7 +101,7 @@ public class ComponentMineshaftRoom extends StructureComponent
             if (var7 != null)
             {
                 var8 = var7.getBoundingBox();
-                this.field_74949_a.add(new StructureBoundingBox(this.boundingBox.maxX - 1, var8.minY, var8.minZ, this.boundingBox.maxX, var8.maxY, var8.maxZ));
+                this.roomsLinkedToTheRoom.add(new StructureBoundingBox(this.boundingBox.maxX - 1, var8.minY, var8.minZ, this.boundingBox.maxX, var8.maxY, var8.maxZ));
             }
         }
     }
@@ -119,7 +120,7 @@ public class ComponentMineshaftRoom extends StructureComponent
         {
             this.fillWithBlocks(par1World, par3StructureBoundingBox, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, Block.dirt.blockID, 0, true);
             this.fillWithBlocks(par1World, par3StructureBoundingBox, this.boundingBox.minX, this.boundingBox.minY + 1, this.boundingBox.minZ, this.boundingBox.maxX, Math.min(this.boundingBox.minY + 3, this.boundingBox.maxY), this.boundingBox.maxZ, 0, 0, false);
-            Iterator var4 = this.field_74949_a.iterator();
+            Iterator var4 = this.roomsLinkedToTheRoom.iterator();
 
             while (var4.hasNext())
             {

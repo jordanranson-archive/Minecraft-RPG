@@ -81,7 +81,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory
         }
     }
 
-    public int func_70361_i()
+    public int getRandomStackFromInventory()
     {
         int var1 = -1;
         int var2 = 1;

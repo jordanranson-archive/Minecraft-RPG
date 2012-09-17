@@ -6,21 +6,30 @@ import java.io.IOException;
 
 public class Packet55BlockDestroy extends Packet
 {
-    private int field_73329_a;
-    private int field_73327_b;
-    private int field_73328_c;
-    private int field_73325_d;
-    private int field_73326_e;
+    /** Entity breaking the block */
+    private int entityId;
+
+    /** X posiiton of the block */
+    private int posX;
+
+    /** Y position of the block */
+    private int posY;
+
+    /** Z position of the block */
+    private int posZ;
+
+    /** How far destroyed this block is */
+    private int destroyedStage;
 
     public Packet55BlockDestroy() {}
 
     public Packet55BlockDestroy(int par1, int par2, int par3, int par4, int par5)
     {
-        this.field_73329_a = par1;
-        this.field_73327_b = par2;
-        this.field_73328_c = par3;
-        this.field_73325_d = par4;
-        this.field_73326_e = par5;
+        this.entityId = par1;
+        this.posX = par2;
+        this.posY = par3;
+        this.posZ = par4;
+        this.destroyedStage = par5;
     }
 
     /**
@@ -28,11 +37,11 @@ public class Packet55BlockDestroy extends Packet
      */
     public void readPacketData(DataInputStream par1DataInputStream) throws IOException
     {
-        this.field_73329_a = par1DataInputStream.readInt();
-        this.field_73327_b = par1DataInputStream.readInt();
-        this.field_73328_c = par1DataInputStream.readInt();
-        this.field_73325_d = par1DataInputStream.readInt();
-        this.field_73326_e = par1DataInputStream.read();
+        this.entityId = par1DataInputStream.readInt();
+        this.posX = par1DataInputStream.readInt();
+        this.posY = par1DataInputStream.readInt();
+        this.posZ = par1DataInputStream.readInt();
+        this.destroyedStage = par1DataInputStream.read();
     }
 
     /**
@@ -40,11 +49,11 @@ public class Packet55BlockDestroy extends Packet
      */
     public void writePacketData(DataOutputStream par1DataOutputStream) throws IOException
     {
-        par1DataOutputStream.writeInt(this.field_73329_a);
-        par1DataOutputStream.writeInt(this.field_73327_b);
-        par1DataOutputStream.writeInt(this.field_73328_c);
-        par1DataOutputStream.writeInt(this.field_73325_d);
-        par1DataOutputStream.write(this.field_73326_e);
+        par1DataOutputStream.writeInt(this.entityId);
+        par1DataOutputStream.writeInt(this.posX);
+        par1DataOutputStream.writeInt(this.posY);
+        par1DataOutputStream.writeInt(this.posZ);
+        par1DataOutputStream.write(this.destroyedStage);
     }
 
     /**
@@ -63,29 +72,44 @@ public class Packet55BlockDestroy extends Packet
         return 13;
     }
 
-    public int func_73322_d()
+    /**
+     * Gets the ID of the entity breaking the block
+     */
+    public int getEntityId()
     {
-        return this.field_73329_a;
+        return this.entityId;
     }
 
-    public int func_73321_f()
+    /**
+     * Gets the X position of the block
+     */
+    public int getPosX()
     {
-        return this.field_73327_b;
+        return this.posX;
     }
 
-    public int func_73324_g()
+    /**
+     * Gets the Y position of the block
+     */
+    public int getPosY()
     {
-        return this.field_73328_c;
+        return this.posY;
     }
 
-    public int func_73320_h()
+    /**
+     * Gets the Z position of the block
+     */
+    public int getPosZ()
     {
-        return this.field_73325_d;
+        return this.posZ;
     }
 
-    public int func_73323_i()
+    /**
+     * Gets how far destroyed this block is
+     */
+    public int getDestroyedStage()
     {
-        return this.field_73326_e;
+        return this.destroyedStage;
     }
 
     /**
@@ -103,6 +127,6 @@ public class Packet55BlockDestroy extends Packet
     public boolean containsSameEntityIDAs(Packet par1Packet)
     {
         Packet55BlockDestroy var2 = (Packet55BlockDestroy)par1Packet;
-        return var2.field_73329_a == this.field_73329_a;
+        return var2.entityId == this.entityId;
     }
 }

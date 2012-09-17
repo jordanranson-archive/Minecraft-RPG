@@ -36,7 +36,7 @@ public class CommandTime extends CommandBase
                     var3 = parseIntWithMin(par1ICommandSender, par2ArrayOfStr[1], 0);
                 }
 
-                this.func_71552_a(par1ICommandSender, var3);
+                this.setTime(par1ICommandSender, var3);
                 notifyAdmins(par1ICommandSender, "commands.time.set", new Object[] {Integer.valueOf(var3)});
                 return;
             }
@@ -61,11 +61,14 @@ public class CommandTime extends CommandBase
         return par2ArrayOfStr.length == 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, new String[] {"set", "add"}): (par2ArrayOfStr.length == 2 && par2ArrayOfStr[0].equals("set") ? getListOfStringsMatchingLastWord(par2ArrayOfStr, new String[] {"day", "night"}): null);
     }
 
-    protected void func_71552_a(ICommandSender par1ICommandSender, int par2)
+    /**
+     * Set the time in the server object.
+     */
+    protected void setTime(ICommandSender par1ICommandSender, int par2)
     {
-        for (int var3 = 0; var3 < MinecraftServer.getServer().worldServers.length; ++var3)
+        for (int var3 = 0; var3 < MinecraftServer.getServer().theWorldServer.length; ++var3)
         {
-            MinecraftServer.getServer().worldServers[var3].setTime((long)par2);
+            MinecraftServer.getServer().theWorldServer[var3].setTime((long)par2);
         }
     }
 
@@ -74,9 +77,9 @@ public class CommandTime extends CommandBase
      */
     protected void addTime(ICommandSender par1ICommandSender, int par2)
     {
-        for (int var3 = 0; var3 < MinecraftServer.getServer().worldServers.length; ++var3)
+        for (int var3 = 0; var3 < MinecraftServer.getServer().theWorldServer.length; ++var3)
         {
-            WorldServer var4 = MinecraftServer.getServer().worldServers[var3];
+            WorldServer var4 = MinecraftServer.getServer().theWorldServer[var3];
             var4.setTime(var4.getWorldTime() + (long)par2);
         }
     }

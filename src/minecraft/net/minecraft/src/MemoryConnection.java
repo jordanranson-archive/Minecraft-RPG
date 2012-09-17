@@ -25,9 +25,6 @@ public class MemoryConnection implements NetworkManager
         this.myNetHandler = par1NetHandler;
     }
 
-    /**
-     * Sets the NetHandler for this NetworkManager. Server-only.
-     */
     public void setNetHandler(NetHandler par1NetHandler)
     {
         this.myNetHandler = par1NetHandler;

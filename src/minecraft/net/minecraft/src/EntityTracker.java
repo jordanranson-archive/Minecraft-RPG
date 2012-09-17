@@ -124,7 +124,7 @@ public class EntityTracker
         {
             this.addEntityToTracker(par1Entity, 256, Integer.MAX_VALUE, false);
         }
-		
+
 		// Minecraft RPG
         else if (par1Entity instanceof EntitySackMeat)
         {
@@ -138,10 +138,21 @@ public class EntityTracker
         {
             this.addEntityToTracker(par1Entity, 64, 10, true);
         }
-		/*else if (par1Entity instanceof EntityThrowingKnife)
+
+        else
         {
-            this.addEntityToTracker(par1Entity, 64, 10, true);
-        }*/
+            Iterator var5 = ModLoader.getTrackers().values().iterator();
+
+            while (var5.hasNext())
+            {
+                EntityTrackerNonliving var6 = (EntityTrackerNonliving)var5.next();
+
+                if (var6.entityClass.isAssignableFrom(par1Entity.getClass()))
+                {
+                    this.addEntityToTracker(par1Entity, var6.viewDistance, var6.updateFrequency, var6.trackMotion);
+                }
+            }
+        }
     }
 
     public void addEntityToTracker(Entity par1Entity, int par2, int par3)
@@ -192,7 +203,7 @@ public class EntityTracker
         }
     }
 
-    public void updateTrackedEntities()
+    public void processOutstandingEntries()
     {
         ArrayList var1 = new ArrayList();
         Iterator var2 = this.trackedEntities.iterator();

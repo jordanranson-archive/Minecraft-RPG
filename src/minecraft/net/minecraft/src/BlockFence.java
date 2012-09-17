@@ -5,13 +5,13 @@ public class BlockFence extends Block
     public BlockFence(int par1, int par2)
     {
         super(par1, par2, Material.wood);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     public BlockFence(int par1, int par2, Material par3Material)
     {
         super(par1, par2, par3Material);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

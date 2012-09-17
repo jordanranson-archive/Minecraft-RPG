@@ -17,11 +17,7 @@ public class PlayerManager
      * can also that chunk
      */
     private final List chunkWathcherWithPlayers = new ArrayList();
-
-    /**
-     * Number of chunks the server sends to the client. Valid 3<=x<=15. In server.properties.
-     */
-    private final int playerViewRadius;
+    private final int playerViewDistance;
 
     /** x, z direction vectors: east, south, west, north */
     private final int[][] xzDirectionsConst = new int[][] {{1, 0}, {0, 1}, { -1, 0}, {0, -1}};
@@ -38,7 +34,7 @@ public class PlayerManager
         }
         else
         {
-            this.playerViewRadius = par2;
+            this.playerViewDistance = par2;
             this.theWorldServer = par1WorldServer;
         }
     }
@@ -113,9 +109,9 @@ public class PlayerManager
         par1EntityPlayerMP.managedPosX = par1EntityPlayerMP.posX;
         par1EntityPlayerMP.managedPosZ = par1EntityPlayerMP.posZ;
 
-        for (int var4 = var2 - this.playerViewRadius; var4 <= var2 + this.playerViewRadius; ++var4)
+        for (int var4 = var2 - this.playerViewDistance; var4 <= var2 + this.playerViewDistance; ++var4)
         {
-            for (int var5 = var3 - this.playerViewRadius; var5 <= var3 + this.playerViewRadius; ++var5)
+            for (int var5 = var3 - this.playerViewDistance; var5 <= var3 + this.playerViewDistance; ++var5)
             {
                 this.getOrCreateChunkWatcher(var4, var5, true).addPlayerToChunkWatchingList(par1EntityPlayerMP);
             }
@@ -127,19 +123,19 @@ public class PlayerManager
 
     public void func_72691_b(EntityPlayerMP par1EntityPlayerMP)
     {
-        ArrayList var2 = new ArrayList(par1EntityPlayerMP.loadedChunks);
+        ArrayList var2 = new ArrayList(par1EntityPlayerMP.chunksToLoad);
         int var3 = 0;
-        int var4 = this.playerViewRadius;
+        int var4 = this.playerViewDistance;
         int var5 = (int)par1EntityPlayerMP.posX >> 4;
         int var6 = (int)par1EntityPlayerMP.posZ >> 4;
         int var7 = 0;
         int var8 = 0;
         ChunkCoordIntPair var9 = PlayerInstance.getChunkLocation(this.getOrCreateChunkWatcher(var5, var6, true));
-        par1EntityPlayerMP.loadedChunks.clear();
+        par1EntityPlayerMP.chunksToLoad.clear();
 
         if (var2.contains(var9))
         {
-            par1EntityPlayerMP.loadedChunks.add(var9);
+            par1EntityPlayerMP.chunksToLoad.add(var9);
         }
 
         int var10;
@@ -158,7 +154,7 @@ public class PlayerManager
 
                     if (var2.contains(var9))
                     {
-                        par1EntityPlayerMP.loadedChunks.add(var9);
+                        par1EntityPlayerMP.chunksToLoad.add(var9);
                     }
                 }
             }
@@ -174,7 +170,7 @@ public class PlayerManager
 
             if (var2.contains(var9))
             {
-                par1EntityPlayerMP.loadedChunks.add(var9);
+                par1EntityPlayerMP.chunksToLoad.add(var9);
             }
         }
     }
@@ -187,9 +183,9 @@ public class PlayerManager
         int var2 = (int)par1EntityPlayerMP.managedPosX >> 4;
         int var3 = (int)par1EntityPlayerMP.managedPosZ >> 4;
 
-        for (int var4 = var2 - this.playerViewRadius; var4 <= var2 + this.playerViewRadius; ++var4)
+        for (int var4 = var2 - this.playerViewDistance; var4 <= var2 + this.playerViewDistance; ++var4)
         {
-            for (int var5 = var3 - this.playerViewRadius; var5 <= var3 + this.playerViewRadius; ++var5)
+            for (int var5 = var3 - this.playerViewDistance; var5 <= var3 + this.playerViewDistance; ++var5)
             {
                 PlayerInstance var6 = this.getOrCreateChunkWatcher(var4, var5, false);
 
@@ -225,7 +221,7 @@ public class PlayerManager
         {
             int var10 = (int)par1EntityPlayerMP.managedPosX >> 4;
             int var11 = (int)par1EntityPlayerMP.managedPosZ >> 4;
-            int var12 = this.playerViewRadius;
+            int var12 = this.playerViewDistance;
             int var13 = var2 - var10;
             int var14 = var3 - var11;
 
@@ -262,7 +258,7 @@ public class PlayerManager
     public boolean isPlayerWatchingChunk(EntityPlayerMP par1EntityPlayerMP, int par2, int par3)
     {
         PlayerInstance var4 = this.getOrCreateChunkWatcher(par2, par3, false);
-        return var4 == null ? false : PlayerInstance.getPlayersInChunk(var4).contains(par1EntityPlayerMP);
+        return var4 == null ? false : PlayerInstance.getPlayersInChunk(var4).contains(par1EntityPlayerMP) && !par1EntityPlayerMP.chunksToLoad.contains(PlayerInstance.getChunkLocation(var4));
     }
 
     public static int func_72686_a(int par0)

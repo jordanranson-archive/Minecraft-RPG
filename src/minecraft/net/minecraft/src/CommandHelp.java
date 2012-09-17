@@ -25,7 +25,7 @@ public class CommandHelp extends CommandBase
 
     public void processCommand(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
-        List var3 = this.func_71534_d(par1ICommandSender);
+        List var3 = this.getSortedPossibleCommands(par1ICommandSender);
         byte var4 = 7;
         int var5 = var3.size() / var4;
         boolean var6 = false;
@@ -38,7 +38,7 @@ public class CommandHelp extends CommandBase
         }
         catch (NumberInvalidException var10)
         {
-            Map var8 = this.func_71535_c();
+            Map var8 = this.getCommands();
             var9 = (ICommand)var8.get(par2ArrayOfStr[0]);
 
             if (var9 != null)
@@ -58,20 +58,23 @@ public class CommandHelp extends CommandBase
             par1ICommandSender.sendChatToPlayer(var9.getCommandUsage(par1ICommandSender));
         }
 
-        if (var11 == 0)
+        if (var11 == 0 && par1ICommandSender instanceof EntityPlayer)
         {
             par1ICommandSender.sendChatToPlayer("\u00a7a" + par1ICommandSender.translateString("commands.help.footer", new Object[0]));
         }
     }
 
-    protected List func_71534_d(ICommandSender par1ICommandSender)
+    /**
+     * Returns a sorted list of all possible commands for the given ICommandSender.
+     */
+    protected List getSortedPossibleCommands(ICommandSender par1ICommandSender)
     {
         List var2 = MinecraftServer.getServer().getCommandManager().getPossibleCommands(par1ICommandSender);
         Collections.sort(var2);
         return var2;
     }
 
-    protected Map func_71535_c()
+    protected Map getCommands()
     {
         return MinecraftServer.getServer().getCommandManager().getCommands();
     }

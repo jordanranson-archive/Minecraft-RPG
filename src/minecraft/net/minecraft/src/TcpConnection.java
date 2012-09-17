@@ -139,9 +139,6 @@ public class TcpConnection implements NetworkManager
         this.readThread = null;
     }
 
-    /**
-     * Sets the NetHandler for this NetworkManager. Server-only.
-     */
     public void setNetHandler(NetHandler par1NetHandler)
     {
         this.theNetHandler = par1NetHandler;

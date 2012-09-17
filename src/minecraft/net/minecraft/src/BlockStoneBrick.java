@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BlockStoneBrick extends Block
 {
-    public static final String[] field_72188_a = new String[] {"default", "mossy", "cracked", "chiseled"};
+    public static final String[] STONE_BRICK_TYPES = new String[] {"default", "mossy", "cracked", "chiseled"};
 
     public BlockStoneBrick(int par1)
     {

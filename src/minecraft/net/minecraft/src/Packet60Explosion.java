@@ -13,7 +13,7 @@ public class Packet60Explosion extends Packet
     public double explosionY;
     public double explosionZ;
     public float explosionSize;
-    public List field_73613_e;
+    public List chunkPositionRecords;
     private float field_73610_f;
     private float field_73611_g;
     private float field_73617_h;
@@ -26,7 +26,7 @@ public class Packet60Explosion extends Packet
         this.explosionY = par3;
         this.explosionZ = par5;
         this.explosionSize = par7;
-        this.field_73613_e = new ArrayList(par8List);
+        this.chunkPositionRecords = new ArrayList(par8List);
 
         if (par9Vec3 != null)
         {
@@ -46,7 +46,7 @@ public class Packet60Explosion extends Packet
         this.explosionZ = par1DataInputStream.readDouble();
         this.explosionSize = par1DataInputStream.readFloat();
         int var2 = par1DataInputStream.readInt();
-        this.field_73613_e = new ArrayList(var2);
+        this.chunkPositionRecords = new ArrayList(var2);
         int var3 = (int)this.explosionX;
         int var4 = (int)this.explosionY;
         int var5 = (int)this.explosionZ;
@@ -56,7 +56,7 @@ public class Packet60Explosion extends Packet
             int var7 = par1DataInputStream.readByte() + var3;
             int var8 = par1DataInputStream.readByte() + var4;
             int var9 = par1DataInputStream.readByte() + var5;
-            this.field_73613_e.add(new ChunkPosition(var7, var8, var9));
+            this.chunkPositionRecords.add(new ChunkPosition(var7, var8, var9));
         }
 
         this.field_73610_f = par1DataInputStream.readFloat();
@@ -73,11 +73,11 @@ public class Packet60Explosion extends Packet
         par1DataOutputStream.writeDouble(this.explosionY);
         par1DataOutputStream.writeDouble(this.explosionZ);
         par1DataOutputStream.writeFloat(this.explosionSize);
-        par1DataOutputStream.writeInt(this.field_73613_e.size());
+        par1DataOutputStream.writeInt(this.chunkPositionRecords.size());
         int var2 = (int)this.explosionX;
         int var3 = (int)this.explosionY;
         int var4 = (int)this.explosionZ;
-        Iterator var5 = this.field_73613_e.iterator();
+        Iterator var5 = this.chunkPositionRecords.iterator();
 
         while (var5.hasNext())
         {
@@ -108,7 +108,7 @@ public class Packet60Explosion extends Packet
      */
     public int getPacketSize()
     {
-        return 32 + this.field_73613_e.size() * 3 + 3;
+        return 32 + this.chunkPositionRecords.size() * 3 + 3;
     }
 
     public float func_73607_d()

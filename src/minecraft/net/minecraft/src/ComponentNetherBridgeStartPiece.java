@@ -6,9 +6,18 @@ import java.util.Random;
 
 public class ComponentNetherBridgeStartPiece extends ComponentNetherBridgeCrossing3
 {
-    public StructureNetherBridgePieceWeight field_74970_a;
-    public List field_74968_b = new ArrayList();
-    public List field_74969_c;
+    /** Instance of StructureNetherBridgePieceWeight. */
+    public StructureNetherBridgePieceWeight theNetherBridgePieceWeight;
+
+    /**
+     * Contains the list of valid piece weights for the set of nether bridge structure pieces.
+     */
+    public List primaryWeights = new ArrayList();
+
+    /**
+     * Contains the list of valid piece weights for the secondary set of nether bridge structure pieces.
+     */
+    public List secondaryWeights;
     public ArrayList field_74967_d = new ArrayList();
 
     public ComponentNetherBridgeStartPiece(Random par1Random, int par2, int par3)
@@ -23,10 +32,10 @@ public class ComponentNetherBridgeStartPiece extends ComponentNetherBridgeCrossi
         {
             var7 = var4[var6];
             var7.field_78827_c = 0;
-            this.field_74968_b.add(var7);
+            this.primaryWeights.add(var7);
         }
 
-        this.field_74969_c = new ArrayList();
+        this.secondaryWeights = new ArrayList();
         var4 = StructureNetherBridgePieces.getSecondaryComponents();
         var5 = var4.length;
 
@@ -34,7 +43,7 @@ public class ComponentNetherBridgeStartPiece extends ComponentNetherBridgeCrossi
         {
             var7 = var4[var6];
             var7.field_78827_c = 0;
-            this.field_74969_c.add(var7);
+            this.secondaryWeights.add(var7);
         }
     }
 }

@@ -29,7 +29,7 @@ public class BanEntry
         return this.username;
     }
 
-    public Date getBanStartDate()
+    public Date banStart()
     {
         return this.banStartDate;
     }
@@ -82,7 +82,7 @@ public class BanEntry
         StringBuilder var1 = new StringBuilder();
         var1.append(this.getBannedUsername());
         var1.append("|");
-        var1.append(dateFormat.format(this.getBanStartDate()));
+        var1.append(dateFormat.format(this.banStart()));
         var1.append("|");
         var1.append(this.getBannedBy());
         var1.append("|");

@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class ComponentStrongholdLibrary extends ComponentStronghold
 {
-    private static final WeightedRandomChestContent[] field_75007_b = new WeightedRandomChestContent[] {
+    /** List of items that Stronghold Library chests can contain. */
+    private static final WeightedRandomChestContent[] strongholdLibraryChestContents = new WeightedRandomChestContent[] {
 		new WeightedRandomChestContent(Item.book.shiftedIndex, 0, 1, 3, 20), 
 		new WeightedRandomChestContent(Item.paper.shiftedIndex, 0, 2, 7, 20), 
 		new WeightedRandomChestContent(Item.map.shiftedIndex, 0, 1, 1, 1), 
@@ -147,12 +148,12 @@ public class ComponentStrongholdLibrary extends ComponentStronghold
                 this.placeBlockAtCurrentPosition(par1World, Block.torchWood.blockID, 0, var8, 8, var9 + 1, par3StructureBoundingBox);
             }
 
-            this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 3, 3, 5, field_75007_b, 1 + par2Random.nextInt(4));
+            this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 3, 3, 5, strongholdLibraryChestContents, 1 + par2Random.nextInt(4));
 
             if (this.isLargeRoom)
             {
                 this.placeBlockAtCurrentPosition(par1World, 0, 0, 12, 9, 1, par3StructureBoundingBox);
-                this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 12, 8, 1, field_75007_b, 1 + par2Random.nextInt(4));
+                this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 12, 8, 1, strongholdLibraryChestContents, 1 + par2Random.nextInt(4));
             }
 
             return true;

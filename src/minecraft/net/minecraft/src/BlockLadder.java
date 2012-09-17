@@ -7,7 +7,7 @@ public class BlockLadder extends Block
     protected BlockLadder(int par1, int par2)
     {
         super(par1, par2, Material.circuits);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

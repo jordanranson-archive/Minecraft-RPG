@@ -31,12 +31,12 @@ public class WorldType
     /** Whether this WorldType has a version or not. */
     private boolean isWorldTypeVersioned;
 
-    private WorldType(int par1, String par2Str)
+    public WorldType(int par1, String par2Str)
     {
         this(par1, par2Str, 0);
     }
 
-    private WorldType(int par1, String par2Str, int par3)
+    public WorldType(int par1, String par2Str, int par3)
     {
         this.worldType = par2Str;
         this.generatorVersion = par3;
@@ -120,5 +120,30 @@ public class WorldType
         }
 
         return null;
+    }
+
+    public WorldChunkManager getChunkManager(World var1)
+    {
+        return (WorldChunkManager)(this == FLAT ? new WorldChunkManagerHell(BiomeGenBase.plains, 0.5F, 0.5F) : new WorldChunkManager(var1));
+    }
+
+    public IChunkProvider getChunkGenerator(World var1)
+    {
+        return (IChunkProvider)(this == FLAT ? new ChunkProviderFlat(var1, var1.getSeed(), var1.getWorldInfo().isMapFeaturesEnabled()) : new ChunkProviderGenerate(var1, var1.getSeed(), var1.getWorldInfo().isMapFeaturesEnabled()));
+    }
+
+    public int getSeaLevel(World var1)
+    {
+        return this != FLAT ? 64 : 4;
+    }
+
+    public boolean hasVoidParticles(boolean var1)
+    {
+        return this != FLAT && !var1;
+    }
+
+    public double voidFadeMagnitude()
+    {
+        return this != FLAT ? 0.03125D : 1.0D;
     }
 }

@@ -224,7 +224,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory
                     {
                         --this.furnaceItemStacks[1].stackSize;
 
-                        if (this.furnaceItemStacks[1].stackSize == 0)
+                        if (this.furnaceItemStacks[1].stackSize <= 0)
                         {
                             Item var3 = this.furnaceItemStacks[1].getItem().getContainerItem();
                             this.furnaceItemStacks[1] = var3 != null ? new ItemStack(var3) : null;
@@ -300,7 +300,8 @@ public class TileEntityFurnace extends TileEntity implements IInventory
 
             if (this.furnaceItemStacks[0].stackSize <= 0)
             {
-                this.furnaceItemStacks[0] = null;
+                Item var2 = this.furnaceItemStacks[0].getItem().getContainerItem();
+                this.furnaceItemStacks[0] = var2 != null ? new ItemStack(var2) : null;
             }
         }
     }
@@ -335,7 +336,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory
                 }
             }
 
-            return var2 instanceof ItemTool && ((ItemTool)var2).func_77861_e().equals("WOOD") ? 200 : (var2 instanceof ItemSword && ((ItemSword)var2).func_77825_f().equals("WOOD") ? 200 : (var2 instanceof ItemHoe && ((ItemHoe)var2).func_77842_f().equals("WOOD") ? 200 : (var1 == Item.stick.shiftedIndex ? 100 : (var1 == Item.coal.shiftedIndex ? 1600 : (var1 == Item.bucketLava.shiftedIndex ? 20000 : (var1 == Block.sapling.blockID ? 100 : (var1 == Item.blazeRod.shiftedIndex ? 2400 : 0)))))));
+            return var2 instanceof ItemTool && ((ItemTool)var2).func_77861_e().equals("WOOD") ? 200 : (var2 instanceof ItemSword && ((ItemSword)var2).func_77825_f().equals("WOOD") ? 200 : (var2 instanceof ItemHoe && ((ItemHoe)var2).func_77842_f().equals("WOOD") ? 200 : (var1 == Item.stick.shiftedIndex ? 100 : (var1 == Item.coal.shiftedIndex ? 1600 : (var1 == Item.bucketLava.shiftedIndex ? 20000 : (var1 == Block.sapling.blockID ? 100 : (var1 == Item.blazeRod.shiftedIndex ? 2400 : ModLoader.addAllFuel(par0ItemStack.itemID, par0ItemStack.getItemDamage()))))))));
         }
     }
 

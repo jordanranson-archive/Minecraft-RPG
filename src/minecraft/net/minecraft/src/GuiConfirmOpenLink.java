@@ -2,8 +2,8 @@ package net.minecraft.src;
 
 public abstract class GuiConfirmOpenLink extends GuiYesNo
 {
-    /** Text to warn players from opening unsafe links. */
-    private String openLinkWarning;
+    /** Initialises Copy Button. */
+    private String copyLinkButton;
 
     /** Label for the Copy to Clipboard button. */
     private String copyLinkButtonText;
@@ -15,7 +15,7 @@ public abstract class GuiConfirmOpenLink extends GuiYesNo
         this.buttonText1 = var4.translateKey("gui.yes");
         this.buttonText2 = var4.translateKey("gui.no");
         this.copyLinkButtonText = var4.translateKey("chat.copy");
-        this.openLinkWarning = var4.translateKey("chat.link.warning");
+        this.copyLinkButton = var4.translateKey("chat.link.warning");
     }
 
     /**
@@ -55,6 +55,6 @@ public abstract class GuiConfirmOpenLink extends GuiYesNo
     public void drawScreen(int par1, int par2, float par3)
     {
         super.drawScreen(par1, par2, par3);
-        this.drawCenteredString(this.fontRenderer, this.openLinkWarning, this.width / 2, 110, 16764108);
+        this.drawCenteredString(this.fontRenderer, this.copyLinkButton, this.width / 2, 110, 16764108);
     }
 }

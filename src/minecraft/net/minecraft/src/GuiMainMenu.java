@@ -32,7 +32,9 @@ public class GuiMainMenu extends GuiScreen
      * Texture allocated for the current viewport of the main menu's panorama background.
      */
     private int viewportTexture;
-    private static final String[] field_73978_o = new String[] {"/title/bg/panorama0.png", "/title/bg/panorama1.png", "/title/bg/panorama2.png", "/title/bg/panorama3.png", "/title/bg/panorama4.png", "/title/bg/panorama5.png"};
+
+    /** An array of all the paths to the panorama pictures. */
+    private static final String[] titlePanoramaPaths = new String[] {"/title/bg/panorama0.png", "/title/bg/panorama1.png", "/title/bg/panorama2.png", "/title/bg/panorama3.png", "/title/bg/panorama4.png", "/title/bg/panorama5.png"};
 
     public GuiMainMenu()
     {
@@ -134,11 +136,11 @@ public class GuiMainMenu extends GuiScreen
 
         if (this.mc.isDemo())
         {
-            this.func_73972_b(var4, 24, var2);
+            this.addDemoButtons(var4, 24, var2);
         }
         else
         {
-            this.func_73969_a(var4, 24, var2);
+            this.addSingleplayerMultiplayerButtons(var4, 24, var2);
         }
 
         this.controlList.add(new GuiButton(3, this.width / 2 - 100, var4 + 48, var2.translateKey("menu.mods")));
@@ -156,13 +158,19 @@ public class GuiMainMenu extends GuiScreen
         this.controlList.add(new GuiButtonLanguage(5, this.width / 2 - 124, var4 + 72 + 12));
     }
 
-    private void func_73969_a(int par1, int par2, StringTranslate par3StringTranslate)
+    /**
+     * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have bought the game.
+     */
+    private void addSingleplayerMultiplayerButtons(int par1, int par2, StringTranslate par3StringTranslate)
     {
         this.controlList.add(new GuiButton(1, this.width / 2 - 100, par1, par3StringTranslate.translateKey("menu.singleplayer")));
         this.controlList.add(new GuiButton(2, this.width / 2 - 100, par1 + par2 * 1, par3StringTranslate.translateKey("menu.multiplayer")));
     }
 
-    private void func_73972_b(int par1, int par2, StringTranslate par3StringTranslate)
+    /**
+     * Adds Demo buttons on Main Menu for players who are playing Demo.
+     */
+    private void addDemoButtons(int par1, int par2, StringTranslate par3StringTranslate)
     {
         this.controlList.add(new GuiButton(11, this.width / 2 - 100, par1, par3StringTranslate.translateKey("menu.playdemo")));
         this.controlList.add(this.buttonResetDemo = new GuiButton(12, this.width / 2 - 100, par1 + par2 * 1, par3StringTranslate.translateKey("menu.resetdemo")));
@@ -222,7 +230,7 @@ public class GuiMainMenu extends GuiScreen
 
             if (var3 != null)
             {
-                GuiYesNo var4 = GuiSelectWorld.func_74061_a(this, var3.getWorldName(), 12);
+                GuiYesNo var4 = GuiSelectWorld.getDeleteWorldScreen(this, var3.getWorldName(), 12);
                 this.mc.displayGuiScreen(var4);
             }
         }
@@ -300,7 +308,7 @@ public class GuiMainMenu extends GuiScreen
                     GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
                 }
 
-                GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture(field_73978_o[var10]));
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture(titlePanoramaPaths[var10]));
                 var4.startDrawingQuads();
                 var4.setColorRGBA_I(16777215, 255 / (var6 + 1));
                 float var11 = 0.0F;
@@ -431,7 +439,7 @@ public class GuiMainMenu extends GuiScreen
         GL11.glScalef(var8, var8, var8);
         this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, 16776960);
         GL11.glPopMatrix();
-        String var9 = "Minecraft 1.3.1";
+        String var9 = "Minecraft 1.3.2";
 
         if (this.mc.isDemo())
         {

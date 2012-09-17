@@ -108,7 +108,7 @@ public final class ItemStack
 
     public boolean tryPlaceItemIntoWorld(EntityPlayer par1EntityPlayer, World par2World, int par3, int par4, int par5, int par6, float par7, float par8, float par9)
     {
-        boolean var10 = this.getItem().onItemUse(this, par1EntityPlayer, par2World, par3, par4, par5, par6, par7, par8, par9);
+        boolean var10 = this.getItem().tryPlaceIntoWorld(this, par1EntityPlayer, par2World, par3, par4, par5, par6, par7, par8, par9);
 
         if (var10)
         {

@@ -10,11 +10,7 @@ public class ServerData
      * "5/20" meaning 5 slots used out of 20 slots total)
      */
     public String populationInfo;
-
-    /**
-     * server name as displayed in the server browser's second line (grey text)
-     */
-    public String hostname;
+    public String serverMOTD;
 
     /** last server ping that showed up in the server browser */
     public long pingToServer;

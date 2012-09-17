@@ -6,7 +6,7 @@ public class CreativeTabs
 {
     public static final CreativeTabs[] creativeTabArray = new CreativeTabs[12];
     public static final CreativeTabs tabBlock = new CreativeTabBlock(0, "buildingBlocks");
-    public static final CreativeTabs tabDecorations = new CreativeTabDeco(1, "decorations");
+    public static final CreativeTabs tabDeco = new CreativeTabDeco(1, "decorations");
     public static final CreativeTabs tabRedstone = new CreativeTabRedstone(2, "redstone");
     public static final CreativeTabs tabTransport = new CreativeTabTransport(3, "transportation");
     public static final CreativeTabs tabMisc = new CreativeTabMisc(4, "misc");

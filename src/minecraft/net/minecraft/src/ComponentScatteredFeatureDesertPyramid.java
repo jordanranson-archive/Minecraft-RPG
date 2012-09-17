@@ -5,7 +5,9 @@ import java.util.Random;
 public class ComponentScatteredFeatureDesertPyramid extends ComponentScatteredFeature
 {
     private boolean[] field_74940_h = new boolean[4];
-    private static final WeightedRandomChestContent[] field_74941_i = new WeightedRandomChestContent[] {
+
+    /** List of items to generate in chests of Temples. */
+    private static final WeightedRandomChestContent[] itemsToGenerateInTemple = new WeightedRandomChestContent[] {
 		new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3), 
 		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
 		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 2, 7, 15), 
@@ -225,7 +227,7 @@ public class ComponentScatteredFeatureDesertPyramid extends ComponentScatteredFe
             {
                 int var11 = Direction.offsetX[var10] * 2;
                 int var12 = Direction.offsetZ[var10] * 2;
-                this.field_74940_h[var10] = this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 10 + var11, -11, 10 + var12, field_74941_i, 2 + par2Random.nextInt(5));
+                this.field_74940_h[var10] = this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 10 + var11, -11, 10 + var12, itemsToGenerateInTemple, 2 + par2Random.nextInt(5));
             }
         }
 

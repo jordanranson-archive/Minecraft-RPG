@@ -18,7 +18,7 @@ public class CallableServerProfiler implements Callable
      */
     public String getServerProfilerEnabled()
     {
-        return this.minecraftServerProfiler.theProfiler.profilingEnabled ? this.minecraftServerProfiler.theProfiler.func_76322_c() : "N/A (disabled)";
+        return this.minecraftServerProfiler.theProfiler.profilingEnabled ? this.minecraftServerProfiler.theProfiler.getNameOfLastSection() : "N/A (disabled)";
     }
 
     public Object call()

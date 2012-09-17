@@ -50,7 +50,10 @@ public class PlayerControllerMP
         this.netClientHandler = par2NetClientHandler;
     }
 
-    public static void func_78744_a(Minecraft par0Minecraft, PlayerControllerMP par1PlayerControllerMP, int par2, int par3, int par4, int par5)
+    /**
+     * Block dig operation in creative mode (instantly digs the block).
+     */
+    public static void clickBlockCreative(Minecraft par0Minecraft, PlayerControllerMP par1PlayerControllerMP, int par2, int par3, int par4, int par5)
     {
         if (!par0Minecraft.theWorld.extinguishFire(par0Minecraft.thePlayer, par2, par3, par4, par5))
         {
@@ -58,7 +61,10 @@ public class PlayerControllerMP
         }
     }
 
-    public void func_78748_a(EntityPlayer par1EntityPlayer)
+    /**
+     * Sets player capabilities depending on current gametype. params: player
+     */
+    public void setPlayerCapabilities(EntityPlayer par1EntityPlayer)
     {
         this.currentGameType.configurePlayerCapabilities(par1EntityPlayer.capabilities);
     }
@@ -87,7 +93,7 @@ public class PlayerControllerMP
 
     public boolean shouldDrawHUD()
     {
-        return this.currentGameType.func_77144_e();
+        return this.currentGameType.isSurvivalOrAdventure();
     }
 
     /**
@@ -149,7 +155,7 @@ public class PlayerControllerMP
             if (this.currentGameType.isCreative())
             {
                 this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, par1, par2, par3, par4));
-                func_78744_a(this.mc, this, par1, par2, par3, par4);
+                clickBlockCreative(this.mc, this, par1, par2, par3, par4);
                 this.blockHitDelay = 5;
             }
             else if (!this.isHittingBlock || par1 != this.currentBlockX || par2 != this.currentBlockY || par3 != this.currentblockZ)
@@ -211,7 +217,7 @@ public class PlayerControllerMP
         {
             this.blockHitDelay = 5;
             this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, par1, par2, par3, par4));
-            func_78744_a(this.mc, this, par1, par2, par3, par4);
+            clickBlockCreative(this.mc, this, par1, par2, par3, par4);
         }
         else
         {

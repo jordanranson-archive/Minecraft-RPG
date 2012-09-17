@@ -28,7 +28,7 @@ public class CommandServerPardonIp extends CommandBase
     {
         if (par2ArrayOfStr.length == 1 && par2ArrayOfStr[0].length() > 1)
         {
-            Matcher var3 = CommandServerBanIp.field_71545_a.matcher(par2ArrayOfStr[0]);
+            Matcher var3 = CommandServerBanIp.IPv4Pattern.matcher(par2ArrayOfStr[0]);
 
             if (var3.matches())
             {

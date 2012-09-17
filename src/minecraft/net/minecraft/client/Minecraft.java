@@ -128,8 +128,8 @@ import org.lwjgl.util.glu.GLU;
 
 public abstract class Minecraft implements Runnable, IPlayerUsage
 {
-    /** A 10MiB preallocation to ensure the heap is reasonably sized. */
-    public static byte[] memoryReserve = new byte[10485760];
+    /** The experienceTotal value the client thinks the player has. */
+    public static byte[] clientExperience = new byte[10485760];
     private ServerData currentServerData;
 
     /**
@@ -217,13 +217,22 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
     public TexturePackList texturePackList;
     public File mcDataDir;
     private ISaveFormat saveLoader;
-    private static int field_71470_ab;
+
+    /**
+     * This is set to fpsCounter every debug screen update, and is shown on the debug screen. It's also sent as part of
+     * the usage snooping.
+     */
+    private static int debugFPS;
 
     /**
      * When you place a block, it's set to 6, decremented once per tick, when it's 0, you can place another block.
      */
     private int rightClickDelayTimer = 0;
-    private boolean field_71468_ad;
+
+    /**
+     * Checked in Minecraft's while(running) loop, if true it's set to false and the textures refreshed.
+     */
+    private boolean refreshTexturePacksScheduled;
 
     /** Stat file writer */
     public StatFileWriter statFileWriter;
@@ -357,7 +366,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
             Display.setDisplayMode(new DisplayMode(this.displayWidth, this.displayHeight));
         }
 
-        Display.setTitle("Minecraft Minecraft 1.3.1");
+        Display.setTitle("Minecraft Minecraft 1.3.2");
         System.out.println("LWJGL Version: " + Sys.getVersion());
 
         try
@@ -540,7 +549,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         String var1 = System.getProperty("user.home", ".");
         File var2;
 
-        switch (EnumOSHelper.field_74533_a[getOs().ordinal()])
+        switch (EnumOSHelper.enumOSMappingHelperArray[getOs().ordinal()])
         {
             case 1:
             case 2:
@@ -726,7 +735,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         catch (Exception var11)
         {
             var11.printStackTrace();
-            this.displayCrashReport(this.func_71396_d(new CrashReport("Failed to start game", var11)));
+            this.displayCrashReport(this.addGraphicsAndWorldToCrashReport(new CrashReport("Failed to start game", var11)));
             return;
         }
 
@@ -740,9 +749,9 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
                     return;
                 }
 
-                if (this.field_71468_ad)
+                if (this.refreshTexturePacksScheduled)
                 {
-                    this.field_71468_ad = false;
+                    this.refreshTexturePacksScheduled = false;
                     this.renderEngine.refreshTextures();
                 }
 
@@ -764,14 +773,14 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         }
         catch (ReportedException var13)
         {
-            this.func_71396_d(var13.getTheReportedExceptionCrashReport());
+            this.addGraphicsAndWorldToCrashReport(var13.getTheReportedExceptionCrashReport());
             this.freeMemory();
             var13.printStackTrace();
             this.displayCrashReport(var13.getTheReportedExceptionCrashReport());
         }
         catch (Throwable var14)
         {
-            CrashReport var2 = this.func_71396_d(new CrashReport("Unexpected error", var14));
+            CrashReport var2 = this.addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", var14));
             this.freeMemory();
             var14.printStackTrace();
             this.displayCrashReport(var2);
@@ -866,7 +875,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
                 this.toggleFullscreen();
             }
 
-            if (this.gameSettings.showDebugInfo && this.gameSettings.field_74329_Q)
+            if (this.gameSettings.showDebugInfo && this.gameSettings.showDebugProfilerChart)
             {
                 if (!this.mcProfiler.profilingEnabled)
                 {
@@ -914,7 +923,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
             this.checkGLError("Post render");
             ++this.fpsCounter;
             boolean var5 = this.isGamePaused;
-            this.isGamePaused = this.isSingleplayer() && this.currentScreen != null && this.currentScreen.doesGuiPauseGame() && !this.theIntegratedServer.getIsIntergatedServerPublic();
+            this.isGamePaused = this.isSingleplayer() && this.currentScreen != null && this.currentScreen.doesGuiPauseGame() && !this.theIntegratedServer.getPublic();
 
             if (this.isIntegratedServerRunning() && this.thePlayer != null && this.thePlayer.sendQueue != null && this.isGamePaused != var5)
             {
@@ -923,8 +932,8 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
 
             while (getSystemTime() >= this.debugUpdateTime + 1000L)
             {
-                field_71470_ab = this.fpsCounter;
-                this.debug = field_71470_ab + " fps, " + WorldRenderer.chunksUpdated + " chunk updates";
+                debugFPS = this.fpsCounter;
+                this.debug = debugFPS + " fps, " + WorldRenderer.chunksUpdated + " chunk updates";
                 WorldRenderer.chunksUpdated = 0;
                 this.debugUpdateTime += 1000L;
                 this.fpsCounter = 0;
@@ -950,7 +959,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
     {
         try
         {
-            memoryReserve = new byte[0];
+            clientExperience = new byte[0];
             this.renderGlobal.func_72728_f();
         }
         catch (Throwable var4)
@@ -1589,7 +1598,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
                             if (Keyboard.getEventKey() == 61)
                             {
                                 this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
-                                this.gameSettings.field_74329_Q = !GuiScreen.isShiftKeyDown();
+                                this.gameSettings.showDebugProfilerChart = !GuiScreen.isShiftKeyDown();
                             }
 
                             if (Keyboard.getEventKey() == 63)
@@ -1618,7 +1627,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
                             }
                         }
 
-                        if (this.gameSettings.showDebugInfo && this.gameSettings.field_74329_Q)
+                        if (this.gameSettings.showDebugInfo && this.gameSettings.showDebugProfilerChart)
                         {
                             if (Keyboard.getEventKey() == 11)
                             {
@@ -1654,7 +1663,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
                 this.displayGuiScreen(new GuiChat());
             }
 
-            if (this.currentScreen == null && this.gameSettings.field_74323_J.isPressed() && var4)
+            if (this.currentScreen == null && this.gameSettings.keyBindCommand.isPressed() && var4)
             {
                 this.displayGuiScreen(new GuiChat("/"));
             }
@@ -1855,7 +1864,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         }
         catch (IOException var8)
         {
-            this.displayCrashReport(this.func_71396_d(new CrashReport("Connecting to integrated server", var8)));
+            this.displayCrashReport(this.addGraphicsAndWorldToCrashReport(new CrashReport("Connecting to integrated server", var8)));
         }
     }
 
@@ -1890,7 +1899,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
 
             if (this.theIntegratedServer != null)
             {
-                this.theIntegratedServer.initiateShutdown();
+                this.theIntegratedServer.setServerStopping();
             }
 
             this.theIntegratedServer = null;
@@ -1907,9 +1916,9 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
 
         if (par1WorldClient == null && this.theWorld != null)
         {
-            if (this.texturePackList.func_77295_a())
+            if (this.texturePackList.getIsDownloading())
             {
-                this.texturePackList.func_77304_b();
+                this.texturePackList.onDownloadFinished();
             }
 
             this.setServerData((ServerData)null);
@@ -1940,7 +1949,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
             this.thePlayer.preparePlayerToSpawn();
             par1WorldClient.spawnEntityInWorld(this.thePlayer);
             this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
-            this.playerController.func_78748_a(this.thePlayer);
+            this.playerController.setPlayerCapabilities(this.thePlayer);
             this.renderViewEntity = this.thePlayer;
         }
         else
@@ -2032,7 +2041,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         this.playerController.flipPlayer(this.thePlayer);
         this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
         this.thePlayer.entityId = var2;
-        this.playerController.func_78748_a(this.thePlayer);
+        this.playerController.setPlayerCapabilities(this.thePlayer);
 
         if (this.currentScreen instanceof GuiGameOver)
         {
@@ -2272,7 +2281,10 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         }
     }
 
-    public CrashReport func_71396_d(CrashReport par1CrashReport)
+    /**
+     * adds core server Info (GL version , Texture pack, isModded, type), and the worldInfo to the crash report
+     */
+    public CrashReport addGraphicsAndWorldToCrashReport(CrashReport par1CrashReport)
     {
         par1CrashReport.addCrashSectionCallable("LWJGL", new CallableLWJGLVersion(this));
         par1CrashReport.addCrashSectionCallable("OpenGL", new CallableGLInfo(this));
@@ -2297,19 +2309,28 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         return theMinecraft;
     }
 
-    public void func_71395_y()
+    /**
+     * Sets refreshTexturePacksScheduled to true, triggering a texture pack refresh next time the while(running) loop is
+     * run
+     */
+    public void scheduleTexturePackRefresh()
     {
-        this.field_71468_ad = true;
+        this.refreshTexturePacksScheduled = true;
     }
 
     public void addServerStatsToSnooper(PlayerUsageSnooper par1PlayerUsageSnooper)
     {
-        par1PlayerUsageSnooper.addData("fps", Integer.valueOf(field_71470_ab));
+        par1PlayerUsageSnooper.addData("fps", Integer.valueOf(debugFPS));
         par1PlayerUsageSnooper.addData("texpack_name", this.texturePackList.getSelectedTexturePack().getTexturePackFileName());
-        par1PlayerUsageSnooper.addData("texpack_resolution", Integer.valueOf(this.texturePackList.getSelectedTexturePack().func_77534_f()));
+        par1PlayerUsageSnooper.addData("texpack_resolution", Integer.valueOf(this.texturePackList.getSelectedTexturePack().getTexturePackResolution()));
         par1PlayerUsageSnooper.addData("vsync_enabled", Boolean.valueOf(this.gameSettings.enableVsync));
         par1PlayerUsageSnooper.addData("display_frequency", Integer.valueOf(Display.getDisplayMode().getFrequency()));
         par1PlayerUsageSnooper.addData("display_type", this.fullscreen ? "fullscreen" : "windowed");
+
+        if (this.theIntegratedServer != null && this.theIntegratedServer.getPlayerUsageSnooper() != null)
+        {
+            par1PlayerUsageSnooper.addData("snooper_partner", this.theIntegratedServer.getPlayerUsageSnooper().getUniqueID());
+        }
     }
 
     public void addServerTypeToSnooper(PlayerUsageSnooper par1PlayerUsageSnooper)
@@ -2334,10 +2355,13 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         par1PlayerUsageSnooper.addData("gl_caps[ARB_pixel_buffer_object]", Boolean.valueOf(var2.GL_ARB_pixel_buffer_object));
         par1PlayerUsageSnooper.addData("gl_caps[ARB_uniform_buffer_object]", Boolean.valueOf(var2.GL_ARB_uniform_buffer_object));
         par1PlayerUsageSnooper.addData("gl_caps[ARB_texture_non_power_of_two]", Boolean.valueOf(var2.GL_ARB_texture_non_power_of_two));
-        par1PlayerUsageSnooper.addData("gl_max_texture_size", Integer.valueOf(func_71369_N()));
+        par1PlayerUsageSnooper.addData("gl_max_texture_size", Integer.valueOf(getGLMaximumTextureSize()));
     }
 
-    private static int func_71369_N()
+    /**
+     * Used in the usage snooper.
+     */
+    private static int getGLMaximumTextureSize()
     {
         for (int var0 = 16384; var0 > 0; var0 >>= 1)
         {

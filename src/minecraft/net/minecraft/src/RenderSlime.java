@@ -12,7 +12,10 @@ public class RenderSlime extends RenderLiving
         this.scaleAmount = par2ModelBase;
     }
 
-    protected int func_77090_a(EntitySlime par1EntitySlime, int par2, float par3)
+    /**
+     * Determines whether Slime Render should pass or not.
+     */
+    protected int shouldSlimeRenderPass(EntitySlime par1EntitySlime, int par2, float par3)
     {
         if (par2 == 0)
         {
@@ -59,6 +62,6 @@ public class RenderSlime extends RenderLiving
      */
     protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3)
     {
-        return this.func_77090_a((EntitySlime)par1EntityLiving, par2, par3);
+        return this.shouldSlimeRenderPass((EntitySlime)par1EntityLiving, par2, par3);
     }
 }

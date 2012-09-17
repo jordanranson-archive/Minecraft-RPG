@@ -38,7 +38,7 @@ class PlayerInstance
         else
         {
             this.playersInChunk.add(par1EntityPlayerMP);
-            par1EntityPlayerMP.loadedChunks.add(this.chunkLocation);
+            par1EntityPlayerMP.chunksToLoad.add(this.chunkLocation);
         }
     }
 
@@ -46,9 +46,9 @@ class PlayerInstance
     {
         if (this.playersInChunk.contains(par1EntityPlayerMP))
         {
-            par1EntityPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet51MapChunk(PlayerManager.getWorldServer(this.myManager).getChunkFromChunkCoords(this.chunkLocation.chunkXPos, this.chunkLocation.chunkZPos), true, 0));
+            par1EntityPlayerMP.serverForThisPlayer.sendPacketToPlayer(new Packet51MapChunk(PlayerManager.getWorldServer(this.myManager).getChunkFromChunkCoords(this.chunkLocation.chunkXPos, this.chunkLocation.chunkZPos), true, 0));
             this.playersInChunk.remove(par1EntityPlayerMP);
-            par1EntityPlayerMP.loadedChunks.remove(this.chunkLocation);
+            par1EntityPlayerMP.chunksToLoad.remove(this.chunkLocation);
 
             if (this.playersInChunk.isEmpty())
             {
@@ -98,9 +98,9 @@ class PlayerInstance
         {
             EntityPlayerMP var3 = (EntityPlayerMP)var2.next();
 
-            if (!var3.loadedChunks.contains(this.chunkLocation))
+            if (!var3.chunksToLoad.contains(this.chunkLocation))
             {
-                var3.playerNetServerHandler.sendPacketToPlayer(par1Packet);
+                var3.serverForThisPlayer.sendPacketToPlayer(par1Packet);
             }
         }
     }
@@ -178,7 +178,7 @@ class PlayerInstance
     {
         if (par1TileEntity != null)
         {
-            Packet var2 = par1TileEntity.getDescriptionPacket();
+            Packet var2 = par1TileEntity.getAuxillaryInfoPacket();
 
             if (var2 != null)
             {

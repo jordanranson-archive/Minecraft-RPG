@@ -3,14 +3,18 @@ package net.minecraft.src;
 public class ItemSlab extends ItemBlock
 {
     private final boolean field_77891_a;
-    private final BlockHalfSlab field_77889_b;
-    private final BlockHalfSlab field_77890_c;
+
+    /** Instance of BlockHalfSlab. */
+    private final BlockHalfSlab theHalfSlab;
+
+    /** Instance of BlockHalfSlab. */
+    private final BlockHalfSlab theHalfSlab2;
 
     public ItemSlab(int par1, BlockHalfSlab par2BlockHalfSlab, BlockHalfSlab par3BlockHalfSlab, boolean par4)
     {
         super(par1);
-        this.field_77889_b = par2BlockHalfSlab;
-        this.field_77890_c = par3BlockHalfSlab;
+        this.theHalfSlab = par2BlockHalfSlab;
+        this.theHalfSlab2 = par3BlockHalfSlab;
         this.field_77891_a = par4;
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
@@ -34,18 +38,14 @@ public class ItemSlab extends ItemBlock
 
     public String getItemNameIS(ItemStack par1ItemStack)
     {
-        return this.field_77889_b.getFullSlabName(par1ItemStack.getItemDamage());
+        return this.theHalfSlab.getFullSlabName(par1ItemStack.getItemDamage());
     }
 
-    /**
-     * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
-     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
-     */
-    public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+    public boolean tryPlaceIntoWorld(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
         if (this.field_77891_a)
         {
-            return super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+            return super.tryPlaceIntoWorld(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
         }
         else if (par1ItemStack.stackSize == 0)
         {
@@ -62,11 +62,11 @@ public class ItemSlab extends ItemBlock
             int var13 = var12 & 7;
             boolean var14 = (var12 & 8) != 0;
 
-            if ((par7 == 1 && !var14 || par7 == 0 && var14) && var11 == this.field_77889_b.blockID && var13 == par1ItemStack.getItemDamage())
+            if ((par7 == 1 && !var14 || par7 == 0 && var14) && var11 == this.theHalfSlab.blockID && var13 == par1ItemStack.getItemDamage())
             {
-                if (par3World.checkIfAABBIsClear(this.field_77890_c.getCollisionBoundingBoxFromPool(par3World, par4, par5, par6)) && par3World.setBlockAndMetadataWithNotify(par4, par5, par6, this.field_77890_c.blockID, var13))
+                if (par3World.checkIfAABBIsClear(this.theHalfSlab2.getCollisionBoundingBoxFromPool(par3World, par4, par5, par6)) && par3World.setBlockAndMetadataWithNotify(par4, par5, par6, this.theHalfSlab2.blockID, var13))
                 {
-                    par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), this.field_77890_c.stepSound.getStepSound(), (this.field_77890_c.stepSound.getVolume() + 1.0F) / 2.0F, this.field_77890_c.stepSound.getPitch() * 0.8F);
+                    par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), this.theHalfSlab2.stepSound.getStepSound(), (this.theHalfSlab2.stepSound.getVolume() + 1.0F) / 2.0F, this.theHalfSlab2.stepSound.getPitch() * 0.8F);
                     --par1ItemStack.stackSize;
                 }
 
@@ -74,7 +74,7 @@ public class ItemSlab extends ItemBlock
             }
             else
             {
-                return this.func_77888_a(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7) ? true : super.onItemUse(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
+                return this.func_77888_a(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7) ? true : super.tryPlaceIntoWorld(par1ItemStack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
             }
         }
     }
@@ -92,7 +92,7 @@ public class ItemSlab extends ItemBlock
         int var13 = var12 & 7;
         boolean var14 = (var12 & 8) != 0;
 
-        if ((par5 == 1 && !var14 || par5 == 0 && var14) && var11 == this.field_77889_b.blockID && var13 == par7ItemStack.getItemDamage())
+        if ((par5 == 1 && !var14 || par5 == 0 && var14) && var11 == this.theHalfSlab.blockID && var13 == par7ItemStack.getItemDamage())
         {
             return true;
         }
@@ -132,7 +132,7 @@ public class ItemSlab extends ItemBlock
             var12 = par1World.getBlockMetadata(par2, par3, par4);
             var13 = var12 & 7;
             var14 = (var12 & 8) != 0;
-            return var11 == this.field_77889_b.blockID && var13 == par7ItemStack.getItemDamage() ? true : super.canPlaceItemBlockOnSide(par1World, var8, var9, var10, par5, par6EntityPlayer, par7ItemStack);
+            return var11 == this.theHalfSlab.blockID && var13 == par7ItemStack.getItemDamage() ? true : super.canPlaceItemBlockOnSide(par1World, var8, var9, var10, par5, par6EntityPlayer, par7ItemStack);
         }
     }
 
@@ -172,11 +172,11 @@ public class ItemSlab extends ItemBlock
         int var9 = par3World.getBlockMetadata(par4, par5, par6);
         int var10 = var9 & 7;
 
-        if (var8 == this.field_77889_b.blockID && var10 == par1ItemStack.getItemDamage())
+        if (var8 == this.theHalfSlab.blockID && var10 == par1ItemStack.getItemDamage())
         {
-            if (par3World.checkIfAABBIsClear(this.field_77890_c.getCollisionBoundingBoxFromPool(par3World, par4, par5, par6)) && par3World.setBlockAndMetadataWithNotify(par4, par5, par6, this.field_77890_c.blockID, var10))
+            if (par3World.checkIfAABBIsClear(this.theHalfSlab2.getCollisionBoundingBoxFromPool(par3World, par4, par5, par6)) && par3World.setBlockAndMetadataWithNotify(par4, par5, par6, this.theHalfSlab2.blockID, var10))
             {
-                par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), this.field_77890_c.stepSound.getStepSound(), (this.field_77890_c.stepSound.getVolume() + 1.0F) / 2.0F, this.field_77890_c.stepSound.getPitch() * 0.8F);
+                par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), this.theHalfSlab2.stepSound.getStepSound(), (this.theHalfSlab2.stepSound.getVolume() + 1.0F) / 2.0F, this.theHalfSlab2.stepSound.getPitch() * 0.8F);
                 --par1ItemStack.stackSize;
             }
 

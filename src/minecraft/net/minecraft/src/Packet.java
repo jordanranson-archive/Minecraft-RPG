@@ -25,10 +25,10 @@ public abstract class Packet
 
     /** the system time in milliseconds when this packet was created. */
     public final long creationTimeMillis = System.currentTimeMillis();
-    public static long receivedID;
-    public static long receivedSize;
+    public static long recievedID;
+    public static long recievedSize;
 
-    /** Assumed to be sequential by the profiler. */
+    /** assumed to be sequential by the profiler */
     public static long sentID;
     public static long sentSize;
 
@@ -153,8 +153,8 @@ public abstract class Packet
             }
 
             var3.readPacketData(par0DataInputStream);
-            ++receivedID;
-            receivedSize += (long)var3.getPacketSize();
+            ++recievedID;
+            recievedSize += (long)var3.getPacketSize();
         }
         catch (EOFException var5)
         {
@@ -163,8 +163,8 @@ public abstract class Packet
         }
 
         PacketCount.countPacket(var6, (long)var3.getPacketSize());
-        ++receivedID;
-        receivedSize += (long)var3.getPacketSize();
+        ++recievedID;
+        recievedSize += (long)var3.getPacketSize();
         return var3;
     }
 

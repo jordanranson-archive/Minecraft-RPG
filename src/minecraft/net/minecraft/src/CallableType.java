@@ -12,13 +12,13 @@ class CallableType implements Callable
         this.minecraftServerType = par1DedicatedServer;
     }
 
-    public String func_71742_a()
+    public String getType()
     {
         return "Dedicated Server";
     }
 
     public Object call()
     {
-        return this.func_71742_a();
+        return this.getType();
     }
 }

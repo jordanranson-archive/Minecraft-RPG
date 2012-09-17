@@ -260,6 +260,7 @@ public class EntityItem extends Entity
                     par1EntityPlayer.triggerAchievement(AchievementList.blazeRod);
                 }
 
+                ModLoader.onItemPickup(par1EntityPlayer, this.item);
                 this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 par1EntityPlayer.onItemPickup(this, var2);
 

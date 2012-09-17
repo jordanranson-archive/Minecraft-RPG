@@ -14,7 +14,7 @@ public class SaveFormatComparator implements Comparable
     /** Instance of EnumGameType. */
     private final EnumGameType theEnumGameType;
     private final boolean hardcore;
-    private final boolean field_75798_h;
+    private final boolean cheatsEnabled;
 
     public SaveFormatComparator(String par1Str, String par2Str, long par3, long par5, EnumGameType par7EnumGameType, boolean par8, boolean par9, boolean par10)
     {
@@ -25,7 +25,7 @@ public class SaveFormatComparator implements Comparable
         this.theEnumGameType = par7EnumGameType;
         this.requiresConversion = par8;
         this.hardcore = par9;
-        this.field_75798_h = par10;
+        this.cheatsEnabled = par10;
     }
 
     /**
@@ -72,9 +72,12 @@ public class SaveFormatComparator implements Comparable
         return this.hardcore;
     }
 
-    public boolean func_75783_h()
+    /**
+     * @return {@code true} if cheats are enabled for this world
+     */
+    public boolean getCheatsEnabled()
     {
-        return this.field_75798_h;
+        return this.cheatsEnabled;
     }
 
     public int compareTo(Object par1Obj)

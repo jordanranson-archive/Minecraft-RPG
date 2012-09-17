@@ -11,8 +11,11 @@ import net.minecraft.server.MinecraftServer;
 
 public class CommandDebug extends CommandBase
 {
-    private long field_71551_a = 0L;
-    private int field_71550_b = 0;
+    /** Time the debugging started in milliseconds. */
+    private long startTime = 0L;
+
+    /** The number of ticks when debugging started. */
+    private int startTicks = 0;
 
     public String getCommandName()
     {
@@ -27,8 +30,8 @@ public class CommandDebug extends CommandBase
             {
                 notifyAdmins(par1ICommandSender, "commands.debug.start", new Object[0]);
                 MinecraftServer.getServer().enableProfiling();
-                this.field_71551_a = System.currentTimeMillis();
-                this.field_71550_b = MinecraftServer.getServer().getTickCounter();
+                this.startTime = System.currentTimeMillis();
+                this.startTicks = MinecraftServer.getServer().getTickCounter();
                 return;
             }
 
@@ -41,9 +44,9 @@ public class CommandDebug extends CommandBase
 
                 long var3 = System.currentTimeMillis();
                 int var5 = MinecraftServer.getServer().getTickCounter();
-                long var6 = var3 - this.field_71551_a;
-                int var8 = var5 - this.field_71550_b;
-                this.func_71548_a(var6, var8);
+                long var6 = var3 - this.startTime;
+                int var8 = var5 - this.startTicks;
+                this.saveProfilerResults(var6, var8);
                 MinecraftServer.getServer().theProfiler.profilingEnabled = false;
                 notifyAdmins(par1ICommandSender, "commands.debug.stop", new Object[] {Float.valueOf((float)var6 / 1000.0F), Integer.valueOf(var8)});
                 return;
@@ -53,7 +56,7 @@ public class CommandDebug extends CommandBase
         throw new WrongUsageException("commands.debug.usage", new Object[0]);
     }
 
-    private void func_71548_a(long par1, int par3)
+    private void saveProfilerResults(long par1, int par3)
     {
         File var4 = new File(MinecraftServer.getServer().getFile("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
         var4.getParentFile().mkdirs();
@@ -61,7 +64,7 @@ public class CommandDebug extends CommandBase
         try
         {
             FileWriter var5 = new FileWriter(var4);
-            var5.write(this.func_71547_b(par1, par3));
+            var5.write(this.getProfilerResults(par1, par3));
             var5.close();
         }
         catch (Throwable var6)
@@ -70,7 +73,7 @@ public class CommandDebug extends CommandBase
         }
     }
 
-    private String func_71547_b(long par1, int par3)
+    private String getProfilerResults(long par1, int par3)
     {
         StringBuilder var4 = new StringBuilder();
         var4.append("---- Minecraft Profiler Results ----\n");
@@ -81,12 +84,12 @@ public class CommandDebug extends CommandBase
         var4.append("Tick span: ").append(par3).append(" ticks\n");
         var4.append("// This is approximately ").append(String.format("%.2f", new Object[] {Float.valueOf((float)par3 / ((float)par1 / 1000.0F))})).append(" ticks per second. It should be ").append(20).append(" ticks per second\n\n");
         var4.append("--- BEGIN PROFILE DUMP ---\n\n");
-        this.func_71546_a(0, "root", var4);
+        this.getProfileDump(0, "root", var4);
         var4.append("--- END PROFILE DUMP ---\n\n");
         return var4.toString();
     }
 
-    private void func_71546_a(int par1, String par2Str, StringBuilder par3StringBuilder)
+    private void getProfileDump(int par1, String par2Str, StringBuilder par3StringBuilder)
     {
         List var4 = MinecraftServer.getServer().theProfiler.getProfilingData(par2Str);
 
@@ -113,7 +116,7 @@ public class CommandDebug extends CommandBase
                 {
                     try
                     {
-                        this.func_71546_a(par1 + 1, par2Str + "." + var6.field_76331_c, par3StringBuilder);
+                        this.getProfileDump(par1 + 1, par2Str + "." + var6.field_76331_c, par3StringBuilder);
                     }
                     catch (Exception var8)
                     {

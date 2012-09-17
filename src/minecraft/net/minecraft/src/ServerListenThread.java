@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class ServerListenThread extends Thread
 {
-    private static Logger logger = Logger.getLogger("Minecraft");
+    private static Logger minecraftLogger = Logger.getLogger("Minecraft");
     private final List pendingConnections = Collections.synchronizedList(new ArrayList());
     private final HashMap field_71776_c = new HashMap();
     private int connectionCounter = 0;
@@ -49,7 +49,7 @@ public class ServerListenThread extends Thread
                 catch (Exception var6)
                 {
                     var3.raiseErrorAndDisconnect("Internal server error");
-                    logger.log(Level.WARNING, "Failed to handle packet: " + var6, var6);
+                    minecraftLogger.log(Level.WARNING, "Failed to handle packet: " + var6, var6);
                 }
 
                 if (var3.connectionComplete)
@@ -149,7 +149,7 @@ public class ServerListenThread extends Thread
         return this.myServerAddress;
     }
 
-    public int func_71765_d()
+    public int getMyPort()
     {
         return this.myPort;
     }

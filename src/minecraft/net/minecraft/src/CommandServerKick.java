@@ -35,7 +35,7 @@ public class CommandServerKick extends CommandBase
                     var5 = true;
                 }
 
-                var3.playerNetServerHandler.kickPlayerFromServer(var4);
+                var3.serverForThisPlayer.kickPlayerFromServer(var4);
 
                 if (var5)
                 {

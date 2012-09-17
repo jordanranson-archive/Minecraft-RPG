@@ -51,7 +51,7 @@ public class Packet203AutoComplete extends Packet
         return 2 + this.text.length() * 2;
     }
 
-    public String func_73473_d()
+    public String getText()
     {
         return this.text;
     }

@@ -71,7 +71,10 @@ public class VillageCollection
         }
     }
 
-    public List func_75540_b()
+    /**
+     * Get a list of villages.
+     */
+    public List getVillageList()
     {
         return this.villageList;
     }

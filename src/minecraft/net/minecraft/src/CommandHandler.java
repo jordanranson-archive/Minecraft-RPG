@@ -104,7 +104,7 @@ public class CommandHandler implements ICommandManager
     }
 
     /**
-     * Performs a "begins with" string match on each token in par2. Only returns commands that par1 can use.
+     * does a "begins with" string match on each token in par2. Only returns commands that par1 can use.
      */
     public List getPossibleCommands(ICommandSender par1ICommandSender, String par2Str)
     {

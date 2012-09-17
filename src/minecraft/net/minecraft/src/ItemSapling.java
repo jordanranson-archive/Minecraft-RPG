@@ -29,11 +29,11 @@ public class ItemSapling extends ItemBlock
     {
         int var2 = par1ItemStack.getItemDamage();
 
-        if (var2 < 0 || var2 >= BlockSapling.field_72270_a.length)
+        if (var2 < 0 || var2 >= BlockSapling.WOOD_TYPES.length)
         {
             var2 = 0;
         }
 
-        return super.getItemName() + "." + BlockSapling.field_72270_a[var2];
+        return super.getItemName() + "." + BlockSapling.WOOD_TYPES[var2];
     }
 }

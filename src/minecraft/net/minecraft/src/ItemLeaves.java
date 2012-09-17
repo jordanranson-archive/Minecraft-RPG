@@ -34,11 +34,11 @@ public class ItemLeaves extends ItemBlock
     {
         int var2 = par1ItemStack.getItemDamage();
 
-        if (var2 < 0 || var2 >= BlockLeaves.field_72136_a.length)
+        if (var2 < 0 || var2 >= BlockLeaves.LEAF_TYPES.length)
         {
             var2 = 0;
         }
 
-        return super.getItemName() + "." + BlockLeaves.field_72136_a[var2];
+        return super.getItemName() + "." + BlockLeaves.LEAF_TYPES[var2];
     }
 }

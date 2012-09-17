@@ -11,13 +11,16 @@ public class CommandToggleDownfall extends CommandBase
 
     public void processCommand(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
-        this.func_71554_c();
+        this.reallyToggleDownfall();
         notifyAdmins(par1ICommandSender, "commands.downfall.success", new Object[0]);
     }
 
-    protected void func_71554_c()
+    /**
+     * Toggle rain and enable thundering.
+     */
+    protected void reallyToggleDownfall()
     {
-        MinecraftServer.getServer().worldServers[0].toggleRain();
-        MinecraftServer.getServer().worldServers[0].getWorldInfo().setThundering(true);
+        MinecraftServer.getServer().theWorldServer[0].toggleRain();
+        MinecraftServer.getServer().theWorldServer[0].getWorldInfo().setThundering(true);
     }
 }

@@ -2,35 +2,36 @@ package net.minecraft.src;
 
 public class EntityBodyHelper
 {
-    private EntityLiving field_75668_a;
+    /** Instance of EntityLiving. */
+    private EntityLiving theLiving;
     private int field_75666_b = 0;
     private float field_75667_c = 0.0F;
 
     public EntityBodyHelper(EntityLiving par1EntityLiving)
     {
-        this.field_75668_a = par1EntityLiving;
+        this.theLiving = par1EntityLiving;
     }
 
     public void func_75664_a()
     {
-        double var1 = this.field_75668_a.posX - this.field_75668_a.prevPosX;
-        double var3 = this.field_75668_a.posZ - this.field_75668_a.prevPosZ;
+        double var1 = this.theLiving.posX - this.theLiving.prevPosX;
+        double var3 = this.theLiving.posZ - this.theLiving.prevPosZ;
 
         if (var1 * var1 + var3 * var3 > 2.500000277905201E-7D)
         {
-            this.field_75668_a.renderYawOffset = this.field_75668_a.rotationYaw;
-            this.field_75668_a.rotationYawHead = this.func_75665_a(this.field_75668_a.renderYawOffset, this.field_75668_a.rotationYawHead, 75.0F);
-            this.field_75667_c = this.field_75668_a.rotationYawHead;
+            this.theLiving.renderYawOffset = this.theLiving.rotationYaw;
+            this.theLiving.rotationYawHead = this.func_75665_a(this.theLiving.renderYawOffset, this.theLiving.rotationYawHead, 75.0F);
+            this.field_75667_c = this.theLiving.rotationYawHead;
             this.field_75666_b = 0;
         }
         else
         {
             float var5 = 75.0F;
 
-            if (Math.abs(this.field_75668_a.rotationYawHead - this.field_75667_c) > 15.0F)
+            if (Math.abs(this.theLiving.rotationYawHead - this.field_75667_c) > 15.0F)
             {
                 this.field_75666_b = 0;
-                this.field_75667_c = this.field_75668_a.rotationYawHead;
+                this.field_75667_c = this.theLiving.rotationYawHead;
             }
             else
             {
@@ -42,7 +43,7 @@ public class EntityBodyHelper
                 }
             }
 
-            this.field_75668_a.renderYawOffset = this.func_75665_a(this.field_75668_a.rotationYawHead, this.field_75668_a.renderYawOffset, var5);
+            this.theLiving.renderYawOffset = this.func_75665_a(this.theLiving.rotationYawHead, this.theLiving.renderYawOffset, var5);
         }
     }
 

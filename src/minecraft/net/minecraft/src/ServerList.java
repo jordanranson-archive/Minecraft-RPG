@@ -110,6 +110,7 @@ public class ServerList
         ServerData var3 = this.getServerData(par1);
         this.servers.set(par1, this.getServerData(par2));
         this.servers.set(par2, var3);
+        this.saveServerList();
     }
 
     /**

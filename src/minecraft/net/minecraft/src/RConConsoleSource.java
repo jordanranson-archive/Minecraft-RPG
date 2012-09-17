@@ -6,10 +6,7 @@ public class RConConsoleSource implements ICommandSender
     public static final RConConsoleSource consoleBuffer = new RConConsoleSource();
     private StringBuffer chatBuffer = new StringBuffer();
 
-    /**
-     * Clears the RCon log
-     */
-    public void resetLog()
+    public void clearChatBuffer()
     {
         this.chatBuffer.setLength(0);
     }

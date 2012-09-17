@@ -2,11 +2,12 @@ package net.minecraft.src;
 
 public class DerivedWorldInfo extends WorldInfo
 {
-    private final WorldInfo field_76115_a;
+    /** Instance of WorldInfo. */
+    private final WorldInfo theWorldInfo;
 
     public DerivedWorldInfo(WorldInfo par1WorldInfo)
     {
-        this.field_76115_a = par1WorldInfo;
+        this.theWorldInfo = par1WorldInfo;
     }
 
     /**
@@ -14,7 +15,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public NBTTagCompound getNBTTagCompound()
     {
-        return this.field_76115_a.getNBTTagCompound();
+        return this.theWorldInfo.getNBTTagCompound();
     }
 
     /**
@@ -22,7 +23,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public NBTTagCompound cloneNBTCompound(NBTTagCompound par1NBTTagCompound)
     {
-        return this.field_76115_a.cloneNBTCompound(par1NBTTagCompound);
+        return this.theWorldInfo.cloneNBTCompound(par1NBTTagCompound);
     }
 
     /**
@@ -30,7 +31,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public long getSeed()
     {
-        return this.field_76115_a.getSeed();
+        return this.theWorldInfo.getSeed();
     }
 
     /**
@@ -38,7 +39,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSpawnX()
     {
-        return this.field_76115_a.getSpawnX();
+        return this.theWorldInfo.getSpawnX();
     }
 
     /**
@@ -46,7 +47,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSpawnY()
     {
-        return this.field_76115_a.getSpawnY();
+        return this.theWorldInfo.getSpawnY();
     }
 
     /**
@@ -54,7 +55,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSpawnZ()
     {
-        return this.field_76115_a.getSpawnZ();
+        return this.theWorldInfo.getSpawnZ();
     }
 
     /**
@@ -62,12 +63,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public long getWorldTime()
     {
-        return this.field_76115_a.getWorldTime();
+        return this.theWorldInfo.getWorldTime();
     }
 
     public long getSizeOnDisk()
     {
-        return this.field_76115_a.getSizeOnDisk();
+        return this.theWorldInfo.getSizeOnDisk();
     }
 
     /**
@@ -75,12 +76,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public NBTTagCompound getPlayerNBTTagCompound()
     {
-        return this.field_76115_a.getPlayerNBTTagCompound();
+        return this.theWorldInfo.getPlayerNBTTagCompound();
     }
 
     public int getDimension()
     {
-        return this.field_76115_a.getDimension();
+        return this.theWorldInfo.getDimension();
     }
 
     /**
@@ -88,7 +89,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public String getWorldName()
     {
-        return this.field_76115_a.getWorldName();
+        return this.theWorldInfo.getWorldName();
     }
 
     /**
@@ -96,7 +97,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getSaveVersion()
     {
-        return this.field_76115_a.getSaveVersion();
+        return this.theWorldInfo.getSaveVersion();
     }
 
     /**
@@ -104,7 +105,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public long getLastTimePlayed()
     {
-        return this.field_76115_a.getLastTimePlayed();
+        return this.theWorldInfo.getLastTimePlayed();
     }
 
     /**
@@ -112,7 +113,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isThundering()
     {
-        return this.field_76115_a.isThundering();
+        return this.theWorldInfo.isThundering();
     }
 
     /**
@@ -120,7 +121,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getThunderTime()
     {
-        return this.field_76115_a.getThunderTime();
+        return this.theWorldInfo.getThunderTime();
     }
 
     /**
@@ -128,7 +129,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isRaining()
     {
-        return this.field_76115_a.isRaining();
+        return this.theWorldInfo.isRaining();
     }
 
     /**
@@ -136,7 +137,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public int getRainTime()
     {
-        return this.field_76115_a.getRainTime();
+        return this.theWorldInfo.getRainTime();
     }
 
     /**
@@ -144,7 +145,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public EnumGameType getGameType()
     {
-        return this.field_76115_a.getGameType();
+        return this.theWorldInfo.getGameType();
     }
 
     /**
@@ -204,7 +205,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isMapFeaturesEnabled()
     {
-        return this.field_76115_a.isMapFeaturesEnabled();
+        return this.theWorldInfo.isMapFeaturesEnabled();
     }
 
     /**
@@ -212,12 +213,12 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isHardcoreModeEnabled()
     {
-        return this.field_76115_a.isHardcoreModeEnabled();
+        return this.theWorldInfo.isHardcoreModeEnabled();
     }
 
     public WorldType getTerrainType()
     {
-        return this.field_76115_a.getTerrainType();
+        return this.theWorldInfo.getTerrainType();
     }
 
     public void setTerrainType(WorldType par1WorldType) {}
@@ -227,7 +228,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean areCommandsAllowed()
     {
-        return this.field_76115_a.areCommandsAllowed();
+        return this.theWorldInfo.areCommandsAllowed();
     }
 
     /**
@@ -235,7 +236,7 @@ public class DerivedWorldInfo extends WorldInfo
      */
     public boolean isInitialized()
     {
-        return this.field_76115_a.isInitialized();
+        return this.theWorldInfo.isInitialized();
     }
 
     /**

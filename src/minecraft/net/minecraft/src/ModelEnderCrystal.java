@@ -4,17 +4,22 @@ import org.lwjgl.opengl.GL11;
 
 public class ModelEnderCrystal extends ModelBase
 {
-    private ModelRenderer field_78230_a;
-    private ModelRenderer field_78228_b = new ModelRenderer(this, "glass");
-    private ModelRenderer field_78229_c;
+    /** The cube model for the Ender Crystal. */
+    private ModelRenderer cube;
+
+    /** The glass model for the Ender Crystal. */
+    private ModelRenderer glass = new ModelRenderer(this, "glass");
+
+    /** The base model for the Ender Crystal. */
+    private ModelRenderer base;
 
     public ModelEnderCrystal(float par1)
     {
-        this.field_78228_b.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
-        this.field_78230_a = new ModelRenderer(this, "cube");
-        this.field_78230_a.setTextureOffset(32, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
-        this.field_78229_c = new ModelRenderer(this, "base");
-        this.field_78229_c.setTextureOffset(0, 16).addBox(-6.0F, 0.0F, -6.0F, 12, 4, 12);
+        this.glass.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
+        this.cube = new ModelRenderer(this, "cube");
+        this.cube.setTextureOffset(32, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
+        this.base = new ModelRenderer(this, "base");
+        this.base.setTextureOffset(0, 16).addBox(-6.0F, 0.0F, -6.0F, 12, 4, 12);
     }
 
     /**
@@ -25,20 +30,20 @@ public class ModelEnderCrystal extends ModelBase
         GL11.glPushMatrix();
         GL11.glScalef(2.0F, 2.0F, 2.0F);
         GL11.glTranslatef(0.0F, -0.5F, 0.0F);
-        this.field_78229_c.render(par7);
+        this.base.render(par7);
         GL11.glRotatef(par3, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(0.0F, 0.8F + par4, 0.0F);
         GL11.glRotatef(60.0F, 0.7071F, 0.0F, 0.7071F);
-        this.field_78228_b.render(par7);
+        this.glass.render(par7);
         float var8 = 0.875F;
         GL11.glScalef(var8, var8, var8);
         GL11.glRotatef(60.0F, 0.7071F, 0.0F, 0.7071F);
         GL11.glRotatef(par3, 0.0F, 1.0F, 0.0F);
-        this.field_78228_b.render(par7);
+        this.glass.render(par7);
         GL11.glScalef(var8, var8, var8);
         GL11.glRotatef(60.0F, 0.7071F, 0.0F, 0.7071F);
         GL11.glRotatef(par3, 0.0F, 1.0F, 0.0F);
-        this.field_78230_a.render(par7);
+        this.cube.render(par7);
         GL11.glPopMatrix();
     }
 }

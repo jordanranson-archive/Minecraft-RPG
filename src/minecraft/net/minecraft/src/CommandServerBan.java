@@ -40,7 +40,7 @@ public class CommandServerBan extends CommandBase
 
             if (var3 != null)
             {
-                var3.playerNetServerHandler.kickPlayerFromServer("You are banned from this server.");
+                var3.serverForThisPlayer.kickPlayerFromServer("You are banned from this server.");
             }
 
             notifyAdmins(par1ICommandSender, "commands.ban.success", new Object[] {par2ArrayOfStr[0]});

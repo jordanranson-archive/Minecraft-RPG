@@ -8,27 +8,34 @@ import java.util.zip.ZipFile;
 
 public class TexturePackCustom extends TexturePackImplementation
 {
-    private ZipFile field_77550_e;
+    /** ZipFile object used to access the texture pack file's contents. */
+    private ZipFile texturePackZipFile;
 
     public TexturePackCustom(String par1Str, File par2File)
     {
         super(par1Str, par2File, par2File.getName());
     }
 
-    public void func_77533_a(RenderEngine par1RenderEngine)
+    /**
+     * Delete the OpenGL texture id of the pack's thumbnail image, and close the zip file in case of TexturePackCustom.
+     */
+    public void deleteTexturePack(RenderEngine par1RenderEngine)
     {
-        super.func_77533_a(par1RenderEngine);
+        super.deleteTexturePack(par1RenderEngine);
 
         try
         {
-            this.field_77550_e.close();
+            if (this.texturePackZipFile != null)
+            {
+                this.texturePackZipFile.close();
+            }
         }
         catch (IOException var3)
         {
             ;
         }
 
-        this.field_77550_e = null;
+        this.texturePackZipFile = null;
     }
 
     /**
@@ -36,15 +43,15 @@ public class TexturePackCustom extends TexturePackImplementation
      */
     public InputStream getResourceAsStream(String par1Str)
     {
-        this.func_77549_g();
+        this.openTexturePackFile();
 
         try
         {
-            ZipEntry var2 = this.field_77550_e.getEntry(par1Str.substring(1));
+            ZipEntry var2 = this.texturePackZipFile.getEntry(par1Str.substring(1));
 
             if (var2 != null)
             {
-                return this.field_77550_e.getInputStream(var2);
+                return this.texturePackZipFile.getInputStream(var2);
             }
         }
         catch (Exception var3)
@@ -55,13 +62,16 @@ public class TexturePackCustom extends TexturePackImplementation
         return super.getResourceAsStream(par1Str);
     }
 
-    private void func_77549_g()
+    /**
+     * Open the texture pack's file and initialize texturePackZipFile
+     */
+    private void openTexturePackFile()
     {
-        if (this.field_77550_e == null)
+        if (this.texturePackZipFile == null)
         {
             try
             {
-                this.field_77550_e = new ZipFile(this.field_77548_a);
+                this.texturePackZipFile = new ZipFile(this.texturePackFile);
             }
             catch (IOException var2)
             {

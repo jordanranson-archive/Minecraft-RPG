@@ -2,12 +2,12 @@ package net.minecraft.src;
 
 class GuiSnooperList extends GuiSlot
 {
-    final GuiSnooper field_77255_a;
+    final GuiSnooper snooperGui;
 
     public GuiSnooperList(GuiSnooper par1GuiSnooper)
     {
         super(par1GuiSnooper.mc, par1GuiSnooper.width, par1GuiSnooper.height, 80, par1GuiSnooper.height - 40, par1GuiSnooper.fontRenderer.FONT_HEIGHT + 1);
-        this.field_77255_a = par1GuiSnooper;
+        this.snooperGui = par1GuiSnooper;
     }
 
     /**
@@ -15,7 +15,7 @@ class GuiSnooperList extends GuiSlot
      */
     protected int getSize()
     {
-        return GuiSnooper.func_74095_a(this.field_77255_a).size();
+        return GuiSnooper.func_74095_a(this.snooperGui).size();
     }
 
     /**
@@ -35,12 +35,12 @@ class GuiSnooperList extends GuiSlot
 
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
-        this.field_77255_a.fontRenderer.drawString((String)GuiSnooper.func_74095_a(this.field_77255_a).get(par1), 10, par3, 16777215);
-        this.field_77255_a.fontRenderer.drawString((String)GuiSnooper.func_74094_b(this.field_77255_a).get(par1), 220, par3, 16777215);
+        this.snooperGui.fontRenderer.drawString((String)GuiSnooper.func_74095_a(this.snooperGui).get(par1), 10, par3, 16777215);
+        this.snooperGui.fontRenderer.drawString((String)GuiSnooper.func_74094_b(this.snooperGui).get(par1), 230, par3, 16777215);
     }
 
     protected int func_77225_g()
     {
-        return this.field_77255_a.width - 10;
+        return this.snooperGui.width - 10;
     }
 }

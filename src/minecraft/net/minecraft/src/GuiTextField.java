@@ -42,7 +42,9 @@ public class GuiTextField extends Gui
     private int selectionEnd = 0;
     private int enabledColor = 14737632;
     private int disabledColor = 7368816;
-    private boolean field_73823_s = true;
+
+    /** True if this textbox is visible */
+    private boolean visible = true;
 
     public GuiTextField(FontRenderer par1FontRenderer, int par2, int par3, int par4, int par5)
     {
@@ -132,10 +134,14 @@ public class GuiTextField extends Gui
         }
 
         this.text = var2;
-        this.func_73784_d(var4 - this.selectionEnd + var8);
+        this.moveCursorBy(var4 - this.selectionEnd + var8);
     }
 
-    public void func_73779_a(int par1)
+    /**
+     * Deletes the specified number of words starting at the cursor position. Negative numbers will delete words left of
+     * the cursor.
+     */
+    public void deleteWords(int par1)
     {
         if (this.text.length() != 0)
         {
@@ -182,7 +188,7 @@ public class GuiTextField extends Gui
 
                 if (var2)
                 {
-                    this.func_73784_d(par1);
+                    this.moveCursorBy(par1);
                 }
             }
         }
@@ -246,7 +252,10 @@ public class GuiTextField extends Gui
         return var4;
     }
 
-    public void func_73784_d(int par1)
+    /**
+     * Moves the text cursor by a specified number of characters and clears the selection
+     */
+    public void moveCursorBy(int par1)
     {
         this.setCursorPosition(this.selectionEnd + par1);
     }
@@ -269,7 +278,7 @@ public class GuiTextField extends Gui
             this.cursorPosition = var2;
         }
 
-        this.func_73800_i(this.cursorPosition);
+        this.setSelectionPos(this.cursorPosition);
     }
 
     /**
@@ -299,7 +308,7 @@ public class GuiTextField extends Gui
             {
                 case 1:
                     this.setCursorPositionEnd();
-                    this.func_73800_i(0);
+                    this.setSelectionPos(0);
                     return true;
 
                 case 3:
@@ -321,7 +330,7 @@ public class GuiTextField extends Gui
                         case 14:
                             if (GuiScreen.isCtrlKeyDown())
                             {
-                                this.func_73779_a(-1);
+                                this.deleteWords(-1);
                             }
                             else
                             {
@@ -333,7 +342,7 @@ public class GuiTextField extends Gui
                         case 199:
                             if (GuiScreen.isShiftKeyDown())
                             {
-                                this.func_73800_i(0);
+                                this.setSelectionPos(0);
                             }
                             else
                             {
@@ -347,11 +356,11 @@ public class GuiTextField extends Gui
                             {
                                 if (GuiScreen.isCtrlKeyDown())
                                 {
-                                    this.func_73800_i(this.getNthWordFromPos(-1, this.getSelectionEnd()));
+                                    this.setSelectionPos(this.getNthWordFromPos(-1, this.getSelectionEnd()));
                                 }
                                 else
                                 {
-                                    this.func_73800_i(this.getSelectionEnd() - 1);
+                                    this.setSelectionPos(this.getSelectionEnd() - 1);
                                 }
                             }
                             else if (GuiScreen.isCtrlKeyDown())
@@ -360,7 +369,7 @@ public class GuiTextField extends Gui
                             }
                             else
                             {
-                                this.func_73784_d(-1);
+                                this.moveCursorBy(-1);
                             }
 
                             return true;
@@ -370,11 +379,11 @@ public class GuiTextField extends Gui
                             {
                                 if (GuiScreen.isCtrlKeyDown())
                                 {
-                                    this.func_73800_i(this.getNthWordFromPos(1, this.getSelectionEnd()));
+                                    this.setSelectionPos(this.getNthWordFromPos(1, this.getSelectionEnd()));
                                 }
                                 else
                                 {
-                                    this.func_73800_i(this.getSelectionEnd() + 1);
+                                    this.setSelectionPos(this.getSelectionEnd() + 1);
                                 }
                             }
                             else if (GuiScreen.isCtrlKeyDown())
@@ -383,7 +392,7 @@ public class GuiTextField extends Gui
                             }
                             else
                             {
-                                this.func_73784_d(1);
+                                this.moveCursorBy(1);
                             }
 
                             return true;
@@ -391,7 +400,7 @@ public class GuiTextField extends Gui
                         case 207:
                             if (GuiScreen.isShiftKeyDown())
                             {
-                                this.func_73800_i(this.text.length());
+                                this.setSelectionPos(this.text.length());
                             }
                             else
                             {
@@ -403,7 +412,7 @@ public class GuiTextField extends Gui
                         case 211:
                             if (GuiScreen.isCtrlKeyDown())
                             {
-                                this.func_73779_a(1);
+                                this.deleteWords(1);
                             }
                             else
                             {
@@ -462,7 +471,7 @@ public class GuiTextField extends Gui
      */
     public void drawTextBox()
     {
-        if (this.func_73778_q())
+        if (this.getVisible())
         {
             if (this.getEnableBackgroundDrawing())
             {
@@ -607,7 +616,10 @@ public class GuiTextField extends Gui
         this.enableBackgroundDrawing = par1;
     }
 
-    public void func_73794_g(int par1)
+    /**
+     * Sets the text colour for this textbox (disabled text will not use this colour)
+     */
+    public void setTextColor(int par1)
     {
         this.enabledColor = par1;
     }
@@ -649,7 +661,10 @@ public class GuiTextField extends Gui
         return this.getEnableBackgroundDrawing() ? this.width - 8 : this.width;
     }
 
-    public void func_73800_i(int par1)
+    /**
+     * Sets the position of the selection anchor (i.e. position the selection was started at)
+     */
+    public void setSelectionPos(int par1)
     {
         int var2 = this.text.length();
 
@@ -710,13 +725,19 @@ public class GuiTextField extends Gui
         this.canLoseFocus = par1;
     }
 
-    public boolean func_73778_q()
+    /**
+     * @return {@code true} if this textbox is visible
+     */
+    public boolean getVisible()
     {
-        return this.field_73823_s;
+        return this.visible;
     }
 
-    public void func_73790_e(boolean par1)
+    /**
+     * Sets whether or not this textbox is visible
+     */
+    public void setVisible(boolean par1)
     {
-        this.field_73823_s = par1;
+        this.visible = par1;
     }
 }

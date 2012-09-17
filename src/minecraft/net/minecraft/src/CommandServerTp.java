@@ -51,7 +51,7 @@ public class CommandServerTp extends CommandBase
                         throw new PlayerNotFoundException();
                     }
 
-                    var4.playerNetServerHandler.setPlayerLocation(var10.posX, var10.posY, var10.posZ, var10.rotationYaw, var10.rotationPitch);
+                    var4.serverForThisPlayer.setPlayerLocation(var10.posX, var10.posY, var10.posZ, var10.rotationYaw, var10.rotationPitch);
                     notifyAdmins(par1ICommandSender, "commands.tp.success", new Object[] {var4.getEntityName(), var10.getEntityName()});
                 }
             }

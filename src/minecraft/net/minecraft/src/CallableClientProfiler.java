@@ -18,7 +18,7 @@ public class CallableClientProfiler implements Callable
      */
     public String getClientProfilerEnabled()
     {
-        return this.minecraftClientProfiler.mcProfiler.profilingEnabled ? this.minecraftClientProfiler.mcProfiler.func_76322_c() : "N/A (disabled)";
+        return this.minecraftClientProfiler.mcProfiler.profilingEnabled ? this.minecraftClientProfiler.mcProfiler.getNameOfLastSection() : "N/A (disabled)";
     }
 
     public Object call()

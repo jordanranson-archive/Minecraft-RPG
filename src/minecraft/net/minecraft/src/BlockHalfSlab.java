@@ -148,11 +148,14 @@ public abstract class BlockHalfSlab extends Block
             int var7 = par3 + Facing.offsetsYForSide[Facing.faceToSide[par5]];
             int var8 = par4 + Facing.offsetsZForSide[Facing.faceToSide[par5]];
             boolean var9 = (par1IBlockAccess.getBlockMetadata(var6, var7, var8) & 8) != 0;
-            return var9 ? (par5 == 0 ? true : (par5 == 1 && super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5) ? true : !func_72241_e(par1IBlockAccess.getBlockId(par2, par3, par4)) || (par1IBlockAccess.getBlockMetadata(par2, par3, par4) & 8) == 0)) : (par5 == 1 ? true : (par5 == 0 && super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5) ? true : !func_72241_e(par1IBlockAccess.getBlockId(par2, par3, par4)) || (par1IBlockAccess.getBlockMetadata(par2, par3, par4) & 8) != 0));
+            return var9 ? (par5 == 0 ? true : (par5 == 1 && super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5) ? true : !isBlockSingleSlab(par1IBlockAccess.getBlockId(par2, par3, par4)) || (par1IBlockAccess.getBlockMetadata(par2, par3, par4) & 8) == 0)) : (par5 == 1 ? true : (par5 == 0 && super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5) ? true : !isBlockSingleSlab(par1IBlockAccess.getBlockId(par2, par3, par4)) || (par1IBlockAccess.getBlockMetadata(par2, par3, par4) & 8) != 0));
         }
     }
 
-    private static boolean func_72241_e(int par0)
+    /**
+     * Takes a block ID, returns true if it's the same as the ID for a stone or wooden single slab.
+     */
+    private static boolean isBlockSingleSlab(int par0)
     {
         return par0 == Block.stoneSingleSlab.blockID || par0 == Block.woodSingleSlab.blockID;
     }

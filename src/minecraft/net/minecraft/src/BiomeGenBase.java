@@ -99,17 +99,11 @@ public abstract class BiomeGenBase
 
     /** The id number to this biome, and its index in the biomeList array. */
     public final int biomeID;
-
-    /** The tree generator. */
     protected WorldGenTrees worldGeneratorTrees;
 
     /** The big tree generator. */
     protected WorldGenBigTree worldGeneratorBigTree;
-
-    /** The forest generator. */
     protected WorldGenForest worldGeneratorForest;
-
-    /** The swamp tree generator. */
     protected WorldGenSwamp worldGeneratorSwamp;
 
     protected BiomeGenBase(int par1)

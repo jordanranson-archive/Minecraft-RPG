@@ -61,7 +61,7 @@ public class FurnaceRecipes
         return this.smeltingList;
     }
 
-    public float func_77601_c(int par1)
+    public float getExperience(int par1)
     {
         return this.experienceList.containsKey(Integer.valueOf(par1)) ? ((Float)this.experienceList.get(Integer.valueOf(par1))).floatValue() : 0.0F;
     }

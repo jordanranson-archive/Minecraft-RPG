@@ -20,7 +20,7 @@ public class TexturePackFolder extends TexturePackImplementation
     {
         try
         {
-            File var2 = new File(this.field_77548_a, par1Str.substring(1));
+            File var2 = new File(this.texturePackFile, par1Str.substring(1));
 
             if (var2.exists())
             {

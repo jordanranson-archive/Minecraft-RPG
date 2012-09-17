@@ -82,4 +82,12 @@ public class WorldProviderHell extends WorldProvider
     {
         return true;
     }
+
+    /**
+     * Returns the dimension's name, e.g. "The End", "Nether", or "Overworld".
+     */
+    public String getDimensionName()
+    {
+        return "Nether";
+    }
 }

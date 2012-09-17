@@ -69,7 +69,10 @@ public enum EnumGameType
         return this == CREATIVE;
     }
 
-    public boolean func_77144_e()
+    /**
+     * Returns true if this is the SURVIVAL or ADVENTURE game type
+     */
+    public boolean isSurvivalOrAdventure()
     {
         return this == SURVIVAL || this == ADVENTURE;
     }

@@ -2,13 +2,13 @@ package net.minecraft.src;
 
 public class EnumOSHelper
 {
-    public static final int[] field_74533_a = new int[EnumOS.values().length];
+    public static final int[] enumOSMappingHelperArray = new int[EnumOS.values().length];
 
     static
     {
         try
         {
-            field_74533_a[EnumOS.LINUX.ordinal()] = 1;
+            enumOSMappingHelperArray[EnumOS.LINUX.ordinal()] = 1;
         }
         catch (NoSuchFieldError var4)
         {
@@ -17,7 +17,7 @@ public class EnumOSHelper
 
         try
         {
-            field_74533_a[EnumOS.SOLARIS.ordinal()] = 2;
+            enumOSMappingHelperArray[EnumOS.SOLARIS.ordinal()] = 2;
         }
         catch (NoSuchFieldError var3)
         {
@@ -26,7 +26,7 @@ public class EnumOSHelper
 
         try
         {
-            field_74533_a[EnumOS.WINDOWS.ordinal()] = 3;
+            enumOSMappingHelperArray[EnumOS.WINDOWS.ordinal()] = 3;
         }
         catch (NoSuchFieldError var2)
         {
@@ -35,7 +35,7 @@ public class EnumOSHelper
 
         try
         {
-            field_74533_a[EnumOS.MACOS.ordinal()] = 4;
+            enumOSMappingHelperArray[EnumOS.MACOS.ordinal()] = 4;
         }
         catch (NoSuchFieldError var1)
         {

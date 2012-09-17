@@ -149,7 +149,7 @@ public class ComponentStrongholdRoomCrossing extends ComponentStronghold
                     this.placeBlockAtCurrentPosition(par1World, Block.ladder.blockID, this.getMetadataWithOffset(Block.ladder.blockID, 4), 9, 1, 3, par3StructureBoundingBox);
                     this.placeBlockAtCurrentPosition(par1World, Block.ladder.blockID, this.getMetadataWithOffset(Block.ladder.blockID, 4), 9, 2, 3, par3StructureBoundingBox);
                     this.placeBlockAtCurrentPosition(par1World, Block.ladder.blockID, this.getMetadataWithOffset(Block.ladder.blockID, 4), 9, 3, 3, par3StructureBoundingBox);
-                    this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 3, 4, 8, field_75014_c, 1 + par2Random.nextInt(4));
+                    this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 3, 4, 8, field_75014_c, 1 + par2Random.nextInt(4));
             }
 
             return true;

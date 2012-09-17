@@ -239,12 +239,12 @@ public class ComponentMineshaftCorridor extends StructureComponent
 
                 if (par2Random.nextInt(100) == 0)
                 {
-                    this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 2, 0, var10 - 1, StructureMineshaftPieces.func_78816_a(), 3 + par2Random.nextInt(4));
+                    this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 2, 0, var10 - 1, StructureMineshaftPieces.func_78816_a(), 3 + par2Random.nextInt(4));
                 }
 
                 if (par2Random.nextInt(100) == 0)
                 {
-                    this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 0, 0, var10 + 1, StructureMineshaftPieces.func_78816_a(), 3 + par2Random.nextInt(4));
+                    this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 0, 0, var10 + 1, StructureMineshaftPieces.func_78816_a(), 3 + par2Random.nextInt(4));
                 }
 
                 if (this.hasSpiders && !this.spawnerPlaced)

@@ -6,13 +6,15 @@ public class EntityLargeExplodeFX extends EntityFX
 {
     private int field_70581_a = 0;
     private int field_70584_aq = 0;
-    private RenderEngine field_70583_ar;
+
+    /** The Rendering Engine. */
+    private RenderEngine theRenderEngine;
     private float field_70582_as;
 
     public EntityLargeExplodeFX(RenderEngine par1RenderEngine, World par2World, double par3, double par5, double par7, double par9, double par11, double par13)
     {
         super(par2World, par3, par5, par7, 0.0D, 0.0D, 0.0D);
-        this.field_70583_ar = par1RenderEngine;
+        this.theRenderEngine = par1RenderEngine;
         this.field_70584_aq = 6 + this.rand.nextInt(4);
         this.particleRed = this.particleGreen = this.particleBlue = this.rand.nextFloat() * 0.6F + 0.4F;
         this.field_70582_as = 1.0F - (float)par9 * 0.5F;
@@ -24,7 +26,7 @@ public class EntityLargeExplodeFX extends EntityFX
 
         if (var8 <= 15)
         {
-            this.field_70583_ar.bindTexture(this.field_70583_ar.getTexture("/misc/explosion.png"));
+            this.theRenderEngine.bindTexture(this.theRenderEngine.getTexture("/misc/explosion.png"));
             float var9 = (float)(var8 % 4) / 4.0F;
             float var10 = var9 + 0.24975F;
             float var11 = (float)(var8 / 4) / 4.0F;

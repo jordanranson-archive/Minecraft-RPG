@@ -250,9 +250,7 @@ public class EntityPlayerSP extends EntityPlayer
 
         var1 *= (this.landMovementFactor * this.getSpeedModifier() / this.speedOnGround + 1.0F) / 2.0F;
 
-        if (this.isUsingItem() && (
-			this.getItemInUse().itemID == Item.bow.shiftedIndex
-		))
+        if (this.isUsingItem() && this.getItemInUse().itemID == Item.bow.shiftedIndex)
         {
             int var2 = this.getItemInUseDuration();
             float var3 = (float)var2 / 20.0F;
@@ -446,7 +444,7 @@ public class EntityPlayerSP extends EntityPlayer
      */
     public void addChatMessage(String par1Str)
     {
-        this.mc.ingameGUI.getChatGUI().func_73757_a(par1Str, new Object[0]);
+        this.mc.ingameGUI.getChatGUI().addTranslatedMessage(par1Str, new Object[0]);
     }
 
     /**

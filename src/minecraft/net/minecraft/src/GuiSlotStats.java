@@ -13,16 +13,16 @@ abstract class GuiSlotStats extends GuiSlot
     protected int field_77264_j;
     protected int field_77265_k;
 
-    final GuiStats field_77263_l;
+    final GuiStats statsGui;
 
     protected GuiSlotStats(GuiStats par1GuiStats)
     {
         super(GuiStats.getMinecraft1(par1GuiStats), par1GuiStats.width, par1GuiStats.height, 32, par1GuiStats.height - 64, 20);
-        this.field_77263_l = par1GuiStats;
+        this.statsGui = par1GuiStats;
         this.field_77262_g = -1;
         this.field_77264_j = -1;
         this.field_77265_k = 0;
-        this.func_77216_a(false);
+        this.setShowSelectionBox(false);
         this.func_77223_a(true, 20);
     }
 
@@ -41,7 +41,7 @@ abstract class GuiSlotStats extends GuiSlot
 
     protected void drawBackground()
     {
-        this.field_77263_l.drawDefaultBackground();
+        this.statsGui.drawDefaultBackground();
     }
 
     protected void func_77222_a(int par1, int par2, Tessellator par3Tessellator)
@@ -53,29 +53,29 @@ abstract class GuiSlotStats extends GuiSlot
 
         if (this.field_77262_g == 0)
         {
-            GuiStats.drawSprite(this.field_77263_l, par1 + 115 - 18, par2 + 1, 0, 0);
+            GuiStats.drawSprite(this.statsGui, par1 + 115 - 18, par2 + 1, 0, 0);
         }
         else
         {
-            GuiStats.drawSprite(this.field_77263_l, par1 + 115 - 18, par2 + 1, 0, 18);
+            GuiStats.drawSprite(this.statsGui, par1 + 115 - 18, par2 + 1, 0, 18);
         }
 
         if (this.field_77262_g == 1)
         {
-            GuiStats.drawSprite(this.field_77263_l, par1 + 165 - 18, par2 + 1, 0, 0);
+            GuiStats.drawSprite(this.statsGui, par1 + 165 - 18, par2 + 1, 0, 0);
         }
         else
         {
-            GuiStats.drawSprite(this.field_77263_l, par1 + 165 - 18, par2 + 1, 0, 18);
+            GuiStats.drawSprite(this.statsGui, par1 + 165 - 18, par2 + 1, 0, 18);
         }
 
         if (this.field_77262_g == 2)
         {
-            GuiStats.drawSprite(this.field_77263_l, par1 + 215 - 18, par2 + 1, 0, 0);
+            GuiStats.drawSprite(this.statsGui, par1 + 215 - 18, par2 + 1, 0, 0);
         }
         else
         {
-            GuiStats.drawSprite(this.field_77263_l, par1 + 215 - 18, par2 + 1, 0, 18);
+            GuiStats.drawSprite(this.statsGui, par1 + 215 - 18, par2 + 1, 0, 18);
         }
 
         if (this.field_77264_j != -1)
@@ -97,7 +97,7 @@ abstract class GuiSlotStats extends GuiSlot
                 var5 = 36;
             }
 
-            GuiStats.drawSprite(this.field_77263_l, par1 + var4, par2 + 1, var5, 0);
+            GuiStats.drawSprite(this.statsGui, par1 + var4, par2 + 1, var5, 0);
         }
     }
 
@@ -121,7 +121,7 @@ abstract class GuiSlotStats extends GuiSlot
         if (this.field_77262_g >= 0)
         {
             this.func_77261_e(this.field_77262_g);
-            GuiStats.getMinecraft2(this.field_77263_l).sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+            GuiStats.getMinecraft2(this.statsGui).sndManager.playSoundFX("random.click", 1.0F, 1.0F);
         }
     }
 
@@ -146,13 +146,13 @@ abstract class GuiSlotStats extends GuiSlot
 
         if (par1StatCrafting != null)
         {
-            var5 = par1StatCrafting.func_75968_a(GuiStats.getStatsFileWriter(this.field_77263_l).writeStat(par1StatCrafting));
-            this.field_77263_l.drawString(GuiStats.getFontRenderer4(this.field_77263_l), var5, par2 - GuiStats.getFontRenderer5(this.field_77263_l).getStringWidth(var5), par3 + 5, par4 ? 16777215 : 9474192);
+            var5 = par1StatCrafting.func_75968_a(GuiStats.getStatsFileWriter(this.statsGui).writeStat(par1StatCrafting));
+            this.statsGui.drawString(GuiStats.getFontRenderer4(this.statsGui), var5, par2 - GuiStats.getFontRenderer5(this.statsGui).getStringWidth(var5), par3 + 5, par4 ? 16777215 : 9474192);
         }
         else
         {
             var5 = "-";
-            this.field_77263_l.drawString(GuiStats.getFontRenderer6(this.field_77263_l), var5, par2 - GuiStats.getFontRenderer7(this.field_77263_l).getStringWidth(var5), par3 + 5, par4 ? 16777215 : 9474192);
+            this.statsGui.drawString(GuiStats.getFontRenderer6(this.statsGui), var5, par2 - GuiStats.getFontRenderer7(this.statsGui).getStringWidth(var5), par3 + 5, par4 ? 16777215 : 9474192);
         }
     }
 
@@ -161,7 +161,7 @@ abstract class GuiSlotStats extends GuiSlot
         if (par2 >= this.top && par2 <= this.bottom)
         {
             int var3 = this.func_77210_c(par1, par2);
-            int var4 = this.field_77263_l.width / 2 - 92 - 16;
+            int var4 = this.statsGui.width / 2 - 92 - 16;
 
             if (var3 >= 0)
             {
@@ -201,9 +201,9 @@ abstract class GuiSlotStats extends GuiSlot
                 {
                     int var6 = par1 + 12;
                     int var7 = par2 - 12;
-                    int var8 = GuiStats.getFontRenderer8(this.field_77263_l).getStringWidth(var9);
-                    GuiStats.drawGradientRect(this.field_77263_l, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
-                    GuiStats.getFontRenderer9(this.field_77263_l).drawStringWithShadow(var9, var6, var7, -1);
+                    int var8 = GuiStats.getFontRenderer8(this.statsGui).getStringWidth(var9);
+                    GuiStats.drawGradientRect(this.statsGui, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
+                    GuiStats.getFontRenderer9(this.statsGui).drawStringWithShadow(var9, var6, var7, -1);
                 }
             }
         }
@@ -220,9 +220,9 @@ abstract class GuiSlotStats extends GuiSlot
             {
                 int var6 = par2 + 12;
                 int var7 = par3 - 12;
-                int var8 = GuiStats.getFontRenderer10(this.field_77263_l).getStringWidth(var5);
-                GuiStats.drawGradientRect1(this.field_77263_l, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
-                GuiStats.getFontRenderer11(this.field_77263_l).drawStringWithShadow(var5, var6, var7, -1);
+                int var8 = GuiStats.getFontRenderer10(this.statsGui).getStringWidth(var5);
+                GuiStats.drawGradientRect1(this.statsGui, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
+                GuiStats.getFontRenderer11(this.statsGui).drawStringWithShadow(var5, var6, var7, -1);
             }
         }
     }

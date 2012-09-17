@@ -12,7 +12,10 @@ import net.minecraft.client.Minecraft;
 
 public class TexturePackList
 {
-    private static final TexturePackBase field_77314_a = new TexturePackDefault();
+    /**
+     * An instance of TexturePackDefault for the always available builtin texture pack.
+     */
+    private static final TexturePackBase defaultTexturePack = new TexturePackDefault();
 
     /** The Minecraft instance. */
     private final Minecraft mc;
@@ -25,22 +28,32 @@ public class TexturePackList
 
     /** The list of the available texture packs. */
     private List availableTexturePacks = new ArrayList();
-    private Map field_77308_f = new HashMap();
+
+    /**
+     * A mapping of texture IDs to TexturePackBase objects used by updateAvaliableTexturePacks() to avoid reloading
+     * texture packs that haven't changed on disk.
+     */
+    private Map texturePackCache = new HashMap();
 
     /** The TexturePack that will be used. */
     private TexturePackBase selectedTexturePack;
-    private boolean field_77315_h;
+
+    /** True if a texture pack is downloading in the background. */
+    private boolean isDownloading;
 
     public TexturePackList(File par1File, Minecraft par2Minecraft)
     {
         this.mc = par2Minecraft;
         this.texturePackDir = new File(par1File, "texturepacks");
         this.mpTexturePackFolder = new File(par1File, "texturepacks-mp-cache");
-        this.func_77307_h();
+        this.createTexturePackDirs();
         this.updateAvaliableTexturePacks();
     }
 
-    private void func_77307_h()
+    /**
+     * Create the "texturepacks" and "texturepacks-mp-cache" directories if they don't already exist.
+     */
+    private void createTexturePackDirs()
     {
         if (!this.texturePackDir.isDirectory())
         {
@@ -66,7 +79,7 @@ public class TexturePackList
         }
         else
         {
-            this.field_77315_h = false;
+            this.isDownloading = false;
             this.selectedTexturePack = par1TexturePackBase;
             this.mc.gameSettings.skin = par1TexturePackBase.getTexturePackFileName();
             this.mc.gameSettings.saveOptions();
@@ -98,23 +111,30 @@ public class TexturePackList
         HashMap var3 = new HashMap();
         GuiProgress var4 = new GuiProgress();
         var3.put("X-Minecraft-Username", this.mc.session.username);
-        var3.put("X-Minecraft-Version", "1.3.1");
+        var3.put("X-Minecraft-Version", "1.3.2");
         var3.put("X-Minecraft-Supported-Resolutions", "16");
-        this.field_77315_h = true;
+        this.isDownloading = true;
         this.mc.displayGuiScreen(var4);
         HttpUtil.downloadTexturePack(par2File, par1Str, new TexturePackDownloadSuccess(this), var3, 10000000, var4);
     }
 
-    public boolean func_77295_a()
+    /**
+     * Return true if a texture pack is downloading in the background.
+     */
+    public boolean getIsDownloading()
     {
-        return this.field_77315_h;
+        return this.isDownloading;
     }
 
-    public void func_77304_b()
+    /**
+     * Called from Minecraft.loadWorld() if getIsDownloading() returned true to prepare the downloaded texture for
+     * usage.
+     */
+    public void onDownloadFinished()
     {
-        this.field_77315_h = false;
+        this.isDownloading = false;
         this.updateAvaliableTexturePacks();
-        this.mc.func_71395_y();
+        this.mc.scheduleTexturePackRefresh();
     }
 
     /**
@@ -123,23 +143,23 @@ public class TexturePackList
     public void updateAvaliableTexturePacks()
     {
         ArrayList var1 = new ArrayList();
-        this.selectedTexturePack = field_77314_a;
-        var1.add(field_77314_a);
-        Iterator var2 = this.func_77299_i().iterator();
+        this.selectedTexturePack = defaultTexturePack;
+        var1.add(defaultTexturePack);
+        Iterator var2 = this.getTexturePackDirContents().iterator();
 
         while (var2.hasNext())
         {
             File var3 = (File)var2.next();
-            String var4 = this.func_77302_a(var3);
+            String var4 = this.generateTexturePackID(var3);
 
             if (var4 != null)
             {
-                Object var5 = (TexturePackBase)this.field_77308_f.get(var4);
+                Object var5 = (TexturePackBase)this.texturePackCache.get(var4);
 
                 if (var5 == null)
                 {
                     var5 = var3.isDirectory() ? new TexturePackFolder(var4, var3) : new TexturePackCustom(var4, var3);
-                    this.field_77308_f.put(var4, var5);
+                    this.texturePackCache.put(var4, var5);
                 }
 
                 if (((TexturePackBase)var5).getTexturePackFileName().equals(this.mc.gameSettings.skin))
@@ -157,19 +177,26 @@ public class TexturePackList
         while (var2.hasNext())
         {
             TexturePackBase var6 = (TexturePackBase)var2.next();
-            var6.func_77533_a(this.mc.renderEngine);
-            this.field_77308_f.remove(var6.getTexturePackID());
+            var6.deleteTexturePack(this.mc.renderEngine);
+            this.texturePackCache.remove(var6.getTexturePackID());
         }
 
         this.availableTexturePacks = var1;
     }
 
-    private String func_77302_a(File par1File)
+    /**
+     * Generate an internal texture pack ID from the file/directory name, last modification time, and file size. Returns
+     * null if the file/directory is not a texture pack.
+     */
+    private String generateTexturePackID(File par1File)
     {
         return par1File.isFile() && par1File.getName().toLowerCase().endsWith(".zip") ? par1File.getName() + ":" + par1File.length() + ":" + par1File.lastModified() : (par1File.isDirectory() && (new File(par1File, "pack.txt")).exists() ? par1File.getName() + ":folder:" + par1File.lastModified() : null);
     }
 
-    private List func_77299_i()
+    /**
+     * Return a List<File> of file/directories in the texture pack directory.
+     */
+    private List getTexturePackDirContents()
     {
         return this.texturePackDir.exists() && this.texturePackDir.isDirectory() ? Arrays.asList(this.texturePackDir.listFiles()) : Collections.emptyList();
     }
@@ -215,17 +242,24 @@ public class TexturePackList
 
     static boolean func_77301_a(TexturePackList par0TexturePackList)
     {
-        return par0TexturePackList.field_77315_h;
+        return par0TexturePackList.isDownloading;
     }
 
-    static TexturePackBase func_77303_a(TexturePackList par0TexturePackList, TexturePackBase par1TexturePackBase)
+    /**
+     * Set the selectedTexturePack field (Inner class static accessor method).
+     */
+    static TexturePackBase setSelectedTexturePack(TexturePackList par0TexturePackList, TexturePackBase par1TexturePackBase)
     {
         return par0TexturePackList.selectedTexturePack = par1TexturePackBase;
     }
 
-    static String func_77291_a(TexturePackList par0TexturePackList, File par1File)
+    /**
+     * Generate an internal texture pack ID from the file/directory name, last modification time, and file size. Returns
+     * null if the file/directory is not a texture pack. (Inner class static accessor method).
+     */
+    static String generateTexturePackID(TexturePackList par0TexturePackList, File par1File)
     {
-        return par0TexturePackList.func_77302_a(par1File);
+        return par0TexturePackList.generateTexturePackID(par1File);
     }
 
     static Minecraft getMinecraft(TexturePackList par0TexturePackList)

@@ -2,15 +2,15 @@ package net.minecraft.src;
 
 class SlotCreativeInventory extends Slot
 {
-    private final Slot field_75241_b;
+    private final Slot theSlot;
 
-    final GuiContainerCreative field_75242_a;
+    final GuiContainerCreative theCreativeInventory;
 
     public SlotCreativeInventory(GuiContainerCreative par1GuiContainerCreative, Slot par2Slot, int par3)
     {
         super(par2Slot.inventory, par3, 0, 0);
-        this.field_75242_a = par1GuiContainerCreative;
-        this.field_75241_b = par2Slot;
+        this.theCreativeInventory = par1GuiContainerCreative;
+        this.theSlot = par2Slot;
     }
 
     /**
@@ -18,7 +18,7 @@ class SlotCreativeInventory extends Slot
      */
     public void onPickupFromSlot(ItemStack par1ItemStack)
     {
-        this.field_75241_b.onPickupFromSlot(par1ItemStack);
+        this.theSlot.onPickupFromSlot(par1ItemStack);
     }
 
     /**
@@ -26,7 +26,7 @@ class SlotCreativeInventory extends Slot
      */
     public boolean isItemValid(ItemStack par1ItemStack)
     {
-        return this.field_75241_b.isItemValid(par1ItemStack);
+        return this.theSlot.isItemValid(par1ItemStack);
     }
 
     /**
@@ -34,7 +34,7 @@ class SlotCreativeInventory extends Slot
      */
     public ItemStack getStack()
     {
-        return this.field_75241_b.getStack();
+        return this.theSlot.getStack();
     }
 
     /**
@@ -42,7 +42,7 @@ class SlotCreativeInventory extends Slot
      */
     public boolean getHasStack()
     {
-        return this.field_75241_b.getHasStack();
+        return this.theSlot.getHasStack();
     }
 
     /**
@@ -50,7 +50,7 @@ class SlotCreativeInventory extends Slot
      */
     public void putStack(ItemStack par1ItemStack)
     {
-        this.field_75241_b.putStack(par1ItemStack);
+        this.theSlot.putStack(par1ItemStack);
     }
 
     /**
@@ -58,7 +58,7 @@ class SlotCreativeInventory extends Slot
      */
     public void onSlotChanged()
     {
-        this.field_75241_b.onSlotChanged();
+        this.theSlot.onSlotChanged();
     }
 
     /**
@@ -67,7 +67,7 @@ class SlotCreativeInventory extends Slot
      */
     public int getSlotStackLimit()
     {
-        return this.field_75241_b.getSlotStackLimit();
+        return this.theSlot.getSlotStackLimit();
     }
 
     /**
@@ -75,7 +75,7 @@ class SlotCreativeInventory extends Slot
      */
     public int getBackgroundIconIndex()
     {
-        return this.field_75241_b.getBackgroundIconIndex();
+        return this.theSlot.getBackgroundIconIndex();
     }
 
     /**
@@ -84,7 +84,7 @@ class SlotCreativeInventory extends Slot
      */
     public ItemStack decrStackSize(int par1)
     {
-        return this.field_75241_b.decrStackSize(par1);
+        return this.theSlot.decrStackSize(par1);
     }
 
     /**
@@ -92,11 +92,11 @@ class SlotCreativeInventory extends Slot
      */
     public boolean isSlotInInventory(IInventory par1IInventory, int par2)
     {
-        return this.field_75241_b.isSlotInInventory(par1IInventory, par2);
+        return this.theSlot.isSlotInInventory(par1IInventory, par2);
     }
 
     static Slot func_75240_a(SlotCreativeInventory par0SlotCreativeInventory)
     {
-        return par0SlotCreativeInventory.field_75241_b;
+        return par0SlotCreativeInventory.theSlot;
     }
 }

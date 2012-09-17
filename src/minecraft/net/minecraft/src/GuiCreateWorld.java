@@ -31,7 +31,7 @@ public class GuiCreateWorld extends GuiScreen
     private boolean moreOptions;
 
     /** The GUIButton that you click to change game modes. */
-    private GuiButton buttonGameMode;
+    private GuiButton gameModeButton;
 
     /**
      * The GUIButton that you click to get to options like the seed when creating a world.
@@ -39,11 +39,13 @@ public class GuiCreateWorld extends GuiScreen
     private GuiButton moreWorldOptions;
 
     /** The GuiButton in the 'More World Options' screen. Toggles ON/OFF */
-    private GuiButton buttonGenerateStructures;
+    private GuiButton generateStructuresButton;
     private GuiButton buttonBonusItems;
 
-    /** The GuiButton in the more world options screen. */
-    private GuiButton buttonWorldType;
+    /**
+     * the GUIButton in the more world options screen. It's currently greyed out and unused in minecraft 1.0.0
+     */
+    private GuiButton worldTypeButton;
     private GuiButton buttonAllowCommands;
 
     /** The first line of text describing the currently selected game mode. */
@@ -90,14 +92,14 @@ public class GuiCreateWorld extends GuiScreen
         this.controlList.clear();
         this.controlList.add(new GuiButton(0, this.width / 2 - 155, this.height - 28, 150, 20, var1.translateKey("selectWorld.create")));
         this.controlList.add(new GuiButton(1, this.width / 2 + 5, this.height - 28, 150, 20, var1.translateKey("gui.cancel")));
-        this.controlList.add(this.buttonGameMode = new GuiButton(2, this.width / 2 - 75, 100, 150, 20, var1.translateKey("selectWorld.gameMode")));
+        this.controlList.add(this.gameModeButton = new GuiButton(2, this.width / 2 - 75, 100, 150, 20, var1.translateKey("selectWorld.gameMode")));
         this.controlList.add(this.moreWorldOptions = new GuiButton(3, this.width / 2 - 75, 172, 150, 20, var1.translateKey("selectWorld.moreWorldOptions")));
-        this.controlList.add(this.buttonGenerateStructures = new GuiButton(4, this.width / 2 - 155, 100, 150, 20, var1.translateKey("selectWorld.mapFeatures")));
-        this.buttonGenerateStructures.drawButton = false;
+        this.controlList.add(this.generateStructuresButton = new GuiButton(4, this.width / 2 - 155, 100, 150, 20, var1.translateKey("selectWorld.mapFeatures")));
+        this.generateStructuresButton.drawButton = false;
         this.controlList.add(this.buttonBonusItems = new GuiButton(7, this.width / 2 + 5, 136, 150, 20, var1.translateKey("selectWorld.bonusItems")));
         this.buttonBonusItems.drawButton = false;
-        this.controlList.add(this.buttonWorldType = new GuiButton(5, this.width / 2 + 5, 100, 150, 20, var1.translateKey("selectWorld.mapType")));
-        this.buttonWorldType.drawButton = false;
+        this.controlList.add(this.worldTypeButton = new GuiButton(5, this.width / 2 + 5, 100, 150, 20, var1.translateKey("selectWorld.mapType")));
+        this.worldTypeButton.drawButton = false;
         this.controlList.add(this.buttonAllowCommands = new GuiButton(6, this.width / 2 - 155, 136, 150, 20, var1.translateKey("selectWorld.allowCommands")));
         this.buttonAllowCommands.drawButton = false;
         this.textboxWorldName = new GuiTextField(this.fontRenderer, this.width / 2 - 100, 60, 200, 20);
@@ -116,7 +118,7 @@ public class GuiCreateWorld extends GuiScreen
     private void makeUseableName()
     {
         this.folderName = this.textboxWorldName.getText().trim();
-        char[] var1 = ChatAllowedCharacters.allowedCharactersArray;
+        char[] var1 = ChatAllowedCharacters.invalidFilenameCharacters;
         int var2 = var1.length;
 
         for (int var3 = 0; var3 < var2; ++var3)
@@ -136,18 +138,18 @@ public class GuiCreateWorld extends GuiScreen
     private void updateButtonText()
     {
         StringTranslate var1 = StringTranslate.getInstance();
-        this.buttonGameMode.displayString = var1.translateKey("selectWorld.gameMode") + " " + var1.translateKey("selectWorld.gameMode." + this.gameMode);
+        this.gameModeButton.displayString = var1.translateKey("selectWorld.gameMode") + " " + var1.translateKey("selectWorld.gameMode." + this.gameMode);
         this.gameModeDescriptionLine1 = var1.translateKey("selectWorld.gameMode." + this.gameMode + ".line1");
         this.gameModeDescriptionLine2 = var1.translateKey("selectWorld.gameMode." + this.gameMode + ".line2");
-        this.buttonGenerateStructures.displayString = var1.translateKey("selectWorld.mapFeatures") + " ";
+        this.generateStructuresButton.displayString = var1.translateKey("selectWorld.mapFeatures") + " ";
 
         if (this.generateStructures)
         {
-            this.buttonGenerateStructures.displayString = this.buttonGenerateStructures.displayString + var1.translateKey("options.on");
+            this.generateStructuresButton.displayString = this.generateStructuresButton.displayString + var1.translateKey("options.on");
         }
         else
         {
-            this.buttonGenerateStructures.displayString = this.buttonGenerateStructures.displayString + var1.translateKey("options.off");
+            this.generateStructuresButton.displayString = this.generateStructuresButton.displayString + var1.translateKey("options.off");
         }
 
         this.buttonBonusItems.displayString = var1.translateKey("selectWorld.bonusItems") + " ";
@@ -161,7 +163,7 @@ public class GuiCreateWorld extends GuiScreen
             this.buttonBonusItems.displayString = this.buttonBonusItems.displayString + var1.translateKey("options.off");
         }
 
-        this.buttonWorldType.displayString = var1.translateKey("selectWorld.mapType") + " " + var1.translateKey(WorldType.worldTypes[this.worldTypeId].getTranslateName());
+        this.worldTypeButton.displayString = var1.translateKey("selectWorld.mapType") + " " + var1.translateKey(WorldType.worldTypes[this.worldTypeId].getTranslateName());
         this.buttonAllowCommands.displayString = var1.translateKey("selectWorld.allowCommands") + " ";
 
         if (this.commandsAllowed && !this.isHardcore)
@@ -265,10 +267,10 @@ public class GuiCreateWorld extends GuiScreen
             else if (par1GuiButton.id == 3)
             {
                 this.moreOptions = !this.moreOptions;
-                this.buttonGameMode.drawButton = !this.moreOptions;
-                this.buttonGenerateStructures.drawButton = this.moreOptions;
+                this.gameModeButton.drawButton = !this.moreOptions;
+                this.generateStructuresButton.drawButton = this.moreOptions;
                 this.buttonBonusItems.drawButton = this.moreOptions;
-                this.buttonWorldType.drawButton = this.moreOptions;
+                this.worldTypeButton.drawButton = this.moreOptions;
                 this.buttonAllowCommands.drawButton = this.moreOptions;
                 StringTranslate var8;
 

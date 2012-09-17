@@ -20,8 +20,8 @@ class ThreadLoginVerifier extends Thread
     {
         try
         {
-            String var1 = (new BigInteger(CryptManager.func_75895_a(NetLoginHandler.getServerId(this.loginHandler), NetLoginHandler.func_72530_b(this.loginHandler).getKeyPair().getPublic(), NetLoginHandler.func_72525_c(this.loginHandler)))).toString(16);
-            URL var2 = new URL("http://session.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(NetLoginHandler.func_72533_d(this.loginHandler), "UTF-8") + "&serverId=" + URLEncoder.encode(var1, "UTF-8"));
+            String var1 = (new BigInteger(CryptManager.func_75895_a(NetLoginHandler.getServerId(this.loginHandler), NetLoginHandler.getLoginMinecraftServer(this.loginHandler).getKeyPair().getPublic(), NetLoginHandler.func_72525_c(this.loginHandler)))).toString(16);
+            URL var2 = new URL("http://session.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(NetLoginHandler.getClientUsername(this.loginHandler), "UTF-8") + "&serverId=" + URLEncoder.encode(var1, "UTF-8"));
             BufferedReader var3 = new BufferedReader(new InputStreamReader(var2.openStream()));
             String var4 = var3.readLine();
             var3.close();

@@ -20,7 +20,6 @@ public class GLAllocation
     /**
      * Generates the specified number of display lists and returns the first index.
      */
-
     public static synchronized int generateDisplayLists(int par0)
     {
         int var1 = GL11.glGenLists(par0);
@@ -31,7 +30,6 @@ public class GLAllocation
     /**
      * Generates texture names and stores them in the specified buffer.
      */
-
     public static synchronized void generateTextureNames(IntBuffer par0IntBuffer)
     {
         GL11.glGenTextures(par0IntBuffer);
@@ -50,7 +48,6 @@ public class GLAllocation
     /**
      * Deletes all textures and display lists. Called when Minecraft is shutdown to free up resources.
      */
-
     public static synchronized void deleteTexturesAndDisplayLists()
     {
         Iterator var0 = field_74531_a.entrySet().iterator();
@@ -76,7 +73,6 @@ public class GLAllocation
     /**
      * Creates and returns a direct byte buffer with the specified capacity. Applies native ordering to speed up access.
      */
-
     public static synchronized ByteBuffer createDirectByteBuffer(int par0)
     {
         return ByteBuffer.allocateDirect(par0).order(ByteOrder.nativeOrder());

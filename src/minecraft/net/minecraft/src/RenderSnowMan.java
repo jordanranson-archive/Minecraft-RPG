@@ -25,7 +25,7 @@ public class RenderSnowMan extends RenderLiving
         if (var3 != null && var3.getItem().shiftedIndex < 256)
         {
             GL11.glPushMatrix();
-            this.snowmanModel.field_78195_c.postRender(0.0625F);
+            this.snowmanModel.head.postRender(0.0625F);
 
             if (RenderBlocks.renderItemIn3d(Block.blocksList[var3.itemID].getRenderType()))
             {

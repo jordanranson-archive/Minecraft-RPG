@@ -11,13 +11,15 @@ public class GuiScreenServerList extends GuiScreen
 
     /** Needed a change as a local variable was conflicting on construct */
     private final GuiScreen guiScreen;
-    private final ServerData field_73993_c;
+
+    /** Instance of ServerData. */
+    private final ServerData theServerData;
     private GuiTextField serverTextField;
 
     public GuiScreenServerList(GuiScreen par1GuiScreen, ServerData par2ServerData)
     {
         this.guiScreen = par1GuiScreen;
-        this.field_73993_c = par2ServerData;
+        this.theServerData = par2ServerData;
     }
 
     /**
@@ -67,7 +69,7 @@ public class GuiScreenServerList extends GuiScreen
             }
             else if (par1GuiButton.id == 0)
             {
-                this.field_73993_c.serverIP = this.serverTextField.getText();
+                this.theServerData.serverIP = this.serverTextField.getText();
                 this.guiScreen.confirmClicked(true, 0);
             }
         }

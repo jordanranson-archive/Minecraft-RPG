@@ -271,35 +271,43 @@ public class GuiMultiplayer extends GuiScreen
     {
         int var3 = this.selectedServer;
 
-        if (isShiftKeyDown() && par2 == 200)
+        if (par2 == 59)
         {
-            if (var3 > 0 && var3 < this.internetServerList.countServers())
+            this.mc.gameSettings.hideServerAddress = !this.mc.gameSettings.hideServerAddress;
+            this.mc.gameSettings.saveOptions();
+        }
+        else
+        {
+            if (isShiftKeyDown() && par2 == 200)
             {
-                this.internetServerList.swapServers(var3, var3 - 1);
-                --this.selectedServer;
+                if (var3 > 0 && var3 < this.internetServerList.countServers())
+                {
+                    this.internetServerList.swapServers(var3, var3 - 1);
+                    --this.selectedServer;
 
+                    if (var3 < this.internetServerList.countServers() - 1)
+                    {
+                        this.serverSlotContainer.func_77208_b(-this.serverSlotContainer.slotHeight);
+                    }
+                }
+            }
+            else if (isShiftKeyDown() && par2 == 208)
+            {
                 if (var3 < this.internetServerList.countServers() - 1)
                 {
-                    this.serverSlotContainer.func_77208_b(-this.serverSlotContainer.slotHeight);
-                }
-            }
-        }
-        else if (isShiftKeyDown() && par2 == 208)
-        {
-            if (var3 < this.internetServerList.countServers() - 1)
-            {
-                this.internetServerList.swapServers(var3, var3 + 1);
-                ++this.selectedServer;
+                    this.internetServerList.swapServers(var3, var3 + 1);
+                    ++this.selectedServer;
 
-                if (var3 > 0)
-                {
-                    this.serverSlotContainer.func_77208_b(this.serverSlotContainer.slotHeight);
+                    if (var3 > 0)
+                    {
+                        this.serverSlotContainer.func_77208_b(this.serverSlotContainer.slotHeight);
+                    }
                 }
             }
-        }
-        else if (par1 == 13)
-        {
-            this.actionPerformed((GuiButton)this.controlList.get(2));
+            else if (par1 == 13)
+            {
+                this.actionPerformed((GuiButton)this.controlList.get(2));
+            }
         }
     }
 
@@ -397,7 +405,7 @@ public class GuiMultiplayer extends GuiScreen
                 ;
             }
 
-            par1ServerData.hostname = "\u00a77" + var6;
+            par1ServerData.serverMOTD = "\u00a77" + var6;
 
             if (var9 >= 0 && var10 > 0)
             {
@@ -481,19 +489,11 @@ public class GuiMultiplayer extends GuiScreen
     }
 
     /**
-     * Return buttonSelect GuiButton
-     */
-    static GuiButton getButtonSelect(GuiMultiplayer par0GuiMultiplayer)
-    {
-        return par0GuiMultiplayer.buttonSelect;
-    }
-
-    /**
      * Return buttonEdit GuiButton
      */
     static GuiButton getButtonEdit(GuiMultiplayer par0GuiMultiplayer)
     {
-        return par0GuiMultiplayer.buttonEdit;
+        return par0GuiMultiplayer.buttonSelect;
     }
 
     /**
@@ -501,7 +501,7 @@ public class GuiMultiplayer extends GuiScreen
      */
     static GuiButton getButtonDelete(GuiMultiplayer par0GuiMultiplayer)
     {
-        return par0GuiMultiplayer.buttonDelete;
+        return par0GuiMultiplayer.buttonEdit;
     }
 
     static void func_74008_b(GuiMultiplayer par0GuiMultiplayer, int par1)

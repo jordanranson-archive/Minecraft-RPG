@@ -2,13 +2,15 @@ package net.minecraft.src;
 
 public class GenLayerBiome extends GenLayer
 {
+    public static BiomeGenBase[] biomeArray = new BiomeGenBase[] {BiomeGenBase.desert, BiomeGenBase.forest, BiomeGenBase.extremeHills, BiomeGenBase.swampland, BiomeGenBase.plains, BiomeGenBase.taiga, BiomeGenBase.jungle};
+
     /** this sets all the biomes that are allowed to appear in the overworld */
     private BiomeGenBase[] allowedBiomes;
 
     public GenLayerBiome(long par1, GenLayer par3GenLayer, WorldType par4WorldType)
     {
         super(par1);
-        this.allowedBiomes = new BiomeGenBase[] {BiomeGenBase.desert, BiomeGenBase.forest, BiomeGenBase.extremeHills, BiomeGenBase.swampland, BiomeGenBase.plains, BiomeGenBase.taiga, BiomeGenBase.jungle};
+        this.allowedBiomes = biomeArray;
         this.parent = par3GenLayer;
 
         if (par4WorldType == WorldType.DEFAULT_1_1)

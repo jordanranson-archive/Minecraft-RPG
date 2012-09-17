@@ -12,13 +12,16 @@ class CallableMPL2 implements Callable
         this.worldClientMPL2 = par1WorldClient;
     }
 
-    public String func_78834_a()
+    /**
+     * Returns the size and contents of the entity spawn queue.
+     */
+    public String getEntitySpawnQueueCountAndList()
     {
         return WorldClient.getEntitySpawnQueue(this.worldClientMPL2).size() + " total; " + WorldClient.getEntitySpawnQueue(this.worldClientMPL2).toString();
     }
 
     public Object call()
     {
-        return this.func_78834_a();
+        return this.getEntitySpawnQueueCountAndList();
     }
 }

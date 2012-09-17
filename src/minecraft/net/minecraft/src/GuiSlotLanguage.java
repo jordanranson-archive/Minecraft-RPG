@@ -9,12 +9,12 @@ class GuiSlotLanguage extends GuiSlot
     private ArrayList field_77251_g;
     private TreeMap field_77253_h;
 
-    final GuiLanguage field_77252_a;
+    final GuiLanguage languageGui;
 
     public GuiSlotLanguage(GuiLanguage par1GuiLanguage)
     {
         super(par1GuiLanguage.mc, par1GuiLanguage.width, par1GuiLanguage.height, 32, par1GuiLanguage.height - 65 + 4, 18);
-        this.field_77252_a = par1GuiLanguage;
+        this.languageGui = par1GuiLanguage;
         this.field_77253_h = StringTranslate.getInstance().getLanguageList();
         this.field_77251_g = new ArrayList();
         Iterator var2 = this.field_77253_h.keySet().iterator();
@@ -40,11 +40,11 @@ class GuiSlotLanguage extends GuiSlot
     protected void elementClicked(int par1, boolean par2)
     {
         StringTranslate.getInstance().setLanguage((String)this.field_77251_g.get(par1));
-        this.field_77252_a.mc.fontRenderer.setUnicodeFlag(StringTranslate.getInstance().isUnicode());
-        GuiLanguage.Returns(this.field_77252_a).language = (String)this.field_77251_g.get(par1);
-        this.field_77252_a.fontRenderer.setBidiFlag(StringTranslate.isBidirectional(GuiLanguage.Returns(this.field_77252_a).language));
-        GuiLanguage.getDoneButton(this.field_77252_a).displayString = StringTranslate.getInstance().translateKey("gui.done");
-        GuiLanguage.Returns(this.field_77252_a).saveOptions();
+        this.languageGui.mc.fontRenderer.setUnicodeFlag(StringTranslate.getInstance().isUnicode());
+        GuiLanguage.Returns(this.languageGui).language = (String)this.field_77251_g.get(par1);
+        this.languageGui.fontRenderer.setBidiFlag(StringTranslate.isBidirectional(GuiLanguage.Returns(this.languageGui).language));
+        GuiLanguage.getDoneButton(this.languageGui).displayString = StringTranslate.getInstance().translateKey("gui.done");
+        GuiLanguage.Returns(this.languageGui).saveOptions();
     }
 
     /**
@@ -65,13 +65,13 @@ class GuiSlotLanguage extends GuiSlot
 
     protected void drawBackground()
     {
-        this.field_77252_a.drawDefaultBackground();
+        this.languageGui.drawDefaultBackground();
     }
 
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
-        this.field_77252_a.fontRenderer.setBidiFlag(true);
-        this.field_77252_a.drawCenteredString(this.field_77252_a.fontRenderer, (String)this.field_77253_h.get(this.field_77251_g.get(par1)), this.field_77252_a.width / 2, par3 + 1, 16777215);
-        this.field_77252_a.fontRenderer.setBidiFlag(StringTranslate.isBidirectional(GuiLanguage.Returns(this.field_77252_a).language));
+        this.languageGui.fontRenderer.setBidiFlag(true);
+        this.languageGui.drawCenteredString(this.languageGui.fontRenderer, (String)this.field_77253_h.get(this.field_77251_g.get(par1)), this.languageGui.width / 2, par3 + 1, 16777215);
+        this.languageGui.fontRenderer.setBidiFlag(StringTranslate.isBidirectional(GuiLanguage.Returns(this.languageGui).language));
     }
 }

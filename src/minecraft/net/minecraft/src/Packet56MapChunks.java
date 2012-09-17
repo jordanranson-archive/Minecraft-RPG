@@ -34,7 +34,7 @@ public class Packet56MapChunks extends Packet
         for (int var4 = 0; var4 < var2; ++var4)
         {
             Chunk var5 = (Chunk)par1List.get(var4);
-            Packet51MapChunkData var6 = Packet51MapChunk.func_73594_a(var5, true, 65535);
+            Packet51MapChunkData var6 = Packet51MapChunk.getMapChunkData(var5, true, 65535);
 
             if (field_73591_h.length < var3 + var6.field_74582_a.length)
             {
@@ -178,13 +178,5 @@ public class Packet56MapChunks extends Packet
     public byte[] func_73583_c(int par1)
     {
         return this.field_73584_f[par1];
-    }
-
-    /**
-     * if this returns false, processPacket is deffered for processReadPackets to handle
-     */
-    public boolean isWritePacket()
-    {
-        return true;
     }
 }

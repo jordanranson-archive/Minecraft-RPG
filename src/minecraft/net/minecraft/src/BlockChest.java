@@ -11,7 +11,7 @@ public class BlockChest extends BlockContainer
     {
         super(par1, Material.wood);
         this.blockIndexInTexture = 26;
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

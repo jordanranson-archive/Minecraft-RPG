@@ -38,7 +38,7 @@ public class EntityEnderPearl extends EntityThrowable
             {
                 EntityPlayerMP var3 = (EntityPlayerMP)this.thrower;
 
-                if (!var3.playerNetServerHandler.connectionClosed && var3.worldObj == this.worldObj)
+                if (!var3.serverForThisPlayer.serverShuttingDown && var3.worldObj == this.worldObj)
                 {
                     this.thrower.setPositionAndUpdate(this.posX, this.posY, this.posZ);
                     this.thrower.fallDistance = 0.0F;

@@ -5,14 +5,14 @@ import java.util.Random;
 
 public class BlockSapling extends BlockFlower
 {
-    public static final String[] field_72270_a = new String[] {"oak", "spruce", "birch", "jungle"};
+    public static final String[] WOOD_TYPES = new String[] {"oak", "spruce", "birch", "jungle"};
 
     protected BlockSapling(int par1, int par2)
     {
         super(par1, par2);
         float var3 = 0.4F;
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 2.0F, 0.5F + var3);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

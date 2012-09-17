@@ -37,7 +37,7 @@ public class RConThreadClient extends RConThreadBase
             this.running = false;
         }
 
-        this.rconPassword = par1IServer.getStringProperty("rcon.password", "");
+        this.rconPassword = par1IServer.getOrSetProperty("rcon.password", "");
         this.logInfo("Rcon connection from: " + par2Socket.getInetAddress());
     }
 

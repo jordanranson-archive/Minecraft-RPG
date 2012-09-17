@@ -58,14 +58,7 @@ public abstract class WorldProvider
      */
     protected void registerWorldChunkManager()
     {
-        if (this.worldObj.getWorldInfo().getTerrainType() == WorldType.FLAT)
-        {
-            this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.plains, 0.5F, 0.5F);
-        }
-        else
-        {
-            this.worldChunkMgr = new WorldChunkManager(this.worldObj);
-        }
+        this.worldChunkMgr = this.terrainType.getChunkManager(this.worldObj);
     }
 
     /**
@@ -73,7 +66,7 @@ public abstract class WorldProvider
      */
     public IChunkProvider getChunkProvider()
     {
-        return (IChunkProvider)(this.terrainType == WorldType.FLAT ? new ChunkProviderFlat(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled()) : new ChunkProviderGenerate(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled()));
+        return this.terrainType.getChunkGenerator(this.worldObj);
     }
 
     /**
@@ -201,7 +194,7 @@ public abstract class WorldProvider
     }
 
     /**
-     * Gets the hard-coded portal location to use when entering this dimension.
+     * Gets the hard-coded portal location to use when entering this dimension
      */
     public ChunkCoordinates getEntrancePortalLocation()
     {
@@ -210,7 +203,7 @@ public abstract class WorldProvider
 
     public int getAverageGroundLevel()
     {
-        return this.terrainType == WorldType.FLAT ? 4 : 64;
+        return this.terrainType.getSeaLevel(this.worldObj);
     }
 
     /**
@@ -219,7 +212,7 @@ public abstract class WorldProvider
      */
     public boolean getWorldHasVoidParticles()
     {
-        return this.terrainType != WorldType.FLAT && !this.hasNoSky;
+        return this.terrainType.hasVoidParticles(this.hasNoSky);
     }
 
     /**
@@ -229,7 +222,7 @@ public abstract class WorldProvider
      */
     public double getVoidFogYFactor()
     {
-        return this.terrainType == WorldType.FLAT ? 1.0D : 0.03125D;
+        return this.terrainType.voidFadeMagnitude();
     }
 
     /**
@@ -239,4 +232,9 @@ public abstract class WorldProvider
     {
         return false;
     }
+
+    /**
+     * Returns the dimension's name, e.g. "The End", "Nether", or "Overworld".
+     */
+    public abstract String getDimensionName();
 }

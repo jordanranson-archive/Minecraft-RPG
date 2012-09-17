@@ -10,7 +10,7 @@ public class BlockLilyPad extends BlockFlower
         float var3 = 0.5F;
         float var4 = 0.015625F;
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var4, 0.5F + var3);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

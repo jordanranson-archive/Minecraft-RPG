@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class ComponentVillageHouse2 extends ComponentVillage
 {
-    private static final WeightedRandomChestContent[] field_74918_a = new WeightedRandomChestContent[] {
+    /** List of items that Village's Blacksmith chest can contain. */
+    private static final WeightedRandomChestContent[] villageBlacksmithChestContents = new WeightedRandomChestContent[] {
 		new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3), 
 		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
 		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), 
@@ -108,7 +109,7 @@ public class ComponentVillageHouse2 extends ComponentVillage
             if (par3StructureBoundingBox.isVecInside(var5, var4, var6))
             {
                 this.hasMadeChest = true;
-                this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 5, 1, 5, field_74918_a, 3 + par2Random.nextInt(6));
+                this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 5, 1, 5, villageBlacksmithChestContents, 3 + par2Random.nextInt(6));
             }
         }
 

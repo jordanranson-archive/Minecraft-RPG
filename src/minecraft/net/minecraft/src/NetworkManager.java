@@ -4,9 +4,6 @@ import java.net.SocketAddress;
 
 public interface NetworkManager
 {
-    /**
-     * Sets the NetHandler for this NetworkManager. Server-only.
-     */
     void setNetHandler(NetHandler var1);
 
     /**

@@ -13,7 +13,10 @@ public class RenderMinecart extends Render
         this.modelMinecart = new ModelMinecart();
     }
 
-    public void func_77012_a(EntityMinecart par1EntityMinecart, double par2, double par4, double par6, float par8, float par9)
+    /**
+     * Renders the Minecart.
+     */
+    public void renderTheMinecart(EntityMinecart par1EntityMinecart, double par2, double par4, double par6, float par8, float par9)
     {
         GL11.glPushMatrix();
         long var10 = (long)par1EntityMinecart.entityId * 493286711L;
@@ -113,6 +116,6 @@ public class RenderMinecart extends Render
      */
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.func_77012_a((EntityMinecart)par1Entity, par2, par4, par6, par8, par9);
+        this.renderTheMinecart((EntityMinecart)par1Entity, par2, par4, par6, par8, par9);
     }
 }

@@ -36,8 +36,8 @@ public class CommandServerWhitelist extends CommandBase
 
             if (par2ArrayOfStr[0].equals("list"))
             {
-                par1ICommandSender.sendChatToPlayer(par1ICommandSender.translateString("commands.whitelist.list", new Object[] {Integer.valueOf(MinecraftServer.getServer().getConfigurationManager().getWhiteListedPlayers().size()), Integer.valueOf(MinecraftServer.getServer().getConfigurationManager().getAvailablePlayerDat().length)}));
-                par1ICommandSender.sendChatToPlayer(joinNiceString(MinecraftServer.getServer().getConfigurationManager().getWhiteListedPlayers().toArray(new String[0])));
+                par1ICommandSender.sendChatToPlayer(par1ICommandSender.translateString("commands.whitelist.list", new Object[] {Integer.valueOf(MinecraftServer.getServer().getConfigurationManager().getIPWhiteList().size()), Integer.valueOf(MinecraftServer.getServer().getConfigurationManager().getAvailablePlayerDat().length)}));
+                par1ICommandSender.sendChatToPlayer(joinNiceString(MinecraftServer.getServer().getConfigurationManager().getIPWhiteList().toArray(new String[0])));
                 return;
             }
 
@@ -101,7 +101,7 @@ public class CommandServerWhitelist extends CommandBase
                     {
                         String var9 = var6[var8];
 
-                        if (doesStringStartWith(var5, var9) && !MinecraftServer.getServer().getConfigurationManager().getWhiteListedPlayers().contains(var9))
+                        if (doesStringStartWith(var5, var9) && !MinecraftServer.getServer().getConfigurationManager().getIPWhiteList().contains(var9))
                         {
                             var4.add(var9);
                         }
@@ -112,7 +112,7 @@ public class CommandServerWhitelist extends CommandBase
 
                 if (par2ArrayOfStr[0].equals("remove"))
                 {
-                    return getListOfStringsFromIterableMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getConfigurationManager().getWhiteListedPlayers());
+                    return getListOfStringsFromIterableMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getConfigurationManager().getIPWhiteList());
                 }
             }
 

@@ -13,8 +13,12 @@ public class ModelIronGolem extends ModelBase
 
     /** The left arm model for the iron golem. */
     public ModelRenderer ironGolemLeftArm;
-    public ModelRenderer field_78175_e;
-    public ModelRenderer field_78173_f;
+
+    /** The left leg model for the Iron Golem. */
+    public ModelRenderer ironGolemLeftLeg;
+
+    /** The right leg model for the Iron Golem. */
+    public ModelRenderer ironGolemRightLeg;
 
     public ModelIronGolem()
     {
@@ -44,13 +48,13 @@ public class ModelIronGolem extends ModelBase
         this.ironGolemLeftArm = (new ModelRenderer(this)).setTextureSize(var3, var4);
         this.ironGolemLeftArm.setRotationPoint(0.0F, -7.0F, 0.0F);
         this.ironGolemLeftArm.setTextureOffset(60, 58).addBox(9.0F, -2.5F, -3.0F, 4, 30, 6, par1);
-        this.field_78175_e = (new ModelRenderer(this, 0, 22)).setTextureSize(var3, var4);
-        this.field_78175_e.setRotationPoint(-4.0F, 18.0F + par2, 0.0F);
-        this.field_78175_e.setTextureOffset(37, 0).addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, par1);
-        this.field_78173_f = (new ModelRenderer(this, 0, 22)).setTextureSize(var3, var4);
-        this.field_78173_f.mirror = true;
-        this.field_78173_f.setTextureOffset(60, 0).setRotationPoint(5.0F, 18.0F + par2, 0.0F);
-        this.field_78173_f.addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, par1);
+        this.ironGolemLeftLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(var3, var4);
+        this.ironGolemLeftLeg.setRotationPoint(-4.0F, 18.0F + par2, 0.0F);
+        this.ironGolemLeftLeg.setTextureOffset(37, 0).addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, par1);
+        this.ironGolemRightLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(var3, var4);
+        this.ironGolemRightLeg.mirror = true;
+        this.ironGolemRightLeg.setTextureOffset(60, 0).setRotationPoint(5.0F, 18.0F + par2, 0.0F);
+        this.ironGolemRightLeg.addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, par1);
     }
 
     /**
@@ -61,8 +65,8 @@ public class ModelIronGolem extends ModelBase
         this.setRotationAngles(par2, par3, par4, par5, par6, par7);
         this.ironGolemHead.render(par7);
         this.ironGolemBody.render(par7);
-        this.field_78175_e.render(par7);
-        this.field_78173_f.render(par7);
+        this.ironGolemLeftLeg.render(par7);
+        this.ironGolemRightLeg.render(par7);
         this.ironGolemRightArm.render(par7);
         this.ironGolemLeftArm.render(par7);
     }
@@ -74,10 +78,10 @@ public class ModelIronGolem extends ModelBase
     {
         this.ironGolemHead.rotateAngleY = par4 / (180F / (float)Math.PI);
         this.ironGolemHead.rotateAngleX = par5 / (180F / (float)Math.PI);
-        this.field_78175_e.rotateAngleX = -1.5F * this.func_78172_a(par1, 13.0F) * par2;
-        this.field_78173_f.rotateAngleX = 1.5F * this.func_78172_a(par1, 13.0F) * par2;
-        this.field_78175_e.rotateAngleY = 0.0F;
-        this.field_78173_f.rotateAngleY = 0.0F;
+        this.ironGolemLeftLeg.rotateAngleX = -1.5F * this.func_78172_a(par1, 13.0F) * par2;
+        this.ironGolemRightLeg.rotateAngleX = 1.5F * this.func_78172_a(par1, 13.0F) * par2;
+        this.ironGolemLeftLeg.rotateAngleY = 0.0F;
+        this.ironGolemRightLeg.rotateAngleY = 0.0F;
     }
 
     /**

@@ -2,13 +2,13 @@ package net.minecraft.src;
 
 class GuiSlotStatsGeneral extends GuiSlot
 {
-    final GuiStats field_77256_a;
+    final GuiStats statsGui;
 
     public GuiSlotStatsGeneral(GuiStats par1GuiStats)
     {
         super(GuiStats.getMinecraft(par1GuiStats), par1GuiStats.width, par1GuiStats.height, 32, par1GuiStats.height - 64, 10);
-        this.field_77256_a = par1GuiStats;
-        this.func_77216_a(false);
+        this.statsGui = par1GuiStats;
+        this.setShowSelectionBox(false);
     }
 
     /**
@@ -42,14 +42,14 @@ class GuiSlotStatsGeneral extends GuiSlot
 
     protected void drawBackground()
     {
-        this.field_77256_a.drawDefaultBackground();
+        this.statsGui.drawDefaultBackground();
     }
 
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
         StatBase var6 = (StatBase)StatList.generalStats.get(par1);
-        this.field_77256_a.drawString(GuiStats.getFontRenderer1(this.field_77256_a), StatCollector.translateToLocal(var6.getName()), par2 + 2, par3 + 1, par1 % 2 == 0 ? 16777215 : 9474192);
-        String var7 = var6.func_75968_a(GuiStats.getStatsFileWriter(this.field_77256_a).writeStat(var6));
-        this.field_77256_a.drawString(GuiStats.getFontRenderer2(this.field_77256_a), var7, par2 + 2 + 213 - GuiStats.getFontRenderer3(this.field_77256_a).getStringWidth(var7), par3 + 1, par1 % 2 == 0 ? 16777215 : 9474192);
+        this.statsGui.drawString(GuiStats.getFontRenderer1(this.statsGui), StatCollector.translateToLocal(var6.getName()), par2 + 2, par3 + 1, par1 % 2 == 0 ? 16777215 : 9474192);
+        String var7 = var6.func_75968_a(GuiStats.getStatsFileWriter(this.statsGui).writeStat(var6));
+        this.statsGui.drawString(GuiStats.getFontRenderer2(this.statsGui), var7, par2 + 2 + 213 - GuiStats.getFontRenderer3(this.statsGui).getStringWidth(var7), par3 + 1, par1 % 2 == 0 ? 16777215 : 9474192);
     }
 }

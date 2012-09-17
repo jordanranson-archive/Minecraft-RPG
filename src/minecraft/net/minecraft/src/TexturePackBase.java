@@ -4,9 +4,15 @@ import java.io.InputStream;
 
 public interface TexturePackBase
 {
-    void func_77533_a(RenderEngine var1);
+    /**
+     * Delete the OpenGL texture id of the pack's thumbnail image, and close the zip file in case of TexturePackCustom.
+     */
+    void deleteTexturePack(RenderEngine var1);
 
-    void func_77535_b(RenderEngine var1);
+    /**
+     * Bind the texture id of the pack's thumbnail image, loading it if necessary.
+     */
+    void bindThumbnailTexture(RenderEngine var1);
 
     /**
      * Gives a texture resource as InputStream.
@@ -33,5 +39,9 @@ public interface TexturePackBase
      */
     String getSecondDescriptionLine();
 
-    int func_77534_f();
+    /**
+     * Return the texture pack's resolution (16 by default). Used only by PlayerUsageSnooper. Presumably meant to be
+     * overriden by HD texture mods.
+     */
+    int getTexturePackResolution();
 }

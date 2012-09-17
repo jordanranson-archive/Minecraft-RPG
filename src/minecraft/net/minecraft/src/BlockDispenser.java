@@ -132,56 +132,56 @@ public class BlockDispenser extends BlockContainer
     private void dispenseItem(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         int var6 = par1World.getBlockMetadata(par2, par3, par4);
-        byte var9 = 0;
-        byte var10 = 0;
+        byte var7 = 0;
+        byte var8 = 0;
 
         if (var6 == 3)
         {
-            var10 = 1;
+            var8 = 1;
         }
         else if (var6 == 2)
         {
-            var10 = -1;
+            var8 = -1;
         }
         else if (var6 == 5)
         {
-            var9 = 1;
+            var7 = 1;
         }
         else
         {
-            var9 = -1;
+            var7 = -1;
         }
 
-        TileEntityDispenser var11 = (TileEntityDispenser)par1World.getBlockTileEntity(par2, par3, par4);
+        TileEntityDispenser var9 = (TileEntityDispenser)par1World.getBlockTileEntity(par2, par3, par4);
 
-        if (var11 != null)
+        if (var9 != null)
         {
-            int var12 = var11.func_70361_i();
+            int var10 = var9.getRandomStackFromInventory();
 
-            if (var12 < 0)
+            if (var10 < 0)
             {
                 par1World.playAuxSFX(1001, par2, par3, par4, 0);
             }
             else
             {
-                double var13 = (double)par2 + (double)var9 * 0.6D + 0.5D;
-                double var15 = (double)par3 + 0.5D;
-                double var17 = (double)par4 + (double)var10 * 0.6D + 0.5D;
-                ItemStack var19 = var11.getStackInSlot(var12);
-                int var20 = spawnEntityWithAction(var11, par1World, var19, par5Random, par2, par3, par4, var9, var10, var13, var15, var17);
+                double var11 = (double)par2 + (double)var7 * 0.6D + 0.5D;
+                double var13 = (double)par3 + 0.5D;
+                double var15 = (double)par4 + (double)var8 * 0.6D + 0.5D;
+                ItemStack var17 = var9.getStackInSlot(var10);
+                int var18 = spawnEntityWithAction(var9, par1World, var17, par5Random, par2, par3, par4, var7, var8, var11, var13, var15);
 
-                if (var20 == 1)
+                if (var18 == 1)
                 {
-                    var11.decrStackSize(var12, 1);
+                    var9.decrStackSize(var10, 1);
                 }
-                else if (var20 == 0)
+                else if (var18 == 0)
                 {
-                    var19 = var11.decrStackSize(var12, 1);
-                    dispenseEntityFromStack(par1World, var19, par5Random, 6, var9, var10, var13, var15, var17);
+                    var17 = var9.decrStackSize(var10, 1);
+                    dispenseEntityFromStack(par1World, var17, par5Random, 6, var7, var8, var11, var13, var15);
                     par1World.playAuxSFX(1000, par2, par3, par4, 0);
                 }
 
-                par1World.playAuxSFX(2000, par2, par3, par4, var9 + 1 + (var10 + 1) * 3);
+                par1World.playAuxSFX(2000, par2, par3, par4, var7 + 1 + (var8 + 1) * 3);
             }
         }
     }
@@ -470,7 +470,7 @@ public class BlockDispenser extends BlockContainer
             }
             else
             {
-                return 0;
+                return ModLoader.dispenseEntity(par1World, par2ItemStack, par3Random, par4, par5, par6, par7, par8, par9, par11, par13);
             }
         }
         else

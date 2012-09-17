@@ -24,7 +24,7 @@ public class CommandXP extends CommandBase
 
             if (par2ArrayOfStr.length > 1)
             {
-                var3 = this.func_71543_a(par2ArrayOfStr[1]);
+                var3 = this.getPlayer(par2ArrayOfStr[1]);
             }
             else
             {
@@ -45,10 +45,10 @@ public class CommandXP extends CommandBase
      */
     public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
-        return par2ArrayOfStr.length == 2 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, this.func_71542_c()) : null;
+        return par2ArrayOfStr.length == 2 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, this.getAllUsernames()) : null;
     }
 
-    protected EntityPlayer func_71543_a(String par1Str)
+    protected EntityPlayer getPlayer(String par1Str)
     {
         EntityPlayerMP var2 = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(par1Str);
 
@@ -62,7 +62,7 @@ public class CommandXP extends CommandBase
         }
     }
 
-    protected String[] func_71542_c()
+    protected String[] getAllUsernames()
     {
         return MinecraftServer.getServer().getAllUsernames();
     }

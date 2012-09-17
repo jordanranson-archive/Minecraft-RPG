@@ -914,7 +914,10 @@ public abstract class World implements IBlockAccess
         }
     }
 
-    public void func_72902_n(int par1, int par2, int par3)
+    /**
+     * all WorldAcceses mark this block as dirty
+     */
+    public void markBlockNeedsUpdateForAll(int par1, int par2, int par3)
     {
         Iterator var4 = this.worldAccesses.iterator();
 
@@ -1359,9 +1362,6 @@ public abstract class World implements IBlockAccess
         }
     }
 
-    /**
-     * remove dat player from dem servers
-     */
     public void removeEntity(Entity par1Entity)
     {
         par1Entity.setDead();

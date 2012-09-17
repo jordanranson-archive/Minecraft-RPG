@@ -229,7 +229,7 @@ public class BlockRail extends Block
                     }
                 }
             }
-            else if (par5 > 0 && Block.blocksList[par5].canProvidePower() && !this.isPowered && RailLogic.getAdjacentTracks(new RailLogic(this, par1World, par2, par3, par4)) == 3)
+            else if (par5 > 0 && Block.blocksList[par5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, par1World, par2, par3, par4)) == 3)
             {
                 this.refreshTrackShape(par1World, par2, par3, par4, false);
             }

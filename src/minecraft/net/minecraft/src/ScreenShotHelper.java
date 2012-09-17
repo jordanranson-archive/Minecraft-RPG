@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL12;
 
 public class ScreenShotHelper
 {
-    private static final DateFormat field_74295_a = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
     private static IntBuffer field_74293_b;
     private static int[] field_74294_c;
 
@@ -70,7 +70,7 @@ public class ScreenShotHelper
 
     private static File func_74290_a(File par0File)
     {
-        String var2 = field_74295_a.format(new Date()).toString();
+        String var2 = dateFormat.format(new Date()).toString();
         int var3 = 1;
 
         while (true)

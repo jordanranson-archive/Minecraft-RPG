@@ -188,9 +188,9 @@ public class TileEntity
     }
 
     /**
-     * Overriden in a sign to provide the text.
+     * signs and mobSpawners use this to send text and meta-data
      */
-    public Packet getDescriptionPacket()
+    public Packet getAuxillaryInfoPacket()
     {
         return null;
     }
@@ -248,6 +248,8 @@ public class TileEntity
         addMapping(TileEntityBrewingStand.class, "Cauldron");
         addMapping(TileEntityEnchantmentTable.class, "EnchantTable");
         addMapping(TileEntityEndPortal.class, "Airportal");
+
+		// Minecraft RPG
         addMapping(TileEntityProspectingTable.class, "ProspectTable");
     }
 }

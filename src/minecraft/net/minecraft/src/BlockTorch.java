@@ -8,7 +8,7 @@ public class BlockTorch extends Block
     {
         super(par1, par2, Material.circuits);
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

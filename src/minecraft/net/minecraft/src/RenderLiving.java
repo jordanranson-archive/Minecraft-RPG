@@ -26,7 +26,12 @@ public class RenderLiving extends Render
         this.renderPassModel = par1ModelBase;
     }
 
-    private float func_77034_a(float par1, float par2, float par3)
+    /**
+     * Returns a rotation angle that is inbetween two other rotation angles. par1 and par2 are the angles between which
+     * to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
+     * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40
+     */
+    private float interpolateRotation(float par1, float par2, float par3)
     {
         float var4;
 
@@ -70,8 +75,8 @@ public class RenderLiving extends Render
 
         try
         {
-            float var10 = this.func_77034_a(par1EntityLiving.prevRenderYawOffset, par1EntityLiving.renderYawOffset, par9);
-            float var11 = this.func_77034_a(par1EntityLiving.prevRotationYawHead, par1EntityLiving.rotationYawHead, par9);
+            float var10 = this.interpolateRotation(par1EntityLiving.prevRenderYawOffset, par1EntityLiving.renderYawOffset, par9);
+            float var11 = this.interpolateRotation(par1EntityLiving.prevRotationYawHead, par1EntityLiving.rotationYawHead, par9);
             float var12 = par1EntityLiving.prevRotationPitch + (par1EntityLiving.rotationPitch - par1EntityLiving.prevRotationPitch) * par9;
             this.renderLivingAt(par1EntityLiving, par2, par4, par6);
             float var13 = this.handleRotationFloat(par1EntityLiving, par9);
@@ -82,7 +87,7 @@ public class RenderLiving extends Render
             this.preRenderCallback(par1EntityLiving, par9);
             GL11.glTranslatef(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
             float var15 = par1EntityLiving.prevLegYaw + (par1EntityLiving.legYaw - par1EntityLiving.prevLegYaw) * par9;
-            float var16 = par1EntityLiving.field_70754_ba - par1EntityLiving.legYaw * (1.0F - par9);
+            float var16 = par1EntityLiving.legSwing - par1EntityLiving.legYaw * (1.0F - par9);
 
             if (par1EntityLiving.isChild())
             {

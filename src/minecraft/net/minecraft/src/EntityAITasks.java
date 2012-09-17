@@ -11,13 +11,15 @@ public class EntityAITasks
 
     /** A list of EntityAITaskEntrys that are currently being executed. */
     private List executingTaskEntries = new ArrayList();
-    private final Profiler field_75781_c;
+
+    /** Instance of Profiler. */
+    private final Profiler theProfiler;
     private int field_75778_d = 0;
     private int field_75779_e = 3;
 
     public EntityAITasks(Profiler par1Profiler)
     {
-        this.field_75781_c = par1Profiler;
+        this.theProfiler = par1Profiler;
     }
 
     public void addTask(int par1, EntityAIBase par2EntityAIBase)
@@ -74,43 +76,43 @@ public class EntityAITasks
             }
         }
 
-        this.field_75781_c.startSection("goalStart");
+        this.theProfiler.startSection("goalStart");
         var2 = var1.iterator();
 
         while (var2.hasNext())
         {
             var3 = (EntityAITaskEntry)var2.next();
-            this.field_75781_c.startSection(var3.action.getClass().getSimpleName());
+            this.theProfiler.startSection(var3.action.getClass().getSimpleName());
             var3.action.startExecuting();
-            this.field_75781_c.endSection();
+            this.theProfiler.endSection();
         }
 
-        this.field_75781_c.endSection();
-        this.field_75781_c.startSection("goalTick");
+        this.theProfiler.endSection();
+        this.theProfiler.startSection("goalTick");
         var2 = this.executingTaskEntries.iterator();
 
         while (var2.hasNext())
         {
             var3 = (EntityAITaskEntry)var2.next();
-            this.field_75781_c.startSection(var3.action.getClass().getSimpleName());
+            this.theProfiler.startSection(var3.action.getClass().getSimpleName());
             var3.action.updateTask();
-            this.field_75781_c.endSection();
+            this.theProfiler.endSection();
         }
 
-        this.field_75781_c.endSection();
+        this.theProfiler.endSection();
     }
 
     private boolean func_75773_a(EntityAITaskEntry par1EntityAITaskEntry)
     {
-        this.field_75781_c.startSection("canContinue");
+        this.theProfiler.startSection("canContinue");
         boolean var2 = par1EntityAITaskEntry.action.continueExecuting();
-        this.field_75781_c.endSection();
+        this.theProfiler.endSection();
         return var2;
     }
 
     private boolean func_75775_b(EntityAITaskEntry par1EntityAITaskEntry)
     {
-        this.field_75781_c.startSection("canUse");
+        this.theProfiler.startSection("canUse");
         Iterator var2 = this.taskEntries.iterator();
 
         while (var2.hasNext())
@@ -123,19 +125,19 @@ public class EntityAITasks
                 {
                     if (this.executingTaskEntries.contains(var3) && !this.areTasksCompatible(par1EntityAITaskEntry, var3))
                     {
-                        this.field_75781_c.endSection();
+                        this.theProfiler.endSection();
                         return false;
                     }
                 }
                 else if (this.executingTaskEntries.contains(var3) && !var3.action.isContinuous())
                 {
-                    this.field_75781_c.endSection();
+                    this.theProfiler.endSection();
                     return false;
                 }
             }
         }
 
-        this.field_75781_c.endSection();
+        this.theProfiler.endSection();
         return true;
     }
 

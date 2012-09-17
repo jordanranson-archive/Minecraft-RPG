@@ -2,17 +2,22 @@ package net.minecraft.src;
 
 public class SlotMerchantResult extends Slot
 {
-    private final InventoryMerchant field_75233_a;
-    private EntityPlayer field_75232_b;
+    /** Merchant's inventory. */
+    private final InventoryMerchant theMerchantInventory;
+
+    /** The Player whos trying to buy/sell stuff. */
+    private EntityPlayer thePlayer;
     private int field_75231_g;
-    private final IMerchant field_75234_h;
+
+    /** "Instance" of the Merchant. */
+    private final IMerchant theMerchant;
 
     public SlotMerchantResult(EntityPlayer par1EntityPlayer, IMerchant par2IMerchant, InventoryMerchant par3InventoryMerchant, int par4, int par5, int par6)
     {
         super(par3InventoryMerchant, par4, par5, par6);
-        this.field_75232_b = par1EntityPlayer;
-        this.field_75234_h = par2IMerchant;
-        this.field_75233_a = par3InventoryMerchant;
+        this.thePlayer = par1EntityPlayer;
+        this.theMerchant = par2IMerchant;
+        this.theMerchantInventory = par3InventoryMerchant;
     }
 
     /**
@@ -52,7 +57,7 @@ public class SlotMerchantResult extends Slot
      */
     protected void onCrafting(ItemStack par1ItemStack)
     {
-        par1ItemStack.onCrafting(this.field_75232_b.worldObj, this.field_75232_b, this.field_75231_g);
+        par1ItemStack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.field_75231_g);
         this.field_75231_g = 0;
     }
 
@@ -62,12 +67,12 @@ public class SlotMerchantResult extends Slot
     public void onPickupFromSlot(ItemStack par1ItemStack)
     {
         this.onCrafting(par1ItemStack);
-        MerchantRecipe var2 = this.field_75233_a.getCurrentRecipe();
+        MerchantRecipe var2 = this.theMerchantInventory.getCurrentRecipe();
 
         if (var2 != null)
         {
-            ItemStack var3 = this.field_75233_a.getStackInSlot(0);
-            ItemStack var4 = this.field_75233_a.getStackInSlot(1);
+            ItemStack var3 = this.theMerchantInventory.getStackInSlot(0);
+            ItemStack var4 = this.theMerchantInventory.getStackInSlot(1);
 
             if (this.func_75230_a(var2, var3, var4) || this.func_75230_a(var2, var4, var3))
             {
@@ -81,9 +86,9 @@ public class SlotMerchantResult extends Slot
                     var4 = null;
                 }
 
-                this.field_75233_a.setInventorySlotContents(0, var3);
-                this.field_75233_a.setInventorySlotContents(1, var4);
-                this.field_75234_h.useRecipe(var2);
+                this.theMerchantInventory.setInventorySlotContents(0, var3);
+                this.theMerchantInventory.setInventorySlotContents(1, var4);
+                this.theMerchant.useRecipe(var2);
             }
         }
     }

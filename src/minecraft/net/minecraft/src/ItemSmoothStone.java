@@ -2,12 +2,13 @@ package net.minecraft.src;
 
 public class ItemSmoothStone extends ItemBlock
 {
-    private Block field_77887_a;
+    /** Instance of the Block. */
+    private Block theSmoothStoneBlock;
 
     public ItemSmoothStone(int par1, Block par2Block)
     {
         super(par1);
-        this.field_77887_a = par2Block;
+        this.theSmoothStoneBlock = par2Block;
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
     }
@@ -17,7 +18,7 @@ public class ItemSmoothStone extends ItemBlock
      */
     public int getIconFromDamage(int par1)
     {
-        return this.field_77887_a.getBlockTextureFromSideAndMetadata(2, par1);
+        return this.theSmoothStoneBlock.getBlockTextureFromSideAndMetadata(2, par1);
     }
 
     /**
@@ -32,11 +33,11 @@ public class ItemSmoothStone extends ItemBlock
     {
         int var2 = par1ItemStack.getItemDamage();
 
-        if (var2 < 0 || var2 >= BlockStoneBrick.field_72188_a.length)
+        if (var2 < 0 || var2 >= BlockStoneBrick.STONE_BRICK_TYPES.length)
         {
             var2 = 0;
         }
 
-        return super.getItemName() + "." + BlockStoneBrick.field_72188_a[var2];
+        return super.getItemName() + "." + BlockStoneBrick.STONE_BRICK_TYPES[var2];
     }
 }

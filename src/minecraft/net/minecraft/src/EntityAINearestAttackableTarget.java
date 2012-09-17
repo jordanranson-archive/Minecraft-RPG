@@ -9,7 +9,9 @@ public class EntityAINearestAttackableTarget extends EntityAITarget
     EntityLiving targetEntity;
     Class targetClass;
     int targetChance;
-    private EntityAINearestAttackableTargetSorter field_75306_g;
+
+    /** Instance of EntityAINearestAttackableTargetSorter. */
+    private EntityAINearestAttackableTargetSorter theNearestAttackableTargetSorter;
 
     public EntityAINearestAttackableTarget(EntityLiving par1EntityLiving, Class par2Class, float par3, int par4, boolean par5)
     {
@@ -22,7 +24,7 @@ public class EntityAINearestAttackableTarget extends EntityAITarget
         this.targetClass = par2Class;
         this.targetDistance = par3;
         this.targetChance = par4;
-        this.field_75306_g = new EntityAINearestAttackableTargetSorter(this, par1EntityLiving);
+        this.theNearestAttackableTargetSorter = new EntityAINearestAttackableTargetSorter(this, par1EntityLiving);
         this.setMutexBits(1);
     }
 
@@ -50,7 +52,7 @@ public class EntityAINearestAttackableTarget extends EntityAITarget
             else
             {
                 List var5 = this.taskOwner.worldObj.getEntitiesWithinAABB(this.targetClass, this.taskOwner.boundingBox.expand((double)this.targetDistance, 4.0D, (double)this.targetDistance));
-                Collections.sort(var5, this.field_75306_g);
+                Collections.sort(var5, this.theNearestAttackableTargetSorter);
                 Iterator var2 = var5.iterator();
 
                 while (var2.hasNext())

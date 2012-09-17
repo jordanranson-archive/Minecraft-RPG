@@ -2,14 +2,17 @@ package net.minecraft.src;
 
 public class ContainerMerchant extends Container
 {
-    private IMerchant field_75178_e;
+    /** Instance of Merchant. */
+    private IMerchant theMerchant;
     private InventoryMerchant merchantInventory;
-    private final World field_75177_g;
+
+    /** Instance of World. */
+    private final World theWorld;
 
     public ContainerMerchant(InventoryPlayer par1InventoryPlayer, IMerchant par2IMerchant, World par3World)
     {
-        this.field_75178_e = par2IMerchant;
-        this.field_75177_g = par3World;
+        this.theMerchant = par2IMerchant;
+        this.theWorld = par3World;
         this.merchantInventory = new InventoryMerchant(par1InventoryPlayer.player, par2IMerchant);
         this.addSlotToContainer(new Slot(this.merchantInventory, 0, 36, 53));
         this.addSlotToContainer(new Slot(this.merchantInventory, 1, 62, 53));
@@ -66,7 +69,7 @@ public class ContainerMerchant extends Container
 
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.field_75178_e.getCustomer() == par1EntityPlayer;
+        return this.theMerchant.getCustomer() == par1EntityPlayer;
     }
 
     /**
@@ -136,10 +139,10 @@ public class ContainerMerchant extends Container
     public void onCraftGuiClosed(EntityPlayer par1EntityPlayer)
     {
         super.onCraftGuiClosed(par1EntityPlayer);
-        this.field_75178_e.setCustomer((EntityPlayer)null);
+        this.theMerchant.setCustomer((EntityPlayer)null);
         super.onCraftGuiClosed(par1EntityPlayer);
 
-        if (!this.field_75177_g.isRemote)
+        if (!this.theWorld.isRemote)
         {
             ItemStack var2 = this.merchantInventory.getStackInSlotOnClosing(0);
 

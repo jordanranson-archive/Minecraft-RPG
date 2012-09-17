@@ -29,7 +29,7 @@ public abstract class RConThreadBase implements Runnable
     {
         this.server = par1IServer;
 
-        if (this.server.isDebuggingEnabled())
+        if (this.server.doLogInfoEvent())
         {
             this.logWarning("Debugging is enabled, performance maybe reduced!");
         }
@@ -38,7 +38,6 @@ public abstract class RConThreadBase implements Runnable
     /**
      * Creates a new Thread object from this class and starts running
      */
-
     public synchronized void startThread()
     {
         this.rconThread = new Thread(this);
@@ -59,7 +58,7 @@ public abstract class RConThreadBase implements Runnable
      */
     protected void logDebug(String par1Str)
     {
-        this.server.logDebug(par1Str);
+        this.server.logInfoEvent(par1Str);
     }
 
     /**
@@ -67,7 +66,7 @@ public abstract class RConThreadBase implements Runnable
      */
     protected void logInfo(String par1Str)
     {
-        this.server.logInfo(par1Str);
+        this.server.logInfoMessage(par1Str);
     }
 
     /**
@@ -75,7 +74,7 @@ public abstract class RConThreadBase implements Runnable
      */
     protected void logWarning(String par1Str)
     {
-        this.server.logWarning(par1Str);
+        this.server.logWarningMessage(par1Str);
     }
 
     /**
@@ -83,7 +82,7 @@ public abstract class RConThreadBase implements Runnable
      */
     protected void logSevere(String par1Str)
     {
-        this.server.logSevere(par1Str);
+        this.server.logSevereEvent(par1Str);
     }
 
     /**
@@ -91,7 +90,7 @@ public abstract class RConThreadBase implements Runnable
      */
     protected int getNumberOfPlayers()
     {
-        return this.server.getCurrentPlayerCount();
+        return this.server.getPlayerListSize();
     }
 
     /**

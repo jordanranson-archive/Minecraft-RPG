@@ -2,7 +2,8 @@ package net.minecraft.src;
 
 public class EntityCrit2FX extends EntityFX
 {
-    private Entity field_70557_a;
+    /** Entity that had been hit and done the Critical hit on. */
+    private Entity theEntity;
     private int currentLife;
     private int maximumLife;
     private String particleName;
@@ -17,7 +18,7 @@ public class EntityCrit2FX extends EntityFX
         super(par1World, par2Entity.posX, par2Entity.boundingBox.minY + (double)(par2Entity.height / 2.0F), par2Entity.posZ, par2Entity.motionX, par2Entity.motionY, par2Entity.motionZ);
         this.currentLife = 0;
         this.maximumLife = 0;
-        this.field_70557_a = par2Entity;
+        this.theEntity = par2Entity;
         this.maximumLife = 3;
         this.particleName = par3Str;
         this.onUpdate();
@@ -38,9 +39,9 @@ public class EntityCrit2FX extends EntityFX
 
             if (var2 * var2 + var4 * var4 + var6 * var6 <= 1.0D)
             {
-                double var8 = this.field_70557_a.posX + var2 * (double)this.field_70557_a.width / 4.0D;
-                double var10 = this.field_70557_a.boundingBox.minY + (double)(this.field_70557_a.height / 2.0F) + var4 * (double)this.field_70557_a.height / 4.0D;
-                double var12 = this.field_70557_a.posZ + var6 * (double)this.field_70557_a.width / 4.0D;
+                double var8 = this.theEntity.posX + var2 * (double)this.theEntity.width / 4.0D;
+                double var10 = this.theEntity.boundingBox.minY + (double)(this.theEntity.height / 2.0F) + var4 * (double)this.theEntity.height / 4.0D;
+                double var12 = this.theEntity.posZ + var6 * (double)this.theEntity.width / 4.0D;
                 this.worldObj.spawnParticle(this.particleName, var8, var10, var12, var2, var4 + 0.2D, var6);
             }
         }

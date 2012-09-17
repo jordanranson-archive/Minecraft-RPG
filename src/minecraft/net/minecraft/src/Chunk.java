@@ -120,7 +120,7 @@ public class Chunk
             {
                 for (int var8 = 0; var8 < var5; ++var8)
                 {
-                    byte var9 = par2ArrayOfByte[var6 << 11 | var7 << 7 | var8];
+                    int var9 = par2ArrayOfByte[var6 << 11 | var7 << 7 | var8] & 255;
 
                     if (var9 != 0)
                     {
@@ -265,7 +265,7 @@ public class Chunk
                                 if (var6 != null)
                                 {
                                     var6.setExtSkylightValue(var2, var5 & 15, var3, var4);
-                                    this.worldObj.func_72902_n((this.xPosition << 4) + var2, var5, (this.zPosition << 4) + var3);
+                                    this.worldObj.markBlockNeedsUpdateForAll((this.xPosition << 4) + var2, var5, (this.zPosition << 4) + var3);
                                 }
                             }
 
@@ -404,27 +404,27 @@ public class Chunk
 
         if (var5 != var4)
         {
-            this.worldObj.markBlocksDirtyVertical(par1, par3, var5, var4);
+            this.worldObj.markBlocksDirtyVertical(par1 + this.xPosition * 16, par3 + this.zPosition * 16, var5, var4);
             this.heightMap[par3 << 4 | par1] = var5;
             int var6 = this.xPosition * 16 + par1;
             int var7 = this.zPosition * 16 + par3;
             int var8;
-            int var12;
+            int var9;
 
             if (!this.worldObj.provider.hasNoSky)
             {
-                ExtendedBlockStorage var9;
+                ExtendedBlockStorage var10;
 
                 if (var5 < var4)
                 {
                     for (var8 = var5; var8 < var4; ++var8)
                     {
-                        var9 = this.storageArrays[var8 >> 4];
+                        var10 = this.storageArrays[var8 >> 4];
 
-                        if (var9 != null)
+                        if (var10 != null)
                         {
-                            var9.setExtSkylightValue(par1, var8 & 15, par3, 15);
-                            this.worldObj.func_72902_n((this.xPosition << 4) + par1, var8, (this.zPosition << 4) + par3);
+                            var10.setExtSkylightValue(par1, var8 & 15, par3, 15);
+                            this.worldObj.markBlockNeedsUpdateForAll((this.xPosition << 4) + par1, var8, (this.zPosition << 4) + par3);
                         }
                     }
                 }
@@ -432,12 +432,12 @@ public class Chunk
                 {
                     for (var8 = var4; var8 < var5; ++var8)
                     {
-                        var9 = this.storageArrays[var8 >> 4];
+                        var10 = this.storageArrays[var8 >> 4];
 
-                        if (var9 != null)
+                        if (var10 != null)
                         {
-                            var9.setExtSkylightValue(par1, var8 & 15, par3, 0);
-                            this.worldObj.func_72902_n((this.xPosition << 4) + par1, var8, (this.zPosition << 4) + par3);
+                            var10.setExtSkylightValue(par1, var8 & 15, par3, 0);
+                            this.worldObj.markBlockNeedsUpdateForAll((this.xPosition << 4) + par1, var8, (this.zPosition << 4) + par3);
                         }
                     }
                 }
@@ -447,46 +447,46 @@ public class Chunk
                 while (var5 > 0 && var8 > 0)
                 {
                     --var5;
-                    var12 = this.getBlockLightOpacity(par1, var5, par3);
+                    var9 = this.getBlockLightOpacity(par1, var5, par3);
 
-                    if (var12 == 0)
+                    if (var9 == 0)
                     {
-                        var12 = 1;
+                        var9 = 1;
                     }
 
-                    var8 -= var12;
+                    var8 -= var9;
 
                     if (var8 < 0)
                     {
                         var8 = 0;
                     }
 
-                    ExtendedBlockStorage var10 = this.storageArrays[var5 >> 4];
+                    ExtendedBlockStorage var11 = this.storageArrays[var5 >> 4];
 
-                    if (var10 != null)
+                    if (var11 != null)
                     {
-                        var10.setExtSkylightValue(par1, var5 & 15, par3, var8);
+                        var11.setExtSkylightValue(par1, var5 & 15, par3, var8);
                     }
                 }
             }
 
             var8 = this.heightMap[par3 << 4 | par1];
-            var12 = var4;
-            int var13 = var8;
+            var9 = var4;
+            int var12 = var8;
 
             if (var8 < var4)
             {
-                var12 = var8;
-                var13 = var4;
+                var9 = var8;
+                var12 = var4;
             }
 
             if (!this.worldObj.provider.hasNoSky)
             {
-                this.updateSkylightNeighborHeight(var6 - 1, var7, var12, var13);
-                this.updateSkylightNeighborHeight(var6 + 1, var7, var12, var13);
-                this.updateSkylightNeighborHeight(var6, var7 - 1, var12, var13);
-                this.updateSkylightNeighborHeight(var6, var7 + 1, var12, var13);
-                this.updateSkylightNeighborHeight(var6, var7, var12, var13);
+                this.updateSkylightNeighborHeight(var6 - 1, var7, var9, var12);
+                this.updateSkylightNeighborHeight(var6 + 1, var7, var9, var12);
+                this.updateSkylightNeighborHeight(var6, var7 - 1, var9, var12);
+                this.updateSkylightNeighborHeight(var6, var7 + 1, var9, var12);
+                this.updateSkylightNeighborHeight(var6, var7, var9, var12);
             }
 
             this.isModified = true;
@@ -752,11 +752,7 @@ public class Chunk
     {
         ExtendedBlockStorage var5 = this.storageArrays[par2 >> 4];
 
-        if (var5 == null)
-        {
-            return !this.worldObj.provider.hasNoSky && par4 < EnumSkyBlock.Sky.defaultLightValue ? EnumSkyBlock.Sky.defaultLightValue - par4 : 0;
-        }
-        else
+        if (var5 != null)
         {
             int var6 = this.worldObj.provider.hasNoSky ? 0 : var5.getExtSkylightValue(par1, par2 & 15, par3);
 
@@ -774,6 +770,10 @@ public class Chunk
             }
 
             return var6;
+        }
+        else
+        {
+            return !this.worldObj.provider.hasNoSky && par4 < EnumSkyBlock.Sky.defaultLightValue ? EnumSkyBlock.Sky.defaultLightValue - par4 : 0;
         }
     }
 
@@ -965,13 +965,13 @@ public class Chunk
             this.worldObj.markTileEntityForDespawn(var2);
         }
 
-        List[] var5 = this.entityLists;
-        int var6 = var5.length;
+        List[] var6 = this.entityLists;
+        int var3 = var6.length;
 
-        for (int var3 = 0; var3 < var6; ++var3)
+        for (int var4 = 0; var4 < var3; ++var4)
         {
-            List var4 = var5[var3];
-            this.worldObj.unloadEntities(var4);
+            List var5 = var6[var4];
+            this.worldObj.unloadEntities(var5);
         }
     }
 
@@ -1243,15 +1243,15 @@ public class Chunk
             }
         }
 
-        NibbleArray var8;
+        NibbleArray var10;
 
         for (var6 = 0; var6 < this.storageArrays.length; ++var6)
         {
             if ((par2 & 1 << var6) != 0 && this.storageArrays[var6] != null)
             {
-                var8 = this.storageArrays[var6].getMetadataArray();
-                System.arraycopy(par1ArrayOfByte, var5, var8.data, 0, var8.data.length);
-                var5 += var8.data.length;
+                var10 = this.storageArrays[var6].getMetadataArray();
+                System.arraycopy(par1ArrayOfByte, var5, var10.data, 0, var10.data.length);
+                var5 += var10.data.length;
             }
         }
 
@@ -1259,9 +1259,9 @@ public class Chunk
         {
             if ((par2 & 1 << var6) != 0 && this.storageArrays[var6] != null)
             {
-                var8 = this.storageArrays[var6].getBlocklightArray();
-                System.arraycopy(par1ArrayOfByte, var5, var8.data, 0, var8.data.length);
-                var5 += var8.data.length;
+                var10 = this.storageArrays[var6].getBlocklightArray();
+                System.arraycopy(par1ArrayOfByte, var5, var10.data, 0, var10.data.length);
+                var5 += var10.data.length;
             }
         }
 
@@ -1269,9 +1269,9 @@ public class Chunk
         {
             if ((par2 & 1 << var6) != 0 && this.storageArrays[var6] != null)
             {
-                var8 = this.storageArrays[var6].getSkylightArray();
-                System.arraycopy(par1ArrayOfByte, var5, var8.data, 0, var8.data.length);
-                var5 += var8.data.length;
+                var10 = this.storageArrays[var6].getSkylightArray();
+                System.arraycopy(par1ArrayOfByte, var5, var10.data, 0, var10.data.length);
+                var5 += var10.data.length;
             }
         }
 
@@ -1285,20 +1285,20 @@ public class Chunk
                 }
                 else
                 {
-                    var8 = this.storageArrays[var6].getBlockMSBArray();
+                    var10 = this.storageArrays[var6].getBlockMSBArray();
 
-                    if (var8 == null)
+                    if (var10 == null)
                     {
-                        var8 = this.storageArrays[var6].createBlockMSBArray();
+                        var10 = this.storageArrays[var6].createBlockMSBArray();
                     }
 
-                    System.arraycopy(par1ArrayOfByte, var5, var8.data, 0, var8.data.length);
-                    var5 += var8.data.length;
+                    System.arraycopy(par1ArrayOfByte, var5, var10.data, 0, var10.data.length);
+                    var5 += var10.data.length;
                 }
             }
             else if (par4 && this.storageArrays[var6] != null && this.storageArrays[var6].getBlockMSBArray() != null)
             {
-                this.storageArrays[var6].func_76676_h();
+                this.storageArrays[var6].clearMSBArray();
             }
         }
 
@@ -1317,11 +1317,11 @@ public class Chunk
         }
 
         this.generateHeightMap();
-        Iterator var10 = this.chunkTileEntityMap.values().iterator();
+        Iterator var8 = this.chunkTileEntityMap.values().iterator();
 
-        while (var10.hasNext())
+        while (var8.hasNext())
         {
-            TileEntity var9 = (TileEntity)var10.next();
+            TileEntity var9 = (TileEntity)var8.next();
             var9.updateContainingBlockInfo();
         }
     }

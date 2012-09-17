@@ -14,14 +14,18 @@ public class CallableModded implements Callable
         this.minecraftModded = par1Minecraft;
     }
 
-    public String func_74415_a()
+    /**
+     * Returns "Definitely" if the brand is not vanilla, "Very likely" if there are no signers for the Minecraft class,
+     * otherwise "Probably not".
+     */
+    public String getModded()
     {
         String var1 = ClientBrandRetriever.getClientModName();
-        return !var1.equals("vanilla") ? "Definitely; \'" + var1 + "\'" : (Minecraft.class.getClassLoader().getResource("META-INF/MOJANG_C.DSA") == null ? "Very likely" : "Probably not");
+        return !var1.equals("vanilla") ? "Definitely; \'" + var1 + "\'" : (Minecraft.class.getSigners() == null ? "Very likely" : "Probably not");
     }
 
     public Object call()
     {
-        return this.func_74415_a();
+        return this.getModded();
     }
 }

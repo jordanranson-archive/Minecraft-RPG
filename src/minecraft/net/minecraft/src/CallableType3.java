@@ -12,13 +12,13 @@ class CallableType3 implements Callable
         this.minecraftServerType3 = par1IntegratedServer;
     }
 
-    public String func_76973_a()
+    public String getType()
     {
         return "Integrated Server";
     }
 
     public Object call()
     {
-        return this.func_76973_a();
+        return this.getType();
     }
 }

@@ -2,12 +2,13 @@ package net.minecraft.src;
 
 public class ItemTree extends ItemBlock
 {
-    private Block field_77892_a;
+    /** Instance of Block. */
+    private Block theBlock;
 
     public ItemTree(int par1, Block par2Block)
     {
         super(par1);
-        this.field_77892_a = par2Block;
+        this.theBlock = par2Block;
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
     }
@@ -17,7 +18,7 @@ public class ItemTree extends ItemBlock
      */
     public int getIconFromDamage(int par1)
     {
-        return this.field_77892_a.getBlockTextureFromSideAndMetadata(2, par1);
+        return this.theBlock.getBlockTextureFromSideAndMetadata(2, par1);
     }
 
     /**

@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class ComponentStrongholdChestCorridor extends ComponentStronghold
 {
-    private static final WeightedRandomChestContent[] field_75003_a = new WeightedRandomChestContent[] {
+    /** List of items that Stronghold chests can contain. */
+    private static final WeightedRandomChestContent[] strongholdChestContents = new WeightedRandomChestContent[] {
 		new WeightedRandomChestContent(Item.enderPearl.shiftedIndex, 0, 1, 1, 10),
 		new WeightedRandomChestContent(Item.diamond.shiftedIndex, 0, 1, 3, 3),
 		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10),
@@ -89,7 +90,7 @@ public class ComponentStrongholdChestCorridor extends ComponentStronghold
                 if (par3StructureBoundingBox.isVecInside(var5, var4, var6))
                 {
                     this.hasMadeChest = true;
-                    this.func_74879_a(par1World, par3StructureBoundingBox, par2Random, 3, 2, 3, field_75003_a, 2 + par2Random.nextInt(2));
+                    this.generateStructureChestContents(par1World, par3StructureBoundingBox, par2Random, 3, 2, 3, strongholdChestContents, 2 + par2Random.nextInt(2));
                 }
             }
 

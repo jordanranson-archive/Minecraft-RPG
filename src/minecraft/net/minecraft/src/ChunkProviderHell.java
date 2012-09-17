@@ -529,7 +529,7 @@ public class ChunkProviderHell implements IChunkProvider
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
-        if (par1EnumCreatureType == EnumCreatureType.monster && this.genNetherBridge.func_75048_a(par2, par3, par4))
+        if (par1EnumCreatureType == EnumCreatureType.monster && this.genNetherBridge.hasStructureAt(par2, par3, par4))
         {
             return this.genNetherBridge.getSpawnList();
         }

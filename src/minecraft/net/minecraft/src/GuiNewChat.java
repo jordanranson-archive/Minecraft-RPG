@@ -10,7 +10,9 @@ public class GuiNewChat extends Gui
 {
     /** The Minecraft instance. */
     private final Minecraft mc;
-    private final List field_73770_b = new ArrayList();
+
+    /** A list of messages previously sent through the chat GUI */
+    private final List sentMessages = new ArrayList();
 
     /** Lines of chat */
     private final List ChatLines = new ArrayList();
@@ -22,7 +24,7 @@ public class GuiNewChat extends Gui
         this.mc = par1Minecraft;
     }
 
-    public void func_73762_a(int par1)
+    public void drawChat(int par1)
     {
         if (this.mc.gameSettings.chatVisibility != 2)
         {
@@ -34,7 +36,7 @@ public class GuiNewChat extends Gui
 
             if (var5 > 0)
             {
-                if (this.func_73760_d())
+                if (this.getChatOpen())
                 {
                     var2 = 20;
                     var3 = true;
@@ -122,7 +124,7 @@ public class GuiNewChat extends Gui
     public void func_73761_a()
     {
         this.ChatLines.clear();
-        this.field_73770_b.clear();
+        this.sentMessages.clear();
     }
 
     /**
@@ -138,7 +140,7 @@ public class GuiNewChat extends Gui
      */
     public void printChatMessageWithOptionalDeletion(String par1Str, int par2)
     {
-        boolean var3 = this.func_73760_d();
+        boolean var3 = this.getChatOpen();
         boolean var4 = true;
 
         if (par2 != 0)
@@ -155,7 +157,7 @@ public class GuiNewChat extends Gui
             if (var3 && this.field_73768_d > 0)
             {
                 this.field_73769_e = true;
-                this.func_73758_b(1);
+                this.scroll(1);
             }
 
             if (!var4)
@@ -173,26 +175,38 @@ public class GuiNewChat extends Gui
         }
     }
 
-    public List func_73756_b()
+    /**
+     * Gets the list of messages previously sent through the chat GUI
+     */
+    public List getSentMessages()
     {
-        return this.field_73770_b;
+        return this.sentMessages;
     }
 
-    public void func_73767_b(String par1Str)
+    /**
+     * Adds this string to the list of sent messages, for recall using the up/down arrow keys
+     */
+    public void addToSentMessages(String par1Str)
     {
-        if (this.field_73770_b.isEmpty() || !((String)this.field_73770_b.get(this.field_73770_b.size() - 1)).equals(par1Str))
+        if (this.sentMessages.isEmpty() || !((String)this.sentMessages.get(this.sentMessages.size() - 1)).equals(par1Str))
         {
-            this.field_73770_b.add(par1Str);
+            this.sentMessages.add(par1Str);
         }
     }
 
-    public void func_73764_c()
+    /**
+     * Resets the chat scroll (executed when the GUI is closed)
+     */
+    public void resetScroll()
     {
         this.field_73768_d = 0;
         this.field_73769_e = false;
     }
 
-    public void func_73758_b(int par1)
+    /**
+     * Scrolls the chat by the given number of lines.
+     */
+    public void scroll(int par1)
     {
         this.field_73768_d += par1;
         int var2 = this.ChatLines.size();
@@ -211,7 +225,7 @@ public class GuiNewChat extends Gui
 
     public ChatClickData func_73766_a(int par1, int par2)
     {
-        if (!this.func_73760_d())
+        if (!this.getChatOpen())
         {
             return null;
         }
@@ -243,12 +257,18 @@ public class GuiNewChat extends Gui
         }
     }
 
-    public void func_73757_a(String par1Str, Object ... par2ArrayOfObj)
+    /**
+     * Adds a message to the chat after translating to the client's locale.
+     */
+    public void addTranslatedMessage(String par1Str, Object ... par2ArrayOfObj)
     {
         this.printChatMessage(StringTranslate.getInstance().translateKeyFormat(par1Str, par2ArrayOfObj));
     }
 
-    public boolean func_73760_d()
+    /**
+     * @return {@code true} if the chat GUI is open
+     */
+    public boolean getChatOpen()
     {
         return this.mc.currentScreen instanceof GuiChat;
     }

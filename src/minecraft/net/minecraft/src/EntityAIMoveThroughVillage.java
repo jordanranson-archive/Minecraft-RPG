@@ -8,7 +8,9 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
 {
     private EntityCreature theEntity;
     private float movementSpeed;
-    private PathEntity field_75419_c;
+
+    /** The PathNavigate of our entity. */
+    private PathEntity entityPathNavigate;
     private VillageDoorInfo doorInfo;
     private boolean isNocturnal;
     private List doorList = new ArrayList();
@@ -52,10 +54,10 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
                 {
                     boolean var2 = this.theEntity.getNavigator().getCanBreakDoors();
                     this.theEntity.getNavigator().setBreakDoors(false);
-                    this.field_75419_c = this.theEntity.getNavigator().getPathToXYZ((double)this.doorInfo.posX, (double)this.doorInfo.posY, (double)this.doorInfo.posZ);
+                    this.entityPathNavigate = this.theEntity.getNavigator().getPathToXYZ((double)this.doorInfo.posX, (double)this.doorInfo.posY, (double)this.doorInfo.posZ);
                     this.theEntity.getNavigator().setBreakDoors(var2);
 
-                    if (this.field_75419_c != null)
+                    if (this.entityPathNavigate != null)
                     {
                         return true;
                     }
@@ -70,9 +72,9 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
                         else
                         {
                             this.theEntity.getNavigator().setBreakDoors(false);
-                            this.field_75419_c = this.theEntity.getNavigator().getPathToXYZ(var3.xCoord, var3.yCoord, var3.zCoord);
+                            this.entityPathNavigate = this.theEntity.getNavigator().getPathToXYZ(var3.xCoord, var3.yCoord, var3.zCoord);
                             this.theEntity.getNavigator().setBreakDoors(var2);
-                            return this.field_75419_c != null;
+                            return this.entityPathNavigate != null;
                         }
                     }
                 }
@@ -101,7 +103,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.theEntity.getNavigator().setPath(this.field_75419_c, this.movementSpeed);
+        this.theEntity.getNavigator().setPath(this.entityPathNavigate, this.movementSpeed);
     }
 
     /**

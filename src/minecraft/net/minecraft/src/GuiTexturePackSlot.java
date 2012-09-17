@@ -65,7 +65,7 @@ class GuiTexturePackSlot extends GuiSlot
     protected void drawSlot(int par1, int par2, int par3, int par4, Tessellator par5Tessellator)
     {
         TexturePackBase var6 = (TexturePackBase)GuiTexturePacks.func_73953_j(this.parentTexturePackGui).texturePackList.availableTexturePacks().get(par1);
-        var6.func_77535_b(GuiTexturePacks.func_73961_k(this.parentTexturePackGui).renderEngine);
+        var6.bindThumbnailTexture(GuiTexturePacks.func_73961_k(this.parentTexturePackGui).renderEngine);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         par5Tessellator.startDrawingQuads();
         par5Tessellator.setColorOpaque_I(16777215);

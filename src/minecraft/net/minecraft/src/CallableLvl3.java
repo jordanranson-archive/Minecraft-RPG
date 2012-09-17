@@ -12,13 +12,16 @@ class CallableLvl3 implements Callable
         this.worldLvl3 = par1World;
     }
 
-    public String func_77439_a()
+    /**
+     * Returns the result of the ChunkProvider's makeString
+     */
+    public String getChunkProvider()
     {
         return this.worldLvl3.chunkProvider.makeString();
     }
 
     public Object call()
     {
-        return this.func_77439_a();
+        return this.getChunkProvider();
     }
 }

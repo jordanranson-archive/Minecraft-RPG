@@ -31,6 +31,7 @@ public class WorldServer extends World
 
     /** is false if there are no players */
     private boolean allPlayersSleeping;
+    private int updateEntityTick = 0;
 
     /**
      * Double buffer of ServerBlockEventList[] for holding pending BlockEventData's
@@ -42,17 +43,7 @@ public class WorldServer extends World
      * applied locally and send to clients.
      */
     private int blockEventCacheIndex = 0;
-    private static final WeightedRandomChestContent[] bonusChestContent = new WeightedRandomChestContent[] {
-		new WeightedRandomChestContent(Item.stick.shiftedIndex, 0, 1, 3, 10),
-		new WeightedRandomChestContent(Block.planks.blockID, 0, 1, 3, 10), 
-		new WeightedRandomChestContent(Block.wood.blockID, 0, 1, 3, 10), 
-		new WeightedRandomChestContent(Item.axeStone.shiftedIndex, 0, 1, 1, 3), 
-		new WeightedRandomChestContent(Item.axeWood.shiftedIndex, 0, 1, 1, 5),
-		new WeightedRandomChestContent(Item.pickaxeStone.shiftedIndex, 0, 1, 1, 3), 
-		new WeightedRandomChestContent(Item.pickaxeWood.shiftedIndex, 0, 1, 1, 5), 
-		new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 2, 3, 5),
-		new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 2, 3, 3)
-	};
+    private static final WeightedRandomChestContent[] bonusChestContent = new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.stick.shiftedIndex, 0, 1, 3, 10), new WeightedRandomChestContent(Block.planks.blockID, 0, 1, 3, 10), new WeightedRandomChestContent(Block.wood.blockID, 0, 1, 3, 10), new WeightedRandomChestContent(Item.axeStone.shiftedIndex, 0, 1, 1, 3), new WeightedRandomChestContent(Item.axeWood.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.pickaxeStone.shiftedIndex, 0, 1, 1, 3), new WeightedRandomChestContent(Item.pickaxeWood.shiftedIndex, 0, 1, 1, 5), new WeightedRandomChestContent(Item.appleRed.shiftedIndex, 0, 2, 3, 5), new WeightedRandomChestContent(Item.bread.shiftedIndex, 0, 2, 3, 3)};
 
     /** An IntHashMap of entity IDs (integers) to their Entity objects. */
     private IntHashMap entityIdMap;
@@ -419,6 +410,26 @@ public class WorldServer extends World
     }
 
     /**
+     * Updates (and cleans up) entities and tile entities
+     */
+    public void updateEntities()
+    {
+        if (this.playerEntities.isEmpty())
+        {
+            if (this.updateEntityTick++ >= 60)
+            {
+                return;
+            }
+        }
+        else
+        {
+            this.updateEntityTick = 0;
+        }
+
+        super.updateEntities();
+    }
+
+    /**
      * Runs through the list of updates to run and ticks them
      */
     public boolean tickUpdates(boolean par1)
@@ -509,7 +520,7 @@ public class WorldServer extends World
             par1Entity.setDead();
         }
 
-        if (!this.mcServer.getCanSpawnNPCs() && par1Entity instanceof INpc)
+        if (!this.mcServer.getCanNPCsSpawn() && par1Entity instanceof INpc)
         {
             par1Entity.setDead();
         }
@@ -670,9 +681,6 @@ public class WorldServer extends World
         }
     }
 
-    /**
-     * Gets the hard-coded portal location to use when entering this dimension.
-     */
     public ChunkCoordinates getEntrancePortalLocation()
     {
         return this.provider.getEntrancePortalLocation();
@@ -805,7 +813,7 @@ public class WorldServer extends World
 
             if (var12.getDistanceSq(par2, par4, par6) < 4096.0D)
             {
-                ((EntityPlayerMP)var12).playerNetServerHandler.sendPacketToPlayer(new Packet60Explosion(par2, par4, par6, par8, var10.field_77281_g, (Vec3)var10.func_77277_b().get(var12)));
+                ((EntityPlayerMP)var12).serverForThisPlayer.sendPacketToPlayer(new Packet60Explosion(par2, par4, par6, par8, var10.field_77281_g, (Vec3)var10.func_77277_b().get(var12)));
             }
         }
 

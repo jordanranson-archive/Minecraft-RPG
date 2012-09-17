@@ -13,8 +13,8 @@ import net.minecraft.server.MinecraftServer;
 public class DedicatedServer extends MinecraftServer implements IServer
 {
     private final List pendingCommandList = Collections.synchronizedList(new ArrayList());
-    private RConThreadQuery field_71342_m;
-    private RConThreadMain field_71339_n;
+    private RConThreadQuery theRConThreadQuery;
+    private RConThreadMain theRConThreadMain;
     private PropertyManager settings;
     private boolean canSpawnStructures;
     private EnumGameType gameType;
@@ -36,7 +36,7 @@ public class DedicatedServer extends MinecraftServer implements IServer
         var1.setDaemon(true);
         var1.start();
         ConsoleLogManager.init();
-        logger.info("Starting minecraft server version 1.3.1");
+        logger.info("Starting minecraft server version 1.3.2");
 
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L)
         {
@@ -48,39 +48,39 @@ public class DedicatedServer extends MinecraftServer implements IServer
 
         if (this.isSinglePlayer())
         {
-            this.setHostname("127.0.0.1");
+            this.getHostName("127.0.0.1");
         }
         else
         {
-            this.setOnlineMode(this.settings.getBooleanProperty("online-mode", true));
-            this.setHostname(this.settings.getProperty("server-ip", ""));
+            this.setOnlineMode(this.settings.getOrSetBoolProperty("online-mode", true));
+            this.getHostName(this.settings.getOrSetProperty("server-ip", ""));
         }
 
-        this.setCanSpawnAnimals(this.settings.getBooleanProperty("spawn-animals", true));
-        this.setCanSpawnNPCs(this.settings.getBooleanProperty("spawn-npcs", true));
-        this.setAllowPvp(this.settings.getBooleanProperty("pvp", true));
-        this.setAllowFlight(this.settings.getBooleanProperty("allow-flight", false));
-        this.setTexturePack(this.settings.getProperty("texture-pack", ""));
-        this.setMOTD(this.settings.getProperty("motd", "A Minecraft Server"));
-        this.canSpawnStructures = this.settings.getBooleanProperty("generate-structures", true);
-        int var2 = this.settings.getIntProperty("gamemode", EnumGameType.SURVIVAL.getID());
+        this.setSpawnAnimals(this.settings.getOrSetBoolProperty("spawn-animals", true));
+        this.setSpawnNpcs(this.settings.getOrSetBoolProperty("spawn-npcs", true));
+        this.setAllowPvp(this.settings.getOrSetBoolProperty("pvp", true));
+        this.setAllowFlight(this.settings.getOrSetBoolProperty("allow-flight", false));
+        this.setTexturePack(this.settings.getOrSetProperty("texture-pack", ""));
+        this.setMOTD(this.settings.getOrSetProperty("motd", "A Minecraft Server"));
+        this.canSpawnStructures = this.settings.getOrSetBoolProperty("generate-structures", true);
+        int var2 = this.settings.getOrSetIntProperty("gamemode", EnumGameType.SURVIVAL.getID());
         this.gameType = WorldSettings.getGameTypeById(var2);
         logger.info("Default game type: " + this.gameType);
         InetAddress var3 = null;
 
-        if (this.getServerHostname().length() > 0)
+        if (this.getHostname().length() > 0)
         {
-            var3 = InetAddress.getByName(this.getServerHostname());
+            var3 = InetAddress.getByName(this.getHostname());
         }
 
         if (this.getServerPort() < 0)
         {
-            this.setServerPort(this.settings.getIntProperty("server-port", 25565));
+            this.setServerPort(this.settings.getOrSetIntProperty("server-port", 25565));
         }
 
         logger.info("Generating keypair");
         this.setKeyPair(CryptManager.createNewKeyPair());
-        logger.info("Starting Minecraft server on " + (this.getServerHostname().length() == 0 ? "*" : this.getServerHostname()) + ":" + this.getServerPort());
+        logger.info("Starting Minecraft server on " + (this.getHostname().length() == 0 ? "*" : this.getHostname()) + ":" + this.getServerPort());
 
         try
         {
@@ -107,11 +107,11 @@ public class DedicatedServer extends MinecraftServer implements IServer
 
         if (this.getFolderName() == null)
         {
-            this.setFolderName(this.settings.getProperty("level-name", "world"));
+            this.setFolderName(this.settings.getOrSetProperty("level-name", "world"));
         }
 
-        String var6 = this.settings.getProperty("level-seed", "");
-        String var7 = this.settings.getProperty("level-type", "DEFAULT");
+        String var6 = this.settings.getOrSetProperty("level-seed", "");
+        String var7 = this.settings.getOrSetProperty("level-type", "DEFAULT");
         long var8 = (new Random()).nextLong();
 
         if (var6.length() > 0)
@@ -138,28 +138,28 @@ public class DedicatedServer extends MinecraftServer implements IServer
             var16 = WorldType.DEFAULT;
         }
 
-        this.setBuildLimit(this.settings.getIntProperty("max-build-height", 256));
+        this.setBuildLimit(this.settings.getOrSetIntProperty("max-build-height", 256));
         this.setBuildLimit((this.getBuildLimit() + 8) / 16 * 16);
         this.setBuildLimit(MathHelper.clamp_int(this.getBuildLimit(), 64, 256));
-        this.settings.setProperty("max-build-height", Integer.valueOf(this.getBuildLimit()));
+        this.settings.setArbitraryProperty("max-build-height", Integer.valueOf(this.getBuildLimit()));
         logger.info("Preparing level \"" + this.getFolderName() + "\"");
-        this.loadAllWorlds(this.getFolderName(), this.getFolderName(), var8, var16);
+        this.loadAllDimensions(this.getFolderName(), this.getFolderName(), var8, var16);
         long var11 = System.nanoTime() - var4;
         String var13 = String.format("%.3fs", new Object[] {Double.valueOf((double)var11 / 1.0E9D)});
         logger.info("Done (" + var13 + ")! For help, type \"help\" or \"?\"");
 
-        if (this.settings.getBooleanProperty("enable-query", false))
+        if (this.settings.getOrSetBoolProperty("enable-query", false))
         {
             logger.info("Starting GS4 status listener");
-            this.field_71342_m = new RConThreadQuery(this);
-            this.field_71342_m.startThread();
+            this.theRConThreadQuery = new RConThreadQuery(this);
+            this.theRConThreadQuery.startThread();
         }
 
-        if (this.settings.getBooleanProperty("enable-rcon", false))
+        if (this.settings.getOrSetBoolProperty("enable-rcon", false))
         {
             logger.info("Starting remote control listener");
-            this.field_71339_n = new RConThreadMain(this);
-            this.field_71339_n.startThread();
+            this.theRConThreadMain = new RConThreadMain(this);
+            this.theRConThreadMain.startThread();
         }
 
         return true;
@@ -176,23 +176,23 @@ public class DedicatedServer extends MinecraftServer implements IServer
     }
 
     /**
-     * Defaults to "1" (Easy) for the dedicated server, defaults to "2" (Normal) on the client.
+     * defaults to "1" for the dedicated server
      */
     public int getDifficulty()
     {
-        return this.settings.getIntProperty("difficulty", 1);
+        return this.settings.getOrSetIntProperty("difficulty", 1);
     }
 
     /**
-     * Defaults to false.
+     * defaults to false
      */
     public boolean isHardcore()
     {
-        return this.settings.getBooleanProperty("hardcore", false);
+        return this.settings.getOrSetBoolProperty("hardcore", false);
     }
 
     /**
-     * Called on exit from the main run() loop.
+     * called on exit from the main run loop
      */
     protected void finalTick(CrashReport par1CrashReport)
     {
@@ -212,16 +212,17 @@ public class DedicatedServer extends MinecraftServer implements IServer
     }
 
     /**
-     * Adds the server info, including from theWorldServer, to the crash report.
+     * iterates the worldServers and adds their info also
      */
     public CrashReport addServerInfoToCrashReport(CrashReport par1CrashReport)
     {
+        par1CrashReport = super.addServerInfoToCrashReport(par1CrashReport);
         par1CrashReport.addCrashSectionCallable("Type", new CallableType(this));
-        return super.addServerInfoToCrashReport(par1CrashReport);
+        return par1CrashReport;
     }
 
     /**
-     * Directly calls System.exit(0), instantly killing the program.
+     * directly calls system.exit, instantly killing the program
      */
     protected void systemExitNow()
     {
@@ -236,18 +237,18 @@ public class DedicatedServer extends MinecraftServer implements IServer
 
     public boolean getAllowNether()
     {
-        return this.settings.getBooleanProperty("allow-nether", true);
+        return this.settings.getOrSetBoolProperty("allow-nether", true);
     }
 
     public boolean allowSpawnMonsters()
     {
-        return this.settings.getBooleanProperty("spawn-monsters", true);
+        return this.settings.getOrSetBoolProperty("spawn-monsters", true);
     }
 
     public void addServerStatsToSnooper(PlayerUsageSnooper par1PlayerUsageSnooper)
     {
         par1PlayerUsageSnooper.addData("whitelist_enabled", Boolean.valueOf(this.getDedicatedPlayerList().isWhiteListEnabled()));
-        par1PlayerUsageSnooper.addData("whitelist_count", Integer.valueOf(this.getDedicatedPlayerList().getWhiteListedPlayers().size()));
+        par1PlayerUsageSnooper.addData("whitelist_count", Integer.valueOf(this.getDedicatedPlayerList().getIPWhiteList().size()));
         super.addServerStatsToSnooper(par1PlayerUsageSnooper);
     }
 
@@ -256,7 +257,7 @@ public class DedicatedServer extends MinecraftServer implements IServer
      */
     public boolean isSnooperEnabled()
     {
-        return this.settings.getBooleanProperty("snooper-enabled", true);
+        return this.settings.getOrSetBoolProperty("snooper-enabled", true);
     }
 
     public void addPendingCommand(String par1Str, ICommandSender par2ICommandSender)
@@ -288,49 +289,34 @@ public class DedicatedServer extends MinecraftServer implements IServer
         return this.networkThread;
     }
 
-    /**
-     * Gets an integer property. If it does not exist, set it to the specified value.
-     */
-    public int getIntProperty(String par1Str, int par2)
+    public int getOrSetIntProperty(String par1Str, int par2)
     {
-        return this.settings.getIntProperty(par1Str, par2);
+        return this.settings.getOrSetIntProperty(par1Str, par2);
     }
 
-    /**
-     * Gets a string property. If it does not exist, set it to the specified value.
-     */
-    public String getStringProperty(String par1Str, String par2Str)
+    public String getOrSetProperty(String par1Str, String par2Str)
     {
-        return this.settings.getProperty(par1Str, par2Str);
+        return this.settings.getOrSetProperty(par1Str, par2Str);
     }
 
-    /**
-     * Gets a boolean property. If it does not exist, set it to the specified value.
-     */
-    public boolean getBooleanProperty(String par1Str, boolean par2)
+    public boolean getOrSetBoolProperty(String par1Str, boolean par2)
     {
-        return this.settings.getBooleanProperty(par1Str, par2);
+        return this.settings.getOrSetBoolProperty(par1Str, par2);
     }
 
-    /**
-     * Saves an Object with the given property name.
-     */
-    public void setProperty(String par1Str, Object par2Obj)
+    public void setArbitraryProperty(String par1Str, Object par2Obj)
     {
-        this.settings.setProperty(par1Str, par2Obj);
+        this.settings.setArbitraryProperty(par1Str, par2Obj);
     }
 
-    /**
-     * Saves all of the server properties to the properties file.
-     */
-    public void saveProperties()
+    public void saveSettingsToFile()
     {
-        this.settings.saveProperties();
+        this.settings.saveSettingsToFile();
     }
 
     public String getSettingsFilePath()
     {
-        File var1 = this.settings.getPropertiesFile();
+        File var1 = this.settings.getFile();
         return var1 != null ? var1.getAbsolutePath() : "No settings file";
     }
 
@@ -340,7 +326,7 @@ public class DedicatedServer extends MinecraftServer implements IServer
     }
 
     /**
-     * On dedicated does nothing. On integrated, sets commandsAllowedForAll, gameType and allows external connections.
+     * does nothing on dedicated. on integrated, sets commandsAllowedForAll and gameType and allows external connections
      */
     public String shareToLAN(EnumGameType par1EnumGameType, boolean par2)
     {

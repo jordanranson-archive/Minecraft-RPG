@@ -12,7 +12,9 @@ public class EntityAIAttackOnCollide extends EntityAIBase
     int attackTick;
     float field_75440_e;
     boolean field_75437_f;
-    PathEntity field_75438_g;
+
+    /** The PathEntity of our entity. */
+    PathEntity entityPathEntity;
     Class classTarget;
     private int field_75445_i;
 
@@ -50,8 +52,8 @@ public class EntityAIAttackOnCollide extends EntityAIBase
         else
         {
             this.entityTarget = var1;
-            this.field_75438_g = this.attacker.getNavigator().getPathToEntityLiving(this.entityTarget);
-            return this.field_75438_g != null;
+            this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(this.entityTarget);
+            return this.entityPathEntity != null;
         }
     }
 
@@ -69,7 +71,7 @@ public class EntityAIAttackOnCollide extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.attacker.getNavigator().setPath(this.field_75438_g, this.field_75440_e);
+        this.attacker.getNavigator().setPath(this.entityPathEntity, this.field_75440_e);
         this.field_75445_i = 0;
     }
 

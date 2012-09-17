@@ -11,13 +11,36 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class TexturePackImplementation implements TexturePackBase
 {
-    private final String field_77545_e;
-    private final String field_77542_f;
-    protected final File field_77548_a;
-    protected String field_77546_b;
-    protected String field_77547_c;
-    protected BufferedImage field_77544_d;
-    private int field_77543_g;
+    /**
+     * Texture pack ID as returnd by generateTexturePackID(). Used only internally and not visible to the user.
+     */
+    private final String texturePackID;
+
+    /**
+     * The name of the texture pack's zip file/directory or "Default" for the builtin texture pack. Shown in the GUI.
+     */
+    private final String texturePackFileName;
+
+    /**
+     * File object for the texture pack's zip file in TexturePackCustom or the directory in TexturePackFolder.
+     */
+    protected final File texturePackFile;
+
+    /**
+     * First line of texture pack description (from /pack.txt) displayed in the GUI
+     */
+    protected String firstDescriptionLine;
+
+    /**
+     * Second line of texture pack description (from /pack.txt) displayed in the GUI
+     */
+    protected String secondDescriptionLine;
+
+    /** The texture pack's thumbnail image loaded from the /pack.png file. */
+    protected BufferedImage thumbnailImage;
+
+    /** The texture id for this pcak's thumbnail image. */
+    private int thumbnailTextureName;
 
     protected TexturePackImplementation(String par1Str, String par2Str)
     {
@@ -26,15 +49,18 @@ public abstract class TexturePackImplementation implements TexturePackBase
 
     protected TexturePackImplementation(String par1Str, File par2File, String par3Str)
     {
-        this.field_77543_g = -1;
-        this.field_77545_e = par1Str;
-        this.field_77542_f = par3Str;
-        this.field_77548_a = par2File;
-        this.func_77539_g();
-        this.func_77540_a();
+        this.thumbnailTextureName = -1;
+        this.texturePackID = par1Str;
+        this.texturePackFileName = par3Str;
+        this.texturePackFile = par2File;
+        this.loadThumbnailImage();
+        this.loadDescription();
     }
 
-    private static String func_77541_b(String par0Str)
+    /**
+     * Truncate strings to at most 34 characters. Truncates description lines
+     */
+    private static String trimStringToGUIWidth(String par0Str)
     {
         if (par0Str != null && par0Str.length() > 34)
         {
@@ -44,14 +70,17 @@ public abstract class TexturePackImplementation implements TexturePackBase
         return par0Str;
     }
 
-    private void func_77539_g()
+    /**
+     * Load and initialize thumbnailImage from the the /pack.png file.
+     */
+    private void loadThumbnailImage()
     {
         InputStream var1 = null;
 
         try
         {
             var1 = this.getResourceAsStream("/pack.png");
-            this.field_77544_d = ImageIO.read(var1);
+            this.thumbnailImage = ImageIO.read(var1);
         }
         catch (IOException var11)
         {
@@ -70,7 +99,10 @@ public abstract class TexturePackImplementation implements TexturePackBase
         }
     }
 
-    protected void func_77540_a()
+    /**
+     * Load texture pack description from /pack.txt file in the texture pack
+     */
+    protected void loadDescription()
     {
         InputStream var1 = null;
         BufferedReader var2 = null;
@@ -79,8 +111,8 @@ public abstract class TexturePackImplementation implements TexturePackBase
         {
             var1 = this.getResourceAsStream("/pack.txt");
             var2 = new BufferedReader(new InputStreamReader(var1));
-            this.field_77546_b = func_77541_b(var2.readLine());
-            this.field_77547_c = func_77541_b(var2.readLine());
+            this.firstDescriptionLine = trimStringToGUIWidth(var2.readLine());
+            this.secondDescriptionLine = trimStringToGUIWidth(var2.readLine());
         }
         catch (IOException var12)
         {
@@ -100,24 +132,30 @@ public abstract class TexturePackImplementation implements TexturePackBase
         }
     }
 
-    public void func_77533_a(RenderEngine par1RenderEngine)
+    /**
+     * Delete the OpenGL texture id of the pack's thumbnail image, and close the zip file in case of TexturePackCustom.
+     */
+    public void deleteTexturePack(RenderEngine par1RenderEngine)
     {
-        if (this.field_77544_d != null && this.field_77543_g != -1)
+        if (this.thumbnailImage != null && this.thumbnailTextureName != -1)
         {
-            par1RenderEngine.deleteTexture(this.field_77543_g);
+            par1RenderEngine.deleteTexture(this.thumbnailTextureName);
         }
     }
 
-    public void func_77535_b(RenderEngine par1RenderEngine)
+    /**
+     * Bind the texture id of the pack's thumbnail image, loading it if necessary.
+     */
+    public void bindThumbnailTexture(RenderEngine par1RenderEngine)
     {
-        if (this.field_77544_d != null)
+        if (this.thumbnailImage != null)
         {
-            if (this.field_77543_g == -1)
+            if (this.thumbnailTextureName == -1)
             {
-                this.field_77543_g = par1RenderEngine.allocateAndSetupTexture(this.field_77544_d);
+                this.thumbnailTextureName = par1RenderEngine.allocateAndSetupTexture(this.thumbnailImage);
             }
 
-            par1RenderEngine.bindTexture(this.field_77543_g);
+            par1RenderEngine.bindTexture(this.thumbnailTextureName);
         }
         else
         {
@@ -138,7 +176,7 @@ public abstract class TexturePackImplementation implements TexturePackBase
      */
     public String getTexturePackID()
     {
-        return this.field_77545_e;
+        return this.texturePackID;
     }
 
     /**
@@ -146,7 +184,7 @@ public abstract class TexturePackImplementation implements TexturePackBase
      */
     public String getTexturePackFileName()
     {
-        return this.field_77542_f;
+        return this.texturePackFileName;
     }
 
     /**
@@ -154,7 +192,7 @@ public abstract class TexturePackImplementation implements TexturePackBase
      */
     public String getFirstDescriptionLine()
     {
-        return this.field_77546_b;
+        return this.firstDescriptionLine;
     }
 
     /**
@@ -162,10 +200,14 @@ public abstract class TexturePackImplementation implements TexturePackBase
      */
     public String getSecondDescriptionLine()
     {
-        return this.field_77547_c;
+        return this.secondDescriptionLine;
     }
 
-    public int func_77534_f()
+    /**
+     * Return the texture pack's resolution (16 by default). Used only by PlayerUsageSnooper. Presumably meant to be
+     * overriden by HD texture mods.
+     */
+    public int getTexturePackResolution()
     {
         return 16;
     }

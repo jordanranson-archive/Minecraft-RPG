@@ -8,21 +8,26 @@ import java.util.Random;
 
 public abstract class MapGenStructure extends MapGenBase
 {
-    protected Map field_75053_d = new HashMap();
+    /**
+     * Used to store a list of all structures that have been recursively generated. Used so that during recursive
+     * generation, the structure generator can avoid generating structures that intersect ones that have already been
+     * placed.
+     */
+    protected Map structureMap = new HashMap();
 
     /**
      * Recursively called by generate() (generate) and optionally by itself.
      */
     protected void recursiveGenerate(World par1World, int par2, int par3, int par4, int par5, byte[] par6ArrayOfByte)
     {
-        if (!this.field_75053_d.containsKey(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par2, par3))))
+        if (!this.structureMap.containsKey(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par2, par3))))
         {
             this.rand.nextInt();
 
             if (this.canSpawnStructureAtCoords(par2, par3))
             {
                 StructureStart var7 = this.getStructureStart(par2, par3);
-                this.field_75053_d.put(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par2, par3)), var7);
+                this.structureMap.put(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(par2, par3)), var7);
             }
         }
     }
@@ -35,7 +40,7 @@ public abstract class MapGenStructure extends MapGenBase
         int var5 = (par3 << 4) + 8;
         int var6 = (par4 << 4) + 8;
         boolean var7 = false;
-        Iterator var8 = this.field_75053_d.values().iterator();
+        Iterator var8 = this.structureMap.values().iterator();
 
         while (var8.hasNext())
         {
@@ -51,9 +56,12 @@ public abstract class MapGenStructure extends MapGenBase
         return var7;
     }
 
-    public boolean func_75048_a(int par1, int par2, int par3)
+    /**
+     * Returns true if the structure generator has generated a structure located at the given position tuple.
+     */
+    public boolean hasStructureAt(int par1, int par2, int par3)
     {
-        Iterator var4 = this.field_75053_d.values().iterator();
+        Iterator var4 = this.structureMap.values().iterator();
 
         while (var4.hasNext())
         {
@@ -90,7 +98,7 @@ public abstract class MapGenStructure extends MapGenBase
         this.recursiveGenerate(par1World, par2 >> 4, par4 >> 4, 0, 0, (byte[])null);
         double var13 = Double.MAX_VALUE;
         ChunkPosition var15 = null;
-        Iterator var16 = this.field_75053_d.values().iterator();
+        Iterator var16 = this.structureMap.values().iterator();
         ChunkPosition var19;
         int var21;
         int var20;
@@ -124,7 +132,7 @@ public abstract class MapGenStructure extends MapGenBase
         }
         else
         {
-            List var25 = this.func_75052_o_();
+            List var25 = this.getCoordList();
 
             if (var25 != null)
             {
@@ -155,7 +163,11 @@ public abstract class MapGenStructure extends MapGenBase
         }
     }
 
-    protected List func_75052_o_()
+    /**
+     * Returns a list of other locations at which the structure generation has been run, or null if not relevant to this
+     * structure generator.
+     */
+    protected List getCoordList()
     {
         return null;
     }

@@ -83,7 +83,7 @@ public class EntityOtherPlayerMP extends EntityPlayer
         }
 
         this.legYaw += (var5 - this.legYaw) * 0.4F;
-        this.field_70754_ba += this.legYaw;
+        this.legSwing += this.legYaw;
 
         if (!this.isItemInUse && this.isEating() && this.inventory.mainInventory[this.inventory.currentItem] != null)
         {

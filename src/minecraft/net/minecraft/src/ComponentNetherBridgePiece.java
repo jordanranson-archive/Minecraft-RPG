@@ -49,7 +49,7 @@ abstract class ComponentNetherBridgePiece extends StructureComponent
 
                 if (var13 < 0)
                 {
-                    if (!var15.func_78822_a(par9) || var15 == par1ComponentNetherBridgeStartPiece.field_74970_a && !var15.field_78825_e)
+                    if (!var15.func_78822_a(par9) || var15 == par1ComponentNetherBridgeStartPiece.theNetherBridgePieceWeight && !var15.field_78825_e)
                     {
                         break;
                     }
@@ -59,7 +59,7 @@ abstract class ComponentNetherBridgePiece extends StructureComponent
                     if (var16 != null)
                     {
                         ++var15.field_78827_c;
-                        par1ComponentNetherBridgeStartPiece.field_74970_a = var15;
+                        par1ComponentNetherBridgeStartPiece.theNetherBridgePieceWeight = var15;
 
                         if (!var15.func_78823_a())
                         {
@@ -82,11 +82,11 @@ abstract class ComponentNetherBridgePiece extends StructureComponent
     {
         if (Math.abs(par4 - par1ComponentNetherBridgeStartPiece.getBoundingBox().minX) <= 112 && Math.abs(par6 - par1ComponentNetherBridgeStartPiece.getBoundingBox().minZ) <= 112)
         {
-            List var10 = par1ComponentNetherBridgeStartPiece.field_74968_b;
+            List var10 = par1ComponentNetherBridgeStartPiece.primaryWeights;
 
             if (par9)
             {
-                var10 = par1ComponentNetherBridgeStartPiece.field_74969_c;
+                var10 = par1ComponentNetherBridgeStartPiece.secondaryWeights;
             }
 
             ComponentNetherBridgePiece var11 = this.getNextComponent(par1ComponentNetherBridgeStartPiece, var10, par2List, par3Random, par4, par5, par6, par7, par8 + 1);

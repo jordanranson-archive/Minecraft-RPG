@@ -10,7 +10,9 @@ public class EntityAIAvoidEntity extends EntityAIBase
     private float nearSpeed;
     private Entity closestLivingEntity;
     private float distanceFromEntity;
-    private PathEntity field_75374_f;
+
+    /** The PathEntity of our entity */
+    private PathEntity entityPathEntity;
 	private boolean isMagicEffect = false;
 
     /** The PathNavigate of our entity */
@@ -93,15 +95,15 @@ public class EntityAIAvoidEntity extends EntityAIBase
             {
 				if(!this.isMagicEffect)
 				{
-					this.field_75374_f = this.entityPathNavigate.getPathToXYZ(var2.xCoord, var2.yCoord, var2.zCoord);
-					return this.field_75374_f == null ? false : this.field_75374_f.isDestinationSame(var2);
+					this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(var2.xCoord, var2.yCoord, var2.zCoord);
+					return this.entityPathEntity == null ? false : this.entityPathEntity.isDestinationSame(var2);
 				}
 				else
 				{
 					if(this.theEntity.isPotionActive(Potion.flee))
 					{
-						this.field_75374_f = this.entityPathNavigate.getPathToXYZ(var2.xCoord, var2.yCoord, var2.zCoord);
-						return this.field_75374_f == null ? false : this.field_75374_f.isDestinationSame(var2);
+						this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(var2.xCoord, var2.yCoord, var2.zCoord);
+						return this.entityPathEntity == null ? false : this.entityPathEntity.isDestinationSame(var2);
 					}
 					else
 					{
@@ -125,7 +127,7 @@ public class EntityAIAvoidEntity extends EntityAIBase
      */
     public void startExecuting()
     {
-        this.entityPathNavigate.setPath(this.field_75374_f, this.farSpeed);
+        this.entityPathNavigate.setPath(this.entityPathEntity, this.farSpeed);
     }
 
     /**

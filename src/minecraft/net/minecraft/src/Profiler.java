@@ -25,7 +25,7 @@ public class Profiler
     private final Map profilingMap = new HashMap();
 
     /**
-     * Clear profiling.
+     * Clear profiling
      */
     public void clearProfiling()
     {
@@ -172,7 +172,7 @@ public class Profiler
         this.startSection(par1Str);
     }
 
-    public String func_76322_c()
+    public String getNameOfLastSection()
     {
         return this.sectionList.size() == 0 ? "[UNKNOWN]" : (String)this.sectionList.get(this.sectionList.size() - 1);
     }

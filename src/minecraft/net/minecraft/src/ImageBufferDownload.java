@@ -26,9 +26,9 @@ public class ImageBufferDownload implements ImageBuffer
             var3.drawImage(par1BufferedImage, 0, 0, (ImageObserver)null);
             var3.dispose();
             this.imageData = ((DataBufferInt)var2.getRaster().getDataBuffer()).getData();
-            this.func_78433_b(0, 0, 32, 16);
-            this.func_78434_a(32, 0, 64, 32);
-            this.func_78433_b(0, 16, 64, 32);
+            this.setAreaOpaque(0, 0, 32, 16);
+            this.setAreaTransparent(32, 0, 64, 32);
+            this.setAreaOpaque(0, 16, 64, 32);
             boolean var4 = false;
             int var5;
             int var6;
@@ -67,9 +67,14 @@ public class ImageBufferDownload implements ImageBuffer
         }
     }
 
-    private void func_78434_a(int par1, int par2, int par3, int par4)
+    /**
+     * Makes the given area of the image transparent if it was previously completely opaque (used to remove the outer
+     * layer of a skin around the head if it was saved all opaque; this would be redundant so it's assumed that the skin
+     * maker is just using an image editor without an alpha channel)
+     */
+    private void setAreaTransparent(int par1, int par2, int par3, int par4)
     {
-        if (!this.func_78435_c(par1, par2, par3, par4))
+        if (!this.hasTransparency(par1, par2, par3, par4))
         {
             for (int var5 = par1; var5 < par3; ++var5)
             {
@@ -81,7 +86,10 @@ public class ImageBufferDownload implements ImageBuffer
         }
     }
 
-    private void func_78433_b(int par1, int par2, int par3, int par4)
+    /**
+     * Makes the given area of the image opaque
+     */
+    private void setAreaOpaque(int par1, int par2, int par3, int par4)
     {
         for (int var5 = par1; var5 < par3; ++var5)
         {
@@ -92,7 +100,10 @@ public class ImageBufferDownload implements ImageBuffer
         }
     }
 
-    private boolean func_78435_c(int par1, int par2, int par3, int par4)
+    /**
+     * Returns true if the given area of the image contains transparent pixels
+     */
+    private boolean hasTransparency(int par1, int par2, int par3, int par4)
     {
         for (int var5 = par1; var5 < par3; ++var5)
         {

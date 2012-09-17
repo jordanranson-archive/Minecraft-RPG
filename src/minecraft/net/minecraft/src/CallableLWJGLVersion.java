@@ -14,13 +14,13 @@ public class CallableLWJGLVersion implements Callable
         this.minecraftLWJGLVersion = par1Minecraft;
     }
 
-    public String func_74420_a()
+    public String getLWJGLVersion()
     {
         return Sys.getVersion();
     }
 
     public Object call()
     {
-        return this.func_74420_a();
+        return this.getLWJGLVersion();
     }
 }

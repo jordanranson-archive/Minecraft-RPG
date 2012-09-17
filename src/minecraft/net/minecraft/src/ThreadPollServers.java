@@ -35,7 +35,7 @@ class ThreadPollServers extends Thread
                             try
                             {
                                 var27 = true;
-                                this.pollServersServerData.hostname = "\u00a78Polling..";
+                                this.pollServersServerData.serverMOTD = "\u00a78Polling..";
                                 long var1 = System.nanoTime();
                                 GuiMultiplayer.func_74013_a(this.serverSlotContainer.parentGui, this.pollServersServerData);
                                 long var3 = System.nanoTime();
@@ -46,34 +46,34 @@ class ThreadPollServers extends Thread
                             catch (UnknownHostException var35)
                             {
                                 this.pollServersServerData.pingToServer = -1L;
-                                this.pollServersServerData.hostname = "\u00a74Can\'t resolve hostname";
+                                this.pollServersServerData.serverMOTD = "\u00a74Can\'t resolve hostname";
                                 var27 = false;
                             }
                             catch (SocketTimeoutException var36)
                             {
                                 this.pollServersServerData.pingToServer = -1L;
-                                this.pollServersServerData.hostname = "\u00a74Can\'t reach server";
+                                this.pollServersServerData.serverMOTD = "\u00a74Can\'t reach server";
                                 var27 = false;
                                 break label187;
                             }
                             catch (ConnectException var37)
                             {
                                 this.pollServersServerData.pingToServer = -1L;
-                                this.pollServersServerData.hostname = "\u00a74Can\'t reach server";
+                                this.pollServersServerData.serverMOTD = "\u00a74Can\'t reach server";
                                 var27 = false;
                                 break label186;
                             }
                             catch (IOException var38)
                             {
                                 this.pollServersServerData.pingToServer = -1L;
-                                this.pollServersServerData.hostname = "\u00a74Communication error";
+                                this.pollServersServerData.serverMOTD = "\u00a74Communication error";
                                 var27 = false;
                                 break label185;
                             }
                             catch (Exception var39)
                             {
                                 this.pollServersServerData.pingToServer = -1L;
-                                this.pollServersServerData.hostname = "ERROR: " + var39.getClass();
+                                this.pollServersServerData.serverMOTD = "ERROR: " + var39.getClass();
                                 var27 = false;
                                 break label184;
                             }

@@ -9,7 +9,7 @@ public class BlockEnchantmentTable extends BlockContainer
         super(par1, 166, Material.rock);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
         this.setLightOpacity(0);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

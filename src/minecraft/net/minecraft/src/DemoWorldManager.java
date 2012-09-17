@@ -22,7 +22,7 @@ public class DemoWorldManager extends ItemInWorldManager
         if (!this.field_73105_c && this.field_73102_f > 20)
         {
             this.field_73105_c = true;
-            this.thisPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(5, 0));
+            this.thisPlayerMP.serverForThisPlayer.sendPacketToPlayer(new Packet70GameEvent(5, 0));
         }
 
         this.demoTimeExpired = var1 > 120500L;
@@ -43,15 +43,15 @@ public class DemoWorldManager extends ItemInWorldManager
         {
             if (var1 == 100L)
             {
-                this.thisPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(5, 101));
+                this.thisPlayerMP.serverForThisPlayer.sendPacketToPlayer(new Packet70GameEvent(5, 101));
             }
             else if (var1 == 175L)
             {
-                this.thisPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(5, 102));
+                this.thisPlayerMP.serverForThisPlayer.sendPacketToPlayer(new Packet70GameEvent(5, 102));
             }
             else if (var1 == 250L)
             {
-                this.thisPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(5, 103));
+                this.thisPlayerMP.serverForThisPlayer.sendPacketToPlayer(new Packet70GameEvent(5, 103));
             }
         }
         else if (var3 == 5L && var1 % 24000L == 22000L)

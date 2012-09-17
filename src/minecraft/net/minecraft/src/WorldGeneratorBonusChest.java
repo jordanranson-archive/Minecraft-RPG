@@ -4,13 +4,20 @@ import java.util.Random;
 
 public class WorldGeneratorBonusChest extends WorldGenerator
 {
-    private final WeightedRandomChestContent[] field_76546_a;
-    private final int field_76545_b;
+    /**
+     * Instance of WeightedRandomChestContent what will randomly generate items into the Bonus Chest.
+     */
+    private final WeightedRandomChestContent[] theBonusChestGenerator;
+
+    /**
+     * Value of this int will determine how much items gonna generate in Bonus Chest.
+     */
+    private final int itemsToGenerateInBonusChest;
 
     public WorldGeneratorBonusChest(WeightedRandomChestContent[] par1ArrayOfWeightedRandomChestContent, int par2)
     {
-        this.field_76546_a = par1ArrayOfWeightedRandomChestContent;
-        this.field_76545_b = par2;
+        this.theBonusChestGenerator = par1ArrayOfWeightedRandomChestContent;
+        this.itemsToGenerateInBonusChest = par2;
     }
 
     public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5)
@@ -43,7 +50,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator
 
                     if (var11 != null && var11 != null)
                     {
-                        WeightedRandomChestContent.func_76293_a(par2Random, this.field_76546_a, var11, this.field_76545_b);
+                        WeightedRandomChestContent.generateChestContents(par2Random, this.theBonusChestGenerator, var11, this.itemsToGenerateInBonusChest);
                     }
 
                     if (par1World.isAirBlock(var8 - 1, var9, var10) && par1World.doesBlockHaveSolidTopSurface(var8 - 1, var9 - 1, var10))

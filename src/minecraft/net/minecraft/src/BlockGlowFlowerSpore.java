@@ -11,7 +11,7 @@ public class BlockGlowFlowerSpore extends Block
         this.setTickRandomly(true);
         float var4 = 0.2F;
         this.setBlockBounds(0.3F, 0.0F, 0.3F, 0.7F, 0.3F, 0.7F);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
 		this.setLightValue(0.25F);
     }
 

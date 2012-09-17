@@ -138,7 +138,7 @@ public class GuiScreenBook extends GuiScreen
                         break;
                     }
 
-                    this.bookPages.func_74744_a(this.bookPages.tagCount() - 1);
+                    this.bookPages.removeTag(this.bookPages.tagCount() - 1);
                 }
 
                 if (this.itemstackBook.hasTagCompound())
@@ -251,7 +251,7 @@ public class GuiScreenBook extends GuiScreen
         {
             if (this.editingTitle)
             {
-                this.keyTypedInTitle(par1, par2);
+                this.func_74162_c(par1, par2);
             }
             else
             {
@@ -268,14 +268,14 @@ public class GuiScreenBook extends GuiScreen
         switch (par1)
         {
             case 22:
-                this.appendToCurrPage(GuiScreen.getClipboardString());
+                this.func_74160_b(GuiScreen.getClipboardString());
                 return;
 
             default:
                 switch (par2)
                 {
                     case 14:
-                        String var3 = this.getCurrPageText();
+                        String var3 = this.func_74158_i();
 
                         if (var3.length() > 0)
                         {
@@ -285,22 +285,19 @@ public class GuiScreenBook extends GuiScreen
                         return;
 
                     case 28:
-                        this.appendToCurrPage("\n");
+                        this.func_74160_b("\n");
                         return;
 
                     default:
                         if (ChatAllowedCharacters.isAllowedCharacter(par1))
                         {
-                            this.appendToCurrPage(Character.toString(par1));
+                            this.func_74160_b(Character.toString(par1));
                         }
                 }
         }
     }
 
-    /**
-     * Processes keystrokes when editing the title of a book
-     */
-    private void keyTypedInTitle(char par1, int par2)
+    private void func_74162_c(char par1, int par2)
     {
         switch (par2)
         {
@@ -332,7 +329,7 @@ public class GuiScreenBook extends GuiScreen
         }
     }
 
-    private String getCurrPageText()
+    private String func_74158_i()
     {
         if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount())
         {
@@ -355,9 +352,9 @@ public class GuiScreenBook extends GuiScreen
         }
     }
 
-    private void appendToCurrPage(String par1Str)
+    private void func_74160_b(String par1Str)
     {
-        String var2 = this.getCurrPageText();
+        String var2 = this.func_74158_i();
         String var3 = var2 + par1Str;
         int var4 = this.fontRenderer.splitStringWidth(var3 + "\u00a70_", 118);
 

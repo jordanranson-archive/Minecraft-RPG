@@ -8,7 +8,7 @@ public class BlockVine extends Block
     {
         super(par1, 143, Material.vine);
         this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

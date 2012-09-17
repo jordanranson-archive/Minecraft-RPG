@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class StructureMineshaftPieces
 {
-    private static final WeightedRandomChestContent[] field_78818_a = new WeightedRandomChestContent[] {
+    /** List of contents that can generate in Mineshafts. */
+    private static final WeightedRandomChestContent[] mineshaftChestContents = new WeightedRandomChestContent[] {
 		new WeightedRandomChestContent(Item.ingotIron.shiftedIndex, 0, 1, 5, 10), 
 		new WeightedRandomChestContent(Item.ingotGold.shiftedIndex, 0, 1, 3, 5), 
 		new WeightedRandomChestContent(Item.redstone.shiftedIndex, 0, 4, 9, 5), 
@@ -92,6 +93,6 @@ public class StructureMineshaftPieces
 
     static WeightedRandomChestContent[] func_78816_a()
     {
-        return field_78818_a;
+        return mineshaftChestContents;
     }
 }

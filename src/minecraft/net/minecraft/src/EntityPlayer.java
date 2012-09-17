@@ -1175,8 +1175,8 @@ public abstract class EntityPlayer extends EntityLiving implements ICommandSende
                     }
 
                     this.addStat(StatList.damageDealtStat, var2);
-					
                     int var8 = EnchantmentHelper.getFireAspectModifier(this.inventory, (EntityLiving)par1Entity);
+
                     if (var8 > 0)
                     {
                         par1Entity.setFire(var8 * 4);
@@ -1759,9 +1759,7 @@ public abstract class EntityPlayer extends EntityLiving implements ICommandSende
                 return par1ItemStack.getItem().getIconFromDamageForRenderPass(par1ItemStack.getItemDamage(), par2);
             }
 
-            if (this.itemInUse != null && (
-				par1ItemStack.itemID == Item.bow.shiftedIndex
-			))
+            if (this.itemInUse != null && par1ItemStack.itemID == Item.bow.shiftedIndex)
             {
                 int var4 = par1ItemStack.getMaxItemUseDuration() - this.itemInUseCount;
 

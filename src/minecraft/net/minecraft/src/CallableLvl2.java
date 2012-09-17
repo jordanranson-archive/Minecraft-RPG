@@ -12,13 +12,16 @@ class CallableLvl2 implements Callable
         this.worldLvl2 = par1World;
     }
 
-    public String func_77404_a()
+    /**
+     * Returns the size and contents of the player entity list.
+     */
+    public String getPlayerEntities()
     {
         return this.worldLvl2.playerEntities.size() + " total; " + this.worldLvl2.playerEntities.toString();
     }
 
     public Object call()
     {
-        return this.func_77404_a();
+        return this.getPlayerEntities();
     }
 }

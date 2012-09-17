@@ -494,9 +494,9 @@ class RailLogic
     }
 
     /**
-     * Get the number of adjacent tracks
+     * get number of adjacent tracks
      */
-    static int getAdjacentTracks(RailLogic par0RailLogic)
+    static int getNAdjacentTracks(RailLogic par0RailLogic)
     {
         return par0RailLogic.getAdjacentTracks();
     }

@@ -1555,9 +1555,9 @@ public class RenderGlobal implements IWorldAccess
             while (var11.hasNext())
             {
                 DestroyBlockProgress var12 = (DestroyBlockProgress)var11.next();
-                double var13 = (double)var12.func_73110_b() - var4;
-                double var15 = (double)var12.func_73109_c() - var6;
-                double var17 = (double)var12.func_73108_d() - var8;
+                double var13 = (double)var12.getPartialBlockX() - var4;
+                double var15 = (double)var12.getPartialBlockY() - var6;
+                double var17 = (double)var12.getPartialBlockZ() - var8;
 
                 if (var13 * var13 + var15 * var15 + var17 * var17 > 1024.0D)
                 {
@@ -1565,7 +1565,7 @@ public class RenderGlobal implements IWorldAccess
                 }
                 else
                 {
-                    int var19 = this.theWorld.getBlockId(var12.func_73110_b(), var12.func_73109_c(), var12.func_73108_d());
+                    int var19 = this.theWorld.getBlockId(var12.getPartialBlockX(), var12.getPartialBlockY(), var12.getPartialBlockZ());
                     Block var20 = var19 > 0 ? Block.blocksList[var19] : null;
 
                     if (var20 == null)
@@ -1573,7 +1573,7 @@ public class RenderGlobal implements IWorldAccess
                         var20 = Block.stone;
                     }
 
-                    this.globalRenderBlocks.renderBlockUsingTexture(var20, var12.func_73110_b(), var12.func_73109_c(), var12.func_73108_d(), 240 + var12.func_73106_e());
+                    this.globalRenderBlocks.renderBlockUsingTexture(var20, var12.getPartialBlockX(), var12.getPartialBlockY(), var12.getPartialBlockZ(), 240 + var12.getPartialBlockDamage());
                 }
             }
 
@@ -1899,7 +1899,7 @@ public class RenderGlobal implements IWorldAccess
                     {
                         var21 = new EntityCloudFX(this.theWorld, par2, par4, par6, par8, par10, par12);
                     }
-                    else if (par1Str.equals("reddust")) // reddust
+                    else if (par1Str.equals("reddust"))
                     {
                         var21 = new EntityReddustFX(this.theWorld, par2, par4, par6, (float)par8, (float)par10, (float)par12);
                     }
@@ -2291,13 +2291,13 @@ public class RenderGlobal implements IWorldAccess
         {
             DestroyBlockProgress var6 = (DestroyBlockProgress)this.field_72738_E.get(Integer.valueOf(par1));
 
-            if (var6 == null || var6.func_73110_b() != par2 || var6.func_73109_c() != par3 || var6.func_73108_d() != par4)
+            if (var6 == null || var6.getPartialBlockX() != par2 || var6.getPartialBlockY() != par3 || var6.getPartialBlockZ() != par4)
             {
                 var6 = new DestroyBlockProgress(par1, par2, par3, par4);
                 this.field_72738_E.put(Integer.valueOf(par1), var6);
             }
 
-            var6.func_73107_a(par5);
+            var6.setPartialBlockDamage(par5);
         }
         else
         {

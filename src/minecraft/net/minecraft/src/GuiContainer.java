@@ -191,7 +191,11 @@ public abstract class GuiContainer extends GuiScreen
         }
     }
 
-    protected void func_74190_a(String par1Str, int par2, int par3)
+    /**
+     * Draws the text when mouse is over creative inventory tab. Params: current creative tab to be checked, current
+     * mouse x position, current mouse y position.
+     */
+    protected void drawCreativeTabHoveringText(String par1Str, int par2, int par3)
     {
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
@@ -292,7 +296,7 @@ public abstract class GuiContainer extends GuiScreen
     protected void mouseClicked(int par1, int par2, int par3)
     {
         super.mouseClicked(par1, par2, par3);
-		
+
         if (par3 == 0 || par3 == 1)
         {
             Slot var4 = this.getSlotAtPosition(par1, par2);

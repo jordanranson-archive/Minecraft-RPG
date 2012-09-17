@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -22,7 +23,8 @@ import org.lwjgl.input.Keyboard;
 
 public class NetClientHandler extends NetHandler
 {
-    private boolean field_72554_f = false;
+    /** True if kicked or disconnected from the server. */
+    private boolean disconnected = false;
 
     /** Reference to the NetworkManager object. */
     private NetworkManager netManager;
@@ -84,7 +86,7 @@ public class NetClientHandler extends NetHandler
      */
     public void processReadPackets()
     {
-        if (!this.field_72554_f && this.netManager != null)
+        if (!this.disconnected && this.netManager != null)
         {
             this.netManager.processReadPackets();
         }
@@ -120,7 +122,7 @@ public class NetClientHandler extends NetHandler
     {
         try
         {
-            URL var4 = new URL("http://session.minecraft.net/game/joinserver.jsp?user=" + func_72549_a(par1Str) + "&sessionId=" + func_72549_a(par2Str) + "&serverId=" + func_72549_a(par3Str));
+            URL var4 = new URL("http://session.minecraft.net/game/joinserver.jsp?user=" + urlEncode(par1Str) + "&sessionId=" + urlEncode(par2Str) + "&serverId=" + urlEncode(par3Str));
             BufferedReader var5 = new BufferedReader(new InputStreamReader(var4.openStream()));
             String var6 = var5.readLine();
             var5.close();
@@ -132,7 +134,10 @@ public class NetClientHandler extends NetHandler
         }
     }
 
-    private static String func_72549_a(String par0Str) throws IOException
+    /**
+     * Encode the given string for insertion into a URL
+     */
+    private static String urlEncode(String par0Str) throws IOException
     {
         return URLEncoder.encode(par0Str, "UTF-8");
     }
@@ -155,6 +160,7 @@ public class NetClientHandler extends NetHandler
         this.currentServerMaxPlayers = par1Packet1Login.maxPlayers;
         this.mc.playerController.setGameType(par1Packet1Login.gameType);
         this.addToSendQueue(new Packet204ClientInfo(this.mc.gameSettings.language, this.mc.gameSettings.renderDistance, this.mc.gameSettings.chatVisibility, this.mc.gameSettings.chatColours, this.mc.gameSettings.difficulty));
+        ModLoader.clientConnect(this, par1Packet1Login);
     }
 
     public void handlePickupSpawn(Packet21PickupSpawn par1Packet21PickupSpawn)
@@ -259,7 +265,7 @@ public class NetClientHandler extends NetHandler
             var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, par1Packet23VehicleSpawn.throwerEntityId & 65535, par1Packet23VehicleSpawn.throwerEntityId >> 16);
             par1Packet23VehicleSpawn.throwerEntityId = 0;
         }
-		
+
 		// Minecraft RPG
 		else if (par1Packet23VehicleSpawn.type == 99)
         {
@@ -273,10 +279,22 @@ public class NetClientHandler extends NetHandler
         {
             var8 = new EntitySackJunk(this.worldClient, var2, var4, var6);
         }
-        /*else if (par1Packet23VehicleSpawn.type == 99)
+
+        else
         {
-            var8 = new EntityThrowingKnife(this.worldClient, var2, var4, var6);
-        }*/
+            Iterator var15 = ModLoader.getTrackers().values().iterator();
+
+            while (var15.hasNext())
+            {
+                EntityTrackerNonliving var10 = (EntityTrackerNonliving)var15.next();
+
+                if (par1Packet23VehicleSpawn.type == var10.id)
+                {
+                    var8 = var10.mod.spawnEntity(par1Packet23VehicleSpawn.type, this.worldClient, var2, var4, var6);
+                    break;
+                }
+            }
+        }
 
         if (var8 != null)
         {
@@ -285,18 +303,18 @@ public class NetClientHandler extends NetHandler
             ((Entity)var8).serverPosZ = par1Packet23VehicleSpawn.zPosition;
             ((Entity)var8).rotationYaw = 0.0F;
             ((Entity)var8).rotationPitch = 0.0F;
-            Entity[] var15 = ((Entity)var8).getParts();
+            Entity[] var16 = ((Entity)var8).getParts();
 
-            if (var15 != null)
+            if (var16 != null)
             {
-                int var10 = par1Packet23VehicleSpawn.entityId - ((Entity)var8).entityId;
-                Entity[] var11 = var15;
-                int var12 = var15.length;
+                int var18 = par1Packet23VehicleSpawn.entityId - ((Entity)var8).entityId;
+                Entity[] var11 = var16;
+                int var12 = var16.length;
 
                 for (int var13 = 0; var13 < var12; ++var13)
                 {
                     Entity var14 = var11[var13];
-                    var14.entityId += var10;
+                    var14.entityId += var18;
                 }
             }
 
@@ -307,12 +325,12 @@ public class NetClientHandler extends NetHandler
             {
                 if (par1Packet23VehicleSpawn.type == 60)
                 {
-                    Entity var17 = this.getEntityByID(par1Packet23VehicleSpawn.throwerEntityId);
+                    Entity var19 = this.getEntityByID(par1Packet23VehicleSpawn.throwerEntityId);
 
-                    if (var17 instanceof EntityLiving)
+                    if (var19 instanceof EntityLiving)
                     {
-                        EntityArrow var16 = (EntityArrow)var8;
-                        var16.shootingEntity = var17;
+                        EntityArrow var17 = (EntityArrow)var8;
+                        var17.shootingEntity = var19;
                     }
                 }
 
@@ -601,16 +619,18 @@ public class NetClientHandler extends NetHandler
     public void handleKickDisconnect(Packet255KickDisconnect par1Packet255KickDisconnect)
     {
         this.netManager.networkShutdown("disconnect.kicked", new Object[0]);
-        this.field_72554_f = true;
+        this.disconnected = true;
+        ModLoader.clientDisconnect();
         this.mc.loadWorld((WorldClient)null);
         this.mc.displayGuiScreen(new GuiDisconnected("disconnect.disconnected", "disconnect.genericReason", new Object[] {par1Packet255KickDisconnect.reason}));
     }
 
     public void handleErrorMessage(String par1Str, Object[] par2ArrayOfObj)
     {
-        if (!this.field_72554_f)
+        if (!this.disconnected)
         {
-            this.field_72554_f = true;
+            this.disconnected = true;
+            ModLoader.clientDisconnect();
             this.mc.loadWorld((WorldClient)null);
             this.mc.displayGuiScreen(new GuiDisconnected("disconnect.lost", par1Str, par2ArrayOfObj));
         }
@@ -618,7 +638,7 @@ public class NetClientHandler extends NetHandler
 
     public void quitWithPacket(Packet par1Packet)
     {
-        if (!this.field_72554_f)
+        if (!this.disconnected)
         {
             this.netManager.addToSendQueue(par1Packet);
             this.netManager.serverShutdown();
@@ -630,7 +650,7 @@ public class NetClientHandler extends NetHandler
      */
     public void addToSendQueue(Packet par1Packet)
     {
-        if (!this.field_72554_f)
+        if (!this.disconnected)
         {
             this.netManager.addToSendQueue(par1Packet);
         }
@@ -665,6 +685,7 @@ public class NetClientHandler extends NetHandler
     public void handleChat(Packet3Chat par1Packet3Chat)
     {
         this.mc.ingameGUI.getChatGUI().printChatMessage(par1Packet3Chat.message);
+        ModLoader.clientChat(par1Packet3Chat.message);
     }
 
     public void handleAnimation(Packet18Animation par1Packet18Animation)
@@ -712,13 +733,10 @@ public class NetClientHandler extends NetHandler
     {
         Entity var2 = this.getEntityByID(par1Packet17Sleep.entityID);
 
-        if (var2 != null)
+        if (var2 != null && par1Packet17Sleep.field_73622_e == 0)
         {
-            if (par1Packet17Sleep.field_73622_e == 0)
-            {
-                EntityPlayer var3 = (EntityPlayer)var2;
-                var3.sleepInBedAt(par1Packet17Sleep.bedX, par1Packet17Sleep.bedY, par1Packet17Sleep.bedZ);
-            }
+            EntityPlayer var3 = (EntityPlayer)var2;
+            var3.sleepInBedAt(par1Packet17Sleep.bedX, par1Packet17Sleep.bedY, par1Packet17Sleep.bedZ);
         }
     }
 
@@ -727,7 +745,8 @@ public class NetClientHandler extends NetHandler
      */
     public void disconnect()
     {
-        this.field_72554_f = true;
+        this.disconnected = true;
+        ModLoader.clientDisconnect();
         this.netManager.wakeThreads();
         this.netManager.networkShutdown("disconnect.closed", new Object[0]);
     }
@@ -870,7 +889,7 @@ public class NetClientHandler extends NetHandler
     public void handleExplosion(Packet60Explosion par1Packet60Explosion)
     {
         Explosion var2 = new Explosion(this.mc.theWorld, (Entity)null, par1Packet60Explosion.explosionX, par1Packet60Explosion.explosionY, par1Packet60Explosion.explosionZ, par1Packet60Explosion.explosionSize);
-        var2.field_77281_g = par1Packet60Explosion.field_73613_e;
+        var2.field_77281_g = par1Packet60Explosion.chunkPositionRecords;
         var2.doExplosionB(true);
         this.mc.thePlayer.motionX += (double)par1Packet60Explosion.func_73607_d();
         this.mc.thePlayer.motionY += (double)par1Packet60Explosion.func_73609_f();
@@ -916,11 +935,13 @@ public class NetClientHandler extends NetHandler
             case 6:
                 var2.displayGUIMerchant(new NpcMerchant(var2));
                 var2.craftingInventory.windowId = par1Packet100OpenWindow.windowId;
-				break;
-				
+			
 			case 7:
                 var2.displayGUIProspecting(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
                 var2.craftingInventory.windowId = par1Packet100OpenWindow.windowId;
+        
+            default:
+                ModLoader.clientOpenWindow(par1Packet100OpenWindow);
         }
     }
 
@@ -1036,7 +1057,7 @@ public class NetClientHandler extends NetHandler
     public void handleUpdateProgressbar(Packet105UpdateProgressbar par1Packet105UpdateProgressbar)
     {
         EntityClientPlayerMP var2 = this.mc.thePlayer;
-        this.unexpectedPacket(par1Packet105UpdateProgressbar);
+        this.registerPacket(par1Packet105UpdateProgressbar);
 
         if (var2.craftingInventory != null && var2.craftingInventory.windowId == par1Packet105UpdateProgressbar.windowId)
         {
@@ -1050,7 +1071,7 @@ public class NetClientHandler extends NetHandler
 
         if (var2 != null)
         {
-            var2.func_70062_b(par1Packet5PlayerInventory.slot, par1Packet5PlayerInventory.func_73397_d());
+            var2.func_70062_b(par1Packet5PlayerInventory.slot, par1Packet5PlayerInventory.getItemSlot());
         }
     }
 
@@ -1066,7 +1087,7 @@ public class NetClientHandler extends NetHandler
 
     public void handleBlockDestroy(Packet55BlockDestroy par1Packet55BlockDestroy)
     {
-        this.mc.theWorld.destroyBlockInWorldPartially(par1Packet55BlockDestroy.func_73322_d(), par1Packet55BlockDestroy.func_73321_f(), par1Packet55BlockDestroy.func_73324_g(), par1Packet55BlockDestroy.func_73320_h(), par1Packet55BlockDestroy.func_73323_i());
+        this.mc.theWorld.destroyBlockInWorldPartially(par1Packet55BlockDestroy.getEntityId(), par1Packet55BlockDestroy.getPosX(), par1Packet55BlockDestroy.getPosY(), par1Packet55BlockDestroy.getPosZ(), par1Packet55BlockDestroy.getDestroyedStage());
     }
 
     public void handleMapChunks(Packet56MapChunks par1Packet56MapChunks)
@@ -1145,15 +1166,15 @@ public class NetClientHandler extends NetHandler
             }
             else if (var4 == 101)
             {
-                this.mc.ingameGUI.getChatGUI().func_73757_a("demo.help.movement", new Object[] {Keyboard.getKeyName(var5.keyBindForward.keyCode), Keyboard.getKeyName(var5.keyBindLeft.keyCode), Keyboard.getKeyName(var5.keyBindBack.keyCode), Keyboard.getKeyName(var5.keyBindRight.keyCode)});
+                this.mc.ingameGUI.getChatGUI().addTranslatedMessage("demo.help.movement", new Object[] {Keyboard.getKeyName(var5.keyBindForward.keyCode), Keyboard.getKeyName(var5.keyBindLeft.keyCode), Keyboard.getKeyName(var5.keyBindBack.keyCode), Keyboard.getKeyName(var5.keyBindRight.keyCode)});
             }
             else if (var4 == 102)
             {
-                this.mc.ingameGUI.getChatGUI().func_73757_a("demo.help.jump", new Object[] {Keyboard.getKeyName(var5.keyBindJump.keyCode)});
+                this.mc.ingameGUI.getChatGUI().addTranslatedMessage("demo.help.jump", new Object[] {Keyboard.getKeyName(var5.keyBindJump.keyCode)});
             }
             else if (var4 == 103)
             {
-                this.mc.ingameGUI.getChatGUI().func_73757_a("demo.help.inventory", new Object[] {Keyboard.getKeyName(var5.keyBindInventory.keyCode)});
+                this.mc.ingameGUI.getChatGUI().addTranslatedMessage("demo.help.inventory", new Object[] {Keyboard.getKeyName(var5.keyBindInventory.keyCode)});
             }
         }
     }
@@ -1179,7 +1200,7 @@ public class NetClientHandler extends NetHandler
     }
 
     /**
-     * Increment player statistics
+     * runs registerPacket on the given Packet200Statistic
      */
     public void handleStatistic(Packet200Statistic par1Packet200Statistic)
     {
@@ -1269,7 +1290,7 @@ public class NetClientHandler extends NetHandler
 
     public void handleAutoComplete(Packet203AutoComplete par1Packet203AutoComplete)
     {
-        String[] var2 = par1Packet203AutoComplete.func_73473_d().split("\u0000");
+        String[] var2 = par1Packet203AutoComplete.getText().split("\u0000");
 
         if (this.mc.currentScreen instanceof GuiChat)
         {
@@ -1280,7 +1301,7 @@ public class NetClientHandler extends NetHandler
 
     public void handleLevelSound(Packet62LevelSound par1Packet62LevelSound)
     {
-        this.mc.theWorld.playSound(par1Packet62LevelSound.func_73572_f(), par1Packet62LevelSound.func_73568_g(), par1Packet62LevelSound.func_73569_h(), par1Packet62LevelSound.func_73570_d(), par1Packet62LevelSound.func_73571_i(), par1Packet62LevelSound.func_73573_j());
+        this.mc.theWorld.playSound(par1Packet62LevelSound.getEffectX(), par1Packet62LevelSound.getEffectY(), par1Packet62LevelSound.getEffectZ(), par1Packet62LevelSound.getSoundName(), par1Packet62LevelSound.getVolume(), par1Packet62LevelSound.getPitch());
     }
 
     public void handleCustomPayload(Packet250CustomPayload par1Packet250CustomPayload)
@@ -1313,7 +1334,7 @@ public class NetClientHandler extends NetHandler
 
                 if (var4 != null && var4 instanceof GuiMerchant && var9 == this.mc.thePlayer.craftingInventory.windowId)
                 {
-                    IMerchant var5 = ((GuiMerchant)var4).func_74199_h();
+                    IMerchant var5 = ((GuiMerchant)var4).getIMerchant();
                     MerchantRecipeList var6 = MerchantRecipeList.readRecipiesFromStream(var8);
                     var5.setRecipes(var6);
                 }
@@ -1322,6 +1343,10 @@ public class NetClientHandler extends NetHandler
             {
                 var7.printStackTrace();
             }
+        }
+        else
+        {
+            ModLoader.clientCustomPayload(par1Packet250CustomPayload);
         }
     }
 

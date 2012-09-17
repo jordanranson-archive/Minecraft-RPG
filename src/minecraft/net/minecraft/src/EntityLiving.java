@@ -94,7 +94,12 @@ public abstract class EntityLiving extends Entity
     public float field_70730_aX = (float)(Math.random() * 0.8999999761581421D + 0.10000000149011612D);
     public float prevLegYaw;
     public float legYaw;
-    public float field_70754_ba;
+
+    /**
+     * Only relevant when legYaw is not 0(the entity is moving). Influences where in its swing legs and arms currently
+     * are.
+     */
+    public float legSwing;
 
     /** The most recent player that has attacked this entity */
     protected EntityPlayer attackingPlayer = null;
@@ -1322,7 +1327,7 @@ public abstract class EntityLiving extends Entity
         }
 
         this.legYaw += (var11 - this.legYaw) * 0.4F;
-        this.field_70754_ba += this.legYaw;
+        this.legSwing += this.legYaw;
     }
 
     /**

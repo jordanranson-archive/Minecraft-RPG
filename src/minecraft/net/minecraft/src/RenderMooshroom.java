@@ -9,12 +9,12 @@ public class RenderMooshroom extends RenderLiving
         super(par1ModelBase, par2);
     }
 
-    public void func_77114_a(EntityMooshroom par1EntityMooshroom, double par2, double par4, double par6, float par8, float par9)
+    public void renderLivingMooshroom(EntityMooshroom par1EntityMooshroom, double par2, double par4, double par6, float par8, float par9)
     {
         super.doRenderLiving(par1EntityMooshroom, par2, par4, par6, par8, par9);
     }
 
-    protected void func_77115_a(EntityMooshroom par1EntityMooshroom, float par2)
+    protected void renderMooshroomEquippedItems(EntityMooshroom par1EntityMooshroom, float par2)
     {
         super.renderEquippedItems(par1EntityMooshroom, par2);
 
@@ -44,12 +44,12 @@ public class RenderMooshroom extends RenderLiving
 
     protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2)
     {
-        this.func_77115_a((EntityMooshroom)par1EntityLiving, par2);
+        this.renderMooshroomEquippedItems((EntityMooshroom)par1EntityLiving, par2);
     }
 
     public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
     {
-        this.func_77114_a((EntityMooshroom)par1EntityLiving, par2, par4, par6, par8, par9);
+        this.renderLivingMooshroom((EntityMooshroom)par1EntityLiving, par2, par4, par6, par8, par9);
     }
 
     /**
@@ -60,6 +60,6 @@ public class RenderMooshroom extends RenderLiving
      */
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.func_77114_a((EntityMooshroom)par1Entity, par2, par4, par6, par8, par9);
+        this.renderLivingMooshroom((EntityMooshroom)par1Entity, par2, par4, par6, par8, par9);
     }
 }

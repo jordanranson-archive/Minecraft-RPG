@@ -4,15 +4,19 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderVillager extends RenderLiving
 {
-    protected ModelVillager field_77056_a;
+    /** Model of the villager. */
+    protected ModelVillager villagerModel;
 
     public RenderVillager()
     {
         super(new ModelVillager(0.0F), 0.5F);
-        this.field_77056_a = (ModelVillager)this.mainModel;
+        this.villagerModel = (ModelVillager)this.mainModel;
     }
 
-    protected int func_77053_a(EntityVillager par1EntityVillager, int par2, float par3)
+    /**
+     * Determines wether Villager Render pass or not.
+     */
+    protected int shouldVillagerRenderPass(EntityVillager par1EntityVillager, int par2, float par3)
     {
         return -1;
     }
@@ -22,14 +26,17 @@ public class RenderVillager extends RenderLiving
         super.doRenderLiving(par1EntityVillager, par2, par4, par6, par8, par9);
     }
 
-    protected void func_77055_a(EntityVillager par1EntityVillager, double par2, double par4, double par6) {}
+    /**
+     * Passes the Villager special render.
+     */
+    protected void passVillagerSpecialRender(EntityVillager par1EntityVillager, double par2, double par4, double par6) {}
 
-    protected void func_77051_a(EntityVillager par1EntityVillager, float par2)
+    protected void renderVillagerEquipedItems(EntityVillager par1EntityVillager, float par2)
     {
         super.renderEquippedItems(par1EntityVillager, par2);
     }
 
-    protected void func_77052_b(EntityVillager par1EntityVillager, float par2)
+    protected void preRenderVillager(EntityVillager par1EntityVillager, float par2)
     {
         float var3 = 0.9375F;
 
@@ -51,7 +58,7 @@ public class RenderVillager extends RenderLiving
      */
     protected void passSpecialRender(EntityLiving par1EntityLiving, double par2, double par4, double par6)
     {
-        this.func_77055_a((EntityVillager)par1EntityLiving, par2, par4, par6);
+        this.passVillagerSpecialRender((EntityVillager)par1EntityLiving, par2, par4, par6);
     }
 
     /**
@@ -60,7 +67,7 @@ public class RenderVillager extends RenderLiving
      */
     protected void preRenderCallback(EntityLiving par1EntityLiving, float par2)
     {
-        this.func_77052_b((EntityVillager)par1EntityLiving, par2);
+        this.preRenderVillager((EntityVillager)par1EntityLiving, par2);
     }
 
     /**
@@ -68,12 +75,12 @@ public class RenderVillager extends RenderLiving
      */
     protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3)
     {
-        return this.func_77053_a((EntityVillager)par1EntityLiving, par2, par3);
+        return this.shouldVillagerRenderPass((EntityVillager)par1EntityLiving, par2, par3);
     }
 
     protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2)
     {
-        this.func_77051_a((EntityVillager)par1EntityLiving, par2);
+        this.renderVillagerEquipedItems((EntityVillager)par1EntityLiving, par2);
     }
 
     public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)

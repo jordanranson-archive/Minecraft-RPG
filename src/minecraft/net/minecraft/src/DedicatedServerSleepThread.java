@@ -2,11 +2,12 @@ package net.minecraft.src;
 
 class DedicatedServerSleepThread extends Thread
 {
-    final DedicatedServer field_72451_a;
+    /** Instance of the DecitatedServer. */
+    final DedicatedServer theDecitatedServer;
 
     DedicatedServerSleepThread(DedicatedServer par1DedicatedServer)
     {
-        this.field_72451_a = par1DedicatedServer;
+        this.theDecitatedServer = par1DedicatedServer;
         this.setDaemon(true);
         this.start();
     }

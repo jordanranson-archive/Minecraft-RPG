@@ -33,6 +33,6 @@ public class CommandServerDeop extends CommandBase
      */
     public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
     {
-        return par2ArrayOfStr.length == 1 ? getListOfStringsFromIterableMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getConfigurationManager().getOps()) : null;
+        return par2ArrayOfStr.length == 1 ? getListOfStringsFromIterableMatchingLastWord(par2ArrayOfStr, MinecraftServer.getServer().getConfigurationManager().getNamesWhiteList()) : null;
     }
 }

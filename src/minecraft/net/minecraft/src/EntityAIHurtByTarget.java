@@ -6,7 +6,9 @@ import java.util.List;
 public class EntityAIHurtByTarget extends EntityAITarget
 {
     boolean field_75312_a;
-    EntityLiving field_75311_b;
+
+    /** The PathNavigate of our entity. */
+    EntityLiving entityPathNavigate;
 
     public EntityAIHurtByTarget(EntityLiving par1EntityLiving, boolean par2)
     {
@@ -28,7 +30,7 @@ public class EntityAIHurtByTarget extends EntityAITarget
      */
     public boolean continueExecuting()
     {
-        return this.taskOwner.getAITarget() != null && this.taskOwner.getAITarget() != this.field_75311_b;
+        return this.taskOwner.getAITarget() != null && this.taskOwner.getAITarget() != this.entityPathNavigate;
     }
 
     /**
@@ -37,7 +39,7 @@ public class EntityAIHurtByTarget extends EntityAITarget
     public void startExecuting()
     {
         this.taskOwner.setAttackTarget(this.taskOwner.getAITarget());
-        this.field_75311_b = this.taskOwner.getAITarget();
+        this.entityPathNavigate = this.taskOwner.getAITarget();
 
         if (this.field_75312_a)
         {

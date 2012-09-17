@@ -49,8 +49,8 @@ class SorterStatsBlock implements Comparator
                 return -1;
             }
 
-            int var7 = GuiStats.getStatsFileWriter(this.slotStatsBlockGUI.field_77268_a).writeStat(var5);
-            int var8 = GuiStats.getStatsFileWriter(this.slotStatsBlockGUI.field_77268_a).writeStat(var6);
+            int var7 = GuiStats.getStatsFileWriter(this.slotStatsBlockGUI.theStats).writeStat(var5);
+            int var8 = GuiStats.getStatsFileWriter(this.slotStatsBlockGUI.theStats).writeStat(var6);
 
             if (var7 != var8)
             {

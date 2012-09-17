@@ -389,7 +389,7 @@ public class GuiIngame extends Gui
         {
             this.mc.mcProfiler.startSection("debug");
             GL11.glPushMatrix();
-            var8.drawStringWithShadow("Minecraft 1.3.1 (" + this.mc.debug + ")", 2, 2, 16777215);
+            var8.drawStringWithShadow("Minecraft 1.3.2 (" + this.mc.debug + ")", 2, 2, 16777215);
             var8.drawStringWithShadow(this.mc.debugInfoRenders(), 2, 12, 16777215);
             var8.drawStringWithShadow(this.mc.getEntityDebug(), 2, 22, 16777215);
             var8.drawStringWithShadow(this.mc.debugInfoEntities(), 2, 32, 16777215);
@@ -459,7 +459,7 @@ public class GuiIngame extends Gui
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, (float)(var7 - 48), 0.0F);
         this.mc.mcProfiler.startSection("chat");
-        this.persistantChatGUI.func_73762_a(this.updateCounter);
+        this.persistantChatGUI.drawChat(this.updateCounter);
         this.mc.mcProfiler.endSection();
         GL11.glPopMatrix();
 

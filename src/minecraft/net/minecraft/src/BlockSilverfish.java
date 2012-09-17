@@ -12,7 +12,7 @@ public class BlockSilverfish extends Block
     {
         super(par1, 1, Material.clay);
         this.setHardness(0.0F);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(CreativeTabs.tabDeco);
     }
 
     /**

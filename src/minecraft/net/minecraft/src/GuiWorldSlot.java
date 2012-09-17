@@ -86,7 +86,7 @@ class GuiWorldSlot extends GuiSlot
                 var9 = "\u00a74" + StatCollector.translateToLocal("gameMode.hardcore") + "\u00a7r";
             }
 
-            if (var6.func_75783_h())
+            if (var6.getCheatsEnabled())
             {
                 var9 = var9 + ", " + StatCollector.translateToLocal("selectWorld.cheats");
             }

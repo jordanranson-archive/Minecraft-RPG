@@ -12,13 +12,16 @@ class CallableMPL1 implements Callable
         this.worldClientMPL1 = par1WorldClient;
     }
 
-    public String func_78832_a()
+    /**
+     * Returns the size and contents of the entity list.
+     */
+    public String getEntityCountAndList()
     {
         return WorldClient.getEntityList(this.worldClientMPL1).size() + " total; " + WorldClient.getEntityList(this.worldClientMPL1).toString();
     }
 
     public Object call()
     {
-        return this.func_78832_a();
+        return this.getEntityCountAndList();
     }
 }

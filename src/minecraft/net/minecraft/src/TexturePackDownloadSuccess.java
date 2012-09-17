@@ -4,19 +4,19 @@ import java.io.File;
 
 class TexturePackDownloadSuccess implements IDownloadSuccess
 {
-    final TexturePackList field_76171_a;
+    final TexturePackList texturePacks;
 
     TexturePackDownloadSuccess(TexturePackList par1TexturePackList)
     {
-        this.field_76171_a = par1TexturePackList;
+        this.texturePacks = par1TexturePackList;
     }
 
     public void onSuccess(File par1File)
     {
-        if (TexturePackList.func_77301_a(this.field_76171_a))
+        if (TexturePackList.func_77301_a(this.texturePacks))
         {
-            TexturePackList.func_77303_a(this.field_76171_a, new TexturePackCustom(TexturePackList.func_77291_a(this.field_76171_a, par1File), par1File));
-            TexturePackList.getMinecraft(this.field_76171_a).func_71395_y();
+            TexturePackList.setSelectedTexturePack(this.texturePacks, new TexturePackCustom(TexturePackList.generateTexturePackID(this.texturePacks, par1File), par1File));
+            TexturePackList.getMinecraft(this.texturePacks).scheduleTexturePackRefresh();
         }
     }
 }

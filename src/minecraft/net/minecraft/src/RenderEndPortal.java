@@ -9,7 +9,10 @@ public class RenderEndPortal extends TileEntitySpecialRenderer
 {
     FloatBuffer field_76908_a = GLAllocation.createDirectFloatBuffer(16);
 
-    public void func_76906_a(TileEntityEndPortal par1TileEntityEndPortal, double par2, double par4, double par6, float par8)
+    /**
+     * Renders the End Portal.
+     */
+    public void renderEndPortalTileEntity(TileEntityEndPortal par1TileEntityEndPortal, double par2, double par4, double par6, float par8)
     {
         float var9 = (float)this.tileEntityRenderer.playerX;
         float var10 = (float)this.tileEntityRenderer.playerY;
@@ -114,6 +117,6 @@ public class RenderEndPortal extends TileEntitySpecialRenderer
 
     public void renderTileEntityAt(TileEntity par1TileEntity, double par2, double par4, double par6, float par8)
     {
-        this.func_76906_a((TileEntityEndPortal)par1TileEntity, par2, par4, par6, par8);
+        this.renderEndPortalTileEntity((TileEntityEndPortal)par1TileEntity, par2, par4, par6, par8);
     }
 }

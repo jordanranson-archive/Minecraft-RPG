@@ -3,7 +3,7 @@ package net.minecraft.src;
 public class EntityAIBeg extends EntityAIBase
 {
     private EntityWolf theWolf;
-    private EntityPlayer field_75385_b;
+    private EntityPlayer thePlayer;
     private World worldObject;
     private float minPlayerDistance;
     private int field_75384_e;
@@ -21,8 +21,8 @@ public class EntityAIBeg extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        this.field_75385_b = this.worldObject.getClosestPlayerToEntity(this.theWolf, (double)this.minPlayerDistance);
-        return this.field_75385_b == null ? false : this.func_75382_a(this.field_75385_b);
+        this.thePlayer = this.worldObject.getClosestPlayerToEntity(this.theWolf, (double)this.minPlayerDistance);
+        return this.thePlayer == null ? false : this.hasPlayerGotBoneInHand(this.thePlayer);
     }
 
     /**
@@ -30,7 +30,7 @@ public class EntityAIBeg extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.field_75385_b.isEntityAlive() ? false : (this.theWolf.getDistanceSqToEntity(this.field_75385_b) > (double)(this.minPlayerDistance * this.minPlayerDistance) ? false : this.field_75384_e > 0 && this.func_75382_a(this.field_75385_b));
+        return !this.thePlayer.isEntityAlive() ? false : (this.theWolf.getDistanceSqToEntity(this.thePlayer) > (double)(this.minPlayerDistance * this.minPlayerDistance) ? false : this.field_75384_e > 0 && this.hasPlayerGotBoneInHand(this.thePlayer));
     }
 
     /**
@@ -48,7 +48,7 @@ public class EntityAIBeg extends EntityAIBase
     public void resetTask()
     {
         this.theWolf.func_70918_i(false);
-        this.field_75385_b = null;
+        this.thePlayer = null;
     }
 
     /**
@@ -56,11 +56,14 @@ public class EntityAIBeg extends EntityAIBase
      */
     public void updateTask()
     {
-        this.theWolf.getLookHelper().setLookPosition(this.field_75385_b.posX, this.field_75385_b.posY + (double)this.field_75385_b.getEyeHeight(), this.field_75385_b.posZ, 10.0F, (float)this.theWolf.getVerticalFaceSpeed());
+        this.theWolf.getLookHelper().setLookPosition(this.thePlayer.posX, this.thePlayer.posY + (double)this.thePlayer.getEyeHeight(), this.thePlayer.posZ, 10.0F, (float)this.theWolf.getVerticalFaceSpeed());
         --this.field_75384_e;
     }
 
-    private boolean func_75382_a(EntityPlayer par1EntityPlayer)
+    /**
+     * Gets if the Player has the Bone in the hand.
+     */
+    private boolean hasPlayerGotBoneInHand(EntityPlayer par1EntityPlayer)
     {
         ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
         return var2 == null ? false : (!this.theWolf.isTamed() && var2.itemID == Item.bone.shiftedIndex ? true : this.theWolf.isWheat(var2));

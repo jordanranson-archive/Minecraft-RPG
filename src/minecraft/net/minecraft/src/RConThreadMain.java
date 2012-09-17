@@ -33,23 +33,23 @@ public class RConThreadMain extends RConThreadBase
     public RConThreadMain(IServer par1IServer)
     {
         super(par1IServer);
-        this.rconPort = par1IServer.getIntProperty("rcon.port", 0);
-        this.rconPassword = par1IServer.getStringProperty("rcon.password", "");
-        this.hostname = par1IServer.getHostname();
-        this.serverPort = par1IServer.getPort();
+        this.rconPort = par1IServer.getOrSetIntProperty("rcon.port", 0);
+        this.rconPassword = par1IServer.getOrSetProperty("rcon.password", "");
+        this.hostname = par1IServer.getHostName();
+        this.serverPort = par1IServer.getMyServerPort();
 
         if (0 == this.rconPort)
         {
             this.rconPort = this.serverPort + 10;
             this.logInfo("Setting default rcon port to " + this.rconPort);
-            par1IServer.setProperty("rcon.port", Integer.valueOf(this.rconPort));
+            par1IServer.setArbitraryProperty("rcon.port", Integer.valueOf(this.rconPort));
 
             if (0 == this.rconPassword.length())
             {
-                par1IServer.setProperty("rcon.password", "");
+                par1IServer.setArbitraryProperty("rcon.password", "");
             }
 
-            par1IServer.saveProperties();
+            par1IServer.saveSettingsToFile();
         }
 
         if (0 == this.hostname.length())

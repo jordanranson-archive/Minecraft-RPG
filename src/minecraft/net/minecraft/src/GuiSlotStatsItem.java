@@ -5,12 +5,13 @@ import java.util.Iterator;
 
 class GuiSlotStatsItem extends GuiSlotStats
 {
-    final GuiStats field_77269_a;
+    /** Instance of GuiStats. */
+    final GuiStats slotGuiStats;
 
     public GuiSlotStatsItem(GuiStats par1GuiStats)
     {
         super(par1GuiStats);
-        this.field_77269_a = par1GuiStats;
+        this.slotGuiStats = par1GuiStats;
         this.field_77266_h = new ArrayList();
         Iterator var2 = StatList.itemStats.iterator();
 
@@ -48,29 +49,29 @@ class GuiSlotStatsItem extends GuiSlotStats
 
         if (this.field_77262_g == 0)
         {
-            GuiStats.drawSprite(this.field_77269_a, par1 + 115 - 18 + 1, par2 + 1 + 1, 72, 18);
+            GuiStats.drawSprite(this.slotGuiStats, par1 + 115 - 18 + 1, par2 + 1 + 1, 72, 18);
         }
         else
         {
-            GuiStats.drawSprite(this.field_77269_a, par1 + 115 - 18, par2 + 1, 72, 18);
+            GuiStats.drawSprite(this.slotGuiStats, par1 + 115 - 18, par2 + 1, 72, 18);
         }
 
         if (this.field_77262_g == 1)
         {
-            GuiStats.drawSprite(this.field_77269_a, par1 + 165 - 18 + 1, par2 + 1 + 1, 18, 18);
+            GuiStats.drawSprite(this.slotGuiStats, par1 + 165 - 18 + 1, par2 + 1 + 1, 18, 18);
         }
         else
         {
-            GuiStats.drawSprite(this.field_77269_a, par1 + 165 - 18, par2 + 1, 18, 18);
+            GuiStats.drawSprite(this.slotGuiStats, par1 + 165 - 18, par2 + 1, 18, 18);
         }
 
         if (this.field_77262_g == 2)
         {
-            GuiStats.drawSprite(this.field_77269_a, par1 + 215 - 18 + 1, par2 + 1 + 1, 36, 18);
+            GuiStats.drawSprite(this.slotGuiStats, par1 + 215 - 18 + 1, par2 + 1 + 1, 36, 18);
         }
         else
         {
-            GuiStats.drawSprite(this.field_77269_a, par1 + 215 - 18, par2 + 1, 36, 18);
+            GuiStats.drawSprite(this.slotGuiStats, par1 + 215 - 18, par2 + 1, 36, 18);
         }
     }
 
@@ -78,7 +79,7 @@ class GuiSlotStatsItem extends GuiSlotStats
     {
         StatCrafting var6 = this.func_77257_d(par1);
         int var7 = var6.getItemID();
-        GuiStats.drawItemSprite(this.field_77269_a, par2 + 40, par3, var7);
+        GuiStats.drawItemSprite(this.slotGuiStats, par2 + 40, par3, var7);
         this.func_77260_a((StatCrafting)StatList.objectBreakStats[var7], par2 + 115, par3, par1 % 2 == 0);
         this.func_77260_a((StatCrafting)StatList.objectCraftStats[var7], par2 + 165, par3, par1 % 2 == 0);
         this.func_77260_a(var6, par2 + 215, par3, par1 % 2 == 0);

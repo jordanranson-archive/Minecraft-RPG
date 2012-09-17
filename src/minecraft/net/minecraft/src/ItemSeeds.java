@@ -9,9 +9,17 @@ public class ItemSeeds extends Item
 
     /** BlockID of the block the seeds can be planted on. */
     private int soilBlockID;
-    private int soilBlockID2;
+    private int soilBlockID2 = -1;
 
-    public ItemSeeds(int par1, int par2, int par3, int par4)
+    public ItemSeeds(int par1, int par2, int par3)
+    {
+        super(par1);
+        this.blockType = par2;
+        this.soilBlockID = par3;
+        this.setTabToDisplayOn(CreativeTabs.tabMaterials);
+    }
+
+	public ItemSeeds(int par1, int par2, int par3, int par4)
     {
         super(par1);
         this.blockType = par2;
@@ -20,11 +28,7 @@ public class ItemSeeds extends Item
         this.setTabToDisplayOn(CreativeTabs.tabMaterials);
     }
 
-    /**
-     * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
-     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
-     */
-    public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+    public boolean tryPlaceIntoWorld(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
         if (par7 != 1)
         {

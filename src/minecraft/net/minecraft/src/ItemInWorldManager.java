@@ -44,9 +44,6 @@ public class ItemInWorldManager
         return this.gameType;
     }
 
-    /**
-     * Get if we are in creative game mode.
-     */
     public boolean isCreative()
     {
         return this.gameType.isCreative();
@@ -253,7 +250,7 @@ public class ItemInWorldManager
 
             if (this.isCreative())
             {
-                this.thisPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet53BlockChange(par1, par2, par3, this.theWorld));
+                this.thisPlayerMP.serverForThisPlayer.sendPacketToPlayer(new Packet53BlockChange(par1, par2, par3, this.theWorld));
             }
             else
             {

@@ -44,9 +44,9 @@ public class TileEntitySign extends TileEntity
     }
 
     /**
-     * Overriden in a sign to provide the text.
+     * signs and mobSpawners use this to send text and meta-data
      */
-    public Packet getDescriptionPacket()
+    public Packet getAuxillaryInfoPacket()
     {
         String[] var1 = new String[4];
         System.arraycopy(this.signText, 0, var1, 0, 4);

@@ -12,7 +12,10 @@ public class RenderEnderCrystal extends Render
         this.shadowSize = 0.5F;
     }
 
-    public void func_76994_a(EntityEnderCrystal par1EntityEnderCrystal, double par2, double par4, double par6, float par8, float par9)
+    /**
+     * Renders the Ender Crystal.
+     */
+    public void doRenderEnderCrystal(EntityEnderCrystal par1EntityEnderCrystal, double par2, double par4, double par6, float par8, float par9)
     {
         if (this.field_76996_a != 1)
         {
@@ -38,6 +41,6 @@ public class RenderEnderCrystal extends Render
      */
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.func_76994_a((EntityEnderCrystal)par1Entity, par2, par4, par6, par8, par9);
+        this.doRenderEnderCrystal((EntityEnderCrystal)par1Entity, par2, par4, par6, par8, par9);
     }
 }
