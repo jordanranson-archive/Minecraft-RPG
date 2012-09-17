@@ -823,7 +823,7 @@ public final class ModLoader
         try
         {
             instance = Minecraft.getMinecraft();
-            //instance.entityRenderer = new EntityRendererProxy(instance);
+            instance.entityRenderer = new EntityRendererProxy(instance);
             classMap = (Map)getPrivateValue(EntityList.class, (Object)null, 0);
             field_modifiers = Field.class.getDeclaredField("modifiers");
             field_modifiers.setAccessible(true);

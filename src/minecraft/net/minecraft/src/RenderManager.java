@@ -89,6 +89,8 @@ public class RenderManager
         this.entityRenderMap.put(EntitySackTreasure.class, new RenderSnowball(Item.treasureSack.getIconFromDamage(0)));
         this.entityRenderMap.put(EntitySackJunk.class, new RenderSnowball(Item.junkSack.getIconFromDamage(0)));
 		
+        ModLoader.addAllRenderers(this.entityRenderMap);
+		
         Iterator var1 = this.entityRenderMap.values().iterator();
 
         while (var1.hasNext())

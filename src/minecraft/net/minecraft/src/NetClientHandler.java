@@ -935,11 +935,13 @@ public class NetClientHandler extends NetHandler
             case 6:
                 var2.displayGUIMerchant(new NpcMerchant(var2));
                 var2.craftingInventory.windowId = par1Packet100OpenWindow.windowId;
+				break;
 			
 			case 7:
                 var2.displayGUIProspecting(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
                 var2.craftingInventory.windowId = par1Packet100OpenWindow.windowId;
-        
+				break;
+				
             default:
                 ModLoader.clientOpenWindow(par1Packet100OpenWindow);
         }

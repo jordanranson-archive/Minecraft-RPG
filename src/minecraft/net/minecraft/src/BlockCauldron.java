@@ -113,7 +113,7 @@ public class BlockCauldron extends Block
 						{
 							par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, new ItemStack(Item.bucketEmpty));
 						}
-
+						
 						par1World.setBlockMetadataWithNotify(par2, par3, par4, 3);
 					}
 
@@ -127,6 +127,7 @@ public class BlockCauldron extends Block
 						{
 							--var10.stackSize;
 						}
+						
 						par1World.setBlockMetadataWithNotify(par2, par3, par4, 7 + var11);
 					}
 					
