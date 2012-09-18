@@ -160,7 +160,6 @@ public class NetClientHandler extends NetHandler
         this.currentServerMaxPlayers = par1Packet1Login.maxPlayers;
         this.mc.playerController.setGameType(par1Packet1Login.gameType);
         this.addToSendQueue(new Packet204ClientInfo(this.mc.gameSettings.language, this.mc.gameSettings.renderDistance, this.mc.gameSettings.chatVisibility, this.mc.gameSettings.chatColours, this.mc.gameSettings.difficulty));
-        ModLoader.clientConnect(this, par1Packet1Login);
     }
 
     public void handlePickupSpawn(Packet21PickupSpawn par1Packet21PickupSpawn)
@@ -280,21 +279,6 @@ public class NetClientHandler extends NetHandler
             var8 = new EntitySackJunk(this.worldClient, var2, var4, var6);
         }
 
-        else
-        {
-            Iterator var15 = ModLoader.getTrackers().values().iterator();
-
-            while (var15.hasNext())
-            {
-                EntityTrackerNonliving var10 = (EntityTrackerNonliving)var15.next();
-
-                if (par1Packet23VehicleSpawn.type == var10.id)
-                {
-                    var8 = var10.mod.spawnEntity(par1Packet23VehicleSpawn.type, this.worldClient, var2, var4, var6);
-                    break;
-                }
-            }
-        }
 
         if (var8 != null)
         {
@@ -620,7 +604,6 @@ public class NetClientHandler extends NetHandler
     {
         this.netManager.networkShutdown("disconnect.kicked", new Object[0]);
         this.disconnected = true;
-        ModLoader.clientDisconnect();
         this.mc.loadWorld((WorldClient)null);
         this.mc.displayGuiScreen(new GuiDisconnected("disconnect.disconnected", "disconnect.genericReason", new Object[] {par1Packet255KickDisconnect.reason}));
     }
@@ -630,7 +613,6 @@ public class NetClientHandler extends NetHandler
         if (!this.disconnected)
         {
             this.disconnected = true;
-            ModLoader.clientDisconnect();
             this.mc.loadWorld((WorldClient)null);
             this.mc.displayGuiScreen(new GuiDisconnected("disconnect.lost", par1Str, par2ArrayOfObj));
         }
@@ -685,7 +667,6 @@ public class NetClientHandler extends NetHandler
     public void handleChat(Packet3Chat par1Packet3Chat)
     {
         this.mc.ingameGUI.getChatGUI().printChatMessage(par1Packet3Chat.message);
-        ModLoader.clientChat(par1Packet3Chat.message);
     }
 
     public void handleAnimation(Packet18Animation par1Packet18Animation)
@@ -746,7 +727,6 @@ public class NetClientHandler extends NetHandler
     public void disconnect()
     {
         this.disconnected = true;
-        ModLoader.clientDisconnect();
         this.netManager.wakeThreads();
         this.netManager.networkShutdown("disconnect.closed", new Object[0]);
     }
@@ -941,9 +921,6 @@ public class NetClientHandler extends NetHandler
                 var2.displayGUIProspecting(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
                 var2.craftingInventory.windowId = par1Packet100OpenWindow.windowId;
 				break;
-				
-            default:
-                ModLoader.clientOpenWindow(par1Packet100OpenWindow);
         }
     }
 
@@ -1345,10 +1322,6 @@ public class NetClientHandler extends NetHandler
             {
                 var7.printStackTrace();
             }
-        }
-        else
-        {
-            ModLoader.clientCustomPayload(par1Packet250CustomPayload);
         }
     }
 

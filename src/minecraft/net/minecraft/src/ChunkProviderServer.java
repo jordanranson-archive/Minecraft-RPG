@@ -214,7 +214,6 @@ public class ChunkProviderServer implements IChunkProvider
             if (this.currentChunkProvider != null)
             {
                 this.currentChunkProvider.populate(par1IChunkProvider, par2, par3);
-                ModLoader.populateChunk(this.currentChunkProvider, par2, par3, this.currentServer);
                 var4.setChunkModified();
             }
         }

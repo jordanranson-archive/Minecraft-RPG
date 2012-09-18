@@ -468,10 +468,10 @@ public class BlockDispenser extends BlockContainer
                 par1World.playAuxSFX(1000, par4, par5, par6, 0);
                 return 1;
             }
-            else
-            {
-                return ModLoader.dispenseEntity(par1World, par2ItemStack, par3Random, par4, par5, par6, par7, par8, par9, par11, par13);
-            }
+			else
+			{
+				return 0;
+			}
         }
         else
         {

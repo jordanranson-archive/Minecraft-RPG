@@ -482,23 +482,9 @@ public class EntityTrackerEntry
                     {
                         return new Packet26EntityExpOrb((EntityXPOrb)this.myEntity);
                     }
-                    else
+					else
                     {
-                        Iterator var2 = ModLoader.getTrackers().values().iterator();
-                        EntityTrackerNonliving var3;
-
-                        do
-                        {
-                            if (!var2.hasNext())
-                            {
-                                throw new IllegalArgumentException("Don\'t know how to add " + this.myEntity.getClass() + "!");
-                            }
-
-                            var3 = (EntityTrackerNonliving)var2.next();
-                        }
-                        while (!var3.entityClass.isAssignableFrom(this.myEntity.getClass()));
-
-                        return var3.mod.getSpawnPacket(this.myEntity, var3.id);
+                        throw new IllegalArgumentException("Don\'t know how to add " + this.myEntity.getClass() + "!");
                     }
                 }
             }

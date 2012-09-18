@@ -29,7 +29,6 @@ public class IntegratedServer extends MinecraftServer
         this.setConfigurationManager(new IntegratedPlayerList(this));
         this.mc = par1Minecraft;
         this.theWorldSettings = par4WorldSettings;
-        ModLoader.registerCommands(this);
 
         try
         {

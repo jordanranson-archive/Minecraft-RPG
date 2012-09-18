@@ -18,6 +18,5 @@ public class EntityRendererProxy extends EntityRenderer
     public void updateCameraAndRender(float var1)
     {
         super.updateCameraAndRender(var1);
-        ModLoader.onTick(var1, this.game);
     }
 }

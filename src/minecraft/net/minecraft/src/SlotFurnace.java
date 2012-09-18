@@ -59,7 +59,6 @@ public class SlotFurnace extends Slot
     protected void onCrafting(ItemStack par1ItemStack)
     {
         par1ItemStack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.field_75228_b);
-        ModLoader.takenFromFurnace(this.thePlayer, par1ItemStack);
 
         if (!this.thePlayer.worldObj.isRemote)
         {

@@ -624,8 +624,6 @@ public class NetServerHandler extends NetHandler
 
     public void handleChat(Packet3Chat par1Packet3Chat)
     {
-        ModLoader.serverChat(this, par1Packet3Chat.message);
-
         if (this.playerEntity.getChatVisibility() == 2)
         {
             this.sendPacketToPlayer(new Packet3Chat("Cannot send chat message."));
@@ -1101,10 +1099,6 @@ public class NetServerHandler extends NetHandler
             {
                 var7.printStackTrace();
             }
-        }
-        else
-        {
-            ModLoader.serverCustomPayload(this, par1Packet250CustomPayload);
         }
     }
 }
