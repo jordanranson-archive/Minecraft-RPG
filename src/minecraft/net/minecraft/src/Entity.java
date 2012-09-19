@@ -567,7 +567,7 @@ public abstract class Entity
             {
                 this.isInQuicksand = false;
                 par1 *= 0.45D;
-                par3 *= 0.2D;
+                par3 *= 0.1D;
                 par5 *= 0.45D;
                 this.motionX = 0.0D;
                 this.motionY = 0.0D;

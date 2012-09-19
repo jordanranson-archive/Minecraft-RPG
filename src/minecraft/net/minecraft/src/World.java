@@ -3427,11 +3427,7 @@ public abstract class World implements IBlockAccess
 		{
 			return true;
 		}
-		if(var9 == Block.quicksand && par1 == Item.bucketQuicksand.shiftedIndex)
-		{
-			return true;
-		}
-
+		
         if (var11 != null && !this.checkIfAABBIsClearExcludingEntity(var11, par7Entity))
         {
             return false;
