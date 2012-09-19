@@ -455,7 +455,7 @@ public abstract class EntityLiving extends Entity
         {
 			if(this.isInsideOfMaterial(Material.quicksand))
 			{
-				this.attackEntityFrom(DamageSource.suffocate, 2);
+				this.attackEntityFrom(DamageSource.suffocate, 1);
 			}
 			else
 			{

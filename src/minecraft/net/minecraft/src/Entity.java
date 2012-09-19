@@ -74,6 +74,7 @@ public abstract class Entity
     public boolean isCollided;
     public boolean velocityChanged;
     protected boolean isInWeb;
+    protected boolean isInQuicksand;
     public boolean field_70135_K;
 
     /**
@@ -557,6 +558,17 @@ public abstract class Entity
                 par1 *= 0.25D;
                 par3 *= 0.05000000074505806D;
                 par5 *= 0.25D;
+                this.motionX = 0.0D;
+                this.motionY = 0.0D;
+                this.motionZ = 0.0D;
+            }
+			
+			if (this.isInQuicksand)
+            {
+                this.isInQuicksand = false;
+                par1 *= 0.45D;
+                par3 *= 0.2D;
+                par5 *= 0.45D;
                 this.motionX = 0.0D;
                 this.motionY = 0.0D;
                 this.motionZ = 0.0D;
@@ -2020,6 +2032,12 @@ public abstract class Entity
         this.isInWeb = true;
         this.fallDistance = 0.0F;
     }
+	
+	public void setInQuicksand()
+	{
+		this.isInQuicksand = true;
+		this.fallDistance = 0.0F;
+	}
 
     /**
      * Gets the username of the entity.
