@@ -986,6 +986,11 @@ itemGroup.inventory=Survival Inventory
 
 death.suffocate=%1$s suffocated
 
+entity.ZombieFast.name=Fast Zombie
+entity.ZombieTorso.name=Zombie Torso
+entity.ZombieSpitter.name=Acid Zombie 
+entity.Mummy.name=Mummy
+
 inventory.binSlot=Destroy Item
 
 tile.glowFlower.name=Glowstalk
