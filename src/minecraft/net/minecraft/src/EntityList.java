@@ -207,7 +207,8 @@ public class EntityList
         addMapping(EntitySackMeat.class, "MeatSack", 255);
         addMapping(EntitySackTreasure.class, "TreasureSack", 254);
         addMapping(EntitySackJunk.class, "JunkSack", 253);
-        addMapping(EntityZombieFast.class, "ZombieFast", 127, 15373203, 7969893);
+        addMapping(EntityZombieFast.class, "ZombieFast", 127, 44975, 7969893);
+        addMapping(EntityMummy.class, "Mummy", 126, 14601638, 5450325);
         //addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
     }
 }
