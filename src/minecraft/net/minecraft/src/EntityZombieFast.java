@@ -7,20 +7,20 @@ public class EntityZombieFast extends EntityMob
         super(par1World);
         this.texture = "/mob/zombie.png";
         this.moveSpeed = 0.1F;
-        this.attackStrength = 3;
+        this.attackStrength = 4;
         this.getNavigator().setBreakDoors(true);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIBreakDoor(this));
-        this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, this.moveSpeed * 4, false));
-        this.tasks.addTask(3, new EntityAIAttackOnCollide(this, EntityVillager.class, this.moveSpeed * 4, true));
+        this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, this.moveSpeed * 3.75F, false));
+        this.tasks.addTask(3, new EntityAIAttackOnCollide(this, EntityVillager.class, this.moveSpeed * 3.75F, true));
         this.tasks.addTask(4, new EntityAIMoveTwardsRestriction(this, this.moveSpeed));
         this.tasks.addTask(5, new EntityAIMoveThroughVillage(this, this.moveSpeed, false));
         this.tasks.addTask(6, new EntityAIWander(this, this.moveSpeed));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 24.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 22.0F, 0, true));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 22.0F, 0, false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 20.0F, 0, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 20.0F, 0, false));
     }
 
     public int getMaxHealth()
@@ -57,9 +57,11 @@ public class EntityZombieFast extends EntityMob
         {
             var2 -= 2 << this.getActivePotionEffect(Potion.weakness).getAmplifier();
         }
-		
+
 		float var25 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		par1Entity.addVelocity(this.motionX * 0.6000000238418579D / (double)var25, 0.1D, this.motionZ * 0.6000000238418579D / (double)var25);
+		float mult = 1.25F;
+		
+		par1Entity.addVelocity(this.motionX * mult * 0.6000000238418579D / (double)var25, 0.1D, this.motionZ * mult * 0.6000000238418579D / (double)var25);
 
         return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), var2);
     }
