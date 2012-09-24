@@ -88,6 +88,7 @@ public class RenderManager
         this.entityRenderMap.put(EntitySackMeat.class, new RenderSnowball(Item.meatSack.getIconFromDamage(0)));
         this.entityRenderMap.put(EntitySackTreasure.class, new RenderSnowball(Item.treasureSack.getIconFromDamage(0)));
         this.entityRenderMap.put(EntitySackJunk.class, new RenderSnowball(Item.junkSack.getIconFromDamage(0)));
+        this.entityRenderMap.put(EntityZombieFast.class, new RenderBiped(new ModelZombie(), 0.5F));
 		
         Iterator var1 = this.entityRenderMap.values().iterator();
 

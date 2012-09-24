@@ -204,9 +204,10 @@ public class EntityList
         addMapping(EntityEnderCrystal.class, "EnderCrystal", 200);
 		
 		// Minecraft RPG
-        addMapping(EntitySackMeat.class, "MeatSack", 199);
-        addMapping(EntitySackTreasure.class, "TreasureSack", 198);
-        addMapping(EntitySackJunk.class, "JunkSack", 197);
+        addMapping(EntitySackMeat.class, "MeatSack", 255);
+        addMapping(EntitySackTreasure.class, "TreasureSack", 254);
+        addMapping(EntitySackJunk.class, "JunkSack", 253);
+        addMapping(EntityZombieFast.class, "ZombieFast", 127, 15373203, 7969893);
         //addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
     }
 }

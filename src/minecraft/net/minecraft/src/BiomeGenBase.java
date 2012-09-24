@@ -138,6 +138,9 @@ public abstract class BiomeGenBase
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySlime.class, 10, 4, 4));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 1, 1, 4));
         this.spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 4, 4));
+		
+		// Minecraft RPG
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 4, 1, 3));
     }
 
     /**
