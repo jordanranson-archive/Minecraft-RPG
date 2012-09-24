@@ -988,7 +988,7 @@ death.suffocate=%1$s suffocated
 
 entity.ZombieFast.name=Fast Zombie
 entity.ZombieTorso.name=Zombie Torso
-entity.ZombieSpitter.name=Acid Zombie 
+entity.ZombieSpitter.name=Spitting Zombie 
 entity.Mummy.name=Mummy
 
 inventory.binSlot=Destroy Item
@@ -1040,6 +1040,7 @@ item.healthGem.name=Health Gem
 item.backpack.name=Backpack
 
 item.bucketQuicksand.name=Quicksand Bucket
+item.spitball.name=Fleshy Spitball
 
 container.prospect=Prospect
 

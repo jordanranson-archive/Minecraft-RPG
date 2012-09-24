@@ -454,7 +454,10 @@ public abstract class Entity
             {
                 if (this.fire % 20 == 0)
                 {
-                    this.attackEntityFrom(DamageSource.onFire, 1);
+					if(this instanceof EntityMummy)
+						this.attackEntityFrom(DamageSource.onFire, 2);
+					else
+						this.attackEntityFrom(DamageSource.onFire, 1);
                 }
 
                 --this.fire;

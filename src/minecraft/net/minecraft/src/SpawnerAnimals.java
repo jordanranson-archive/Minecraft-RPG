@@ -11,7 +11,7 @@ public final class SpawnerAnimals
     private static HashMap eligibleChunksForSpawning = new HashMap();
 
     /** An array of entity classes that spawn at night. */
-    protected static final Class[] nightSpawnEntities = new Class[] {EntitySpider.class, EntityZombieFast.class, EntityZombie.class, EntitySkeleton.class};
+    protected static final Class[] nightSpawnEntities = new Class[] {EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
 
     /**
      * Given a chunk, find a random position in it.

@@ -10,17 +10,19 @@ public class EntityMummy extends EntityMob
         this.attackStrength = 8;
         this.getNavigator().setBreakDoors(true);
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIBreakDoor(this));
-        this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, this.moveSpeed, false));
-        this.tasks.addTask(3, new EntityAIAttackOnCollide(this, EntityVillager.class, this.moveSpeed, true));
-        this.tasks.addTask(4, new EntityAIMoveTwardsRestriction(this, this.moveSpeed));
-        //this.tasks.addTask(5, new EntityAIMoveThroughVillage(this, this.moveSpeed, false));
-        //this.tasks.addTask(6, new EntityAIWander(this, this.moveSpeed));
-        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        //this.tasks.addTask(5, new EntityAILookIdle(this));
+        this.tasks.addTask(1, new EntityAIRestrictSun(this));
+        this.tasks.addTask(2, new EntityAIFleeSun(this, this.moveSpeed));
+        this.tasks.addTask(3, new EntityAIBreakDoor(this));
+        this.tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityPlayer.class, this.moveSpeed, false));
+        this.tasks.addTask(5, new EntityAIAttackOnCollide(this, EntityVillager.class, this.moveSpeed, true));
+        this.tasks.addTask(6, new EntityAIMoveTwardsRestriction(this, this.moveSpeed / 2.0F));
+        this.tasks.addTask(7, new EntityAIMoveThroughVillage(this, this.moveSpeed / 2.0F, false));
+        this.tasks.addTask(8, new EntityAIWander(this, this.moveSpeed / 2.0F));
+        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+        this.tasks.addTask(9, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 6.0F, 0, true));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 6.0F, 0, false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 8.0F, 0, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 8.0F, 0, false));
     }
 
     public int getMaxHealth()
@@ -78,14 +80,14 @@ public class EntityMummy extends EntityMob
         }
 		
 		float var25 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		float mult = 1.65F;
+		float mult = 2.0F;
 		
 		par1Entity.addVelocity(this.motionX * mult * 0.6000000238418579D / (double)var25, 0.1D, this.motionZ * mult * 0.6000000238418579D / (double)var25);
 				
 		if(par1Entity instanceof EntityLiving)
 		{
 			EntityLiving entity = (EntityLiving)par1Entity;
-			entity.addPotionEffect(new PotionEffect(2, 71, 0));
+			entity.addPotionEffect(new PotionEffect(2, 41, 0));
 		}
 		
         return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), var2);

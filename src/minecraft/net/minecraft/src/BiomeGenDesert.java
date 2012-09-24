@@ -14,6 +14,9 @@ public class BiomeGenDesert extends BiomeGenBase
         this.theBiomeDecorator.deadBushPerChunk = 2;
         this.theBiomeDecorator.reedsPerChunk = 50;
         this.theBiomeDecorator.cactiPerChunk = 10;
+		
+		// Minecraft RPG
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityMummy.class, 4, 1, 3));
     }
 
     public void decorate(World par1World, Random par2Random, int par3, int par4)

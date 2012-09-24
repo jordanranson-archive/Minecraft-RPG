@@ -278,6 +278,10 @@ public class NetClientHandler extends NetHandler
         {
             var8 = new EntitySackJunk(this.worldClient, var2, var4, var6);
         }
+		else if (par1Packet23VehicleSpawn.type == 96)
+        {
+            var8 = new EntitySpitball(this.worldClient, var2, var4, var6);
+        }
 
 
         if (var8 != null)

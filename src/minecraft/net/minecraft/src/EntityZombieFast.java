@@ -9,7 +9,7 @@ public class EntityZombieFast extends EntityMob
         this.moveSpeed = 0.1F;
         this.attackStrength = 4;
         this.getNavigator().setBreakDoors(true);
-        this.tasks.addTask(0, new EntityAISwimming(this));
+        //this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIBreakDoor(this));
         this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, this.moveSpeed * 3.75F, false));
         this.tasks.addTask(3, new EntityAIAttackOnCollide(this, EntityVillager.class, this.moveSpeed * 3.75F, true));
@@ -81,6 +81,16 @@ public class EntityZombieFast extends EntityMob
                 this.setFire(8);
             }
         }
+		
+		int var1 = MathHelper.floor_double(this.posX);
+		int var2 = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset);
+		int var3 = MathHelper.floor_double(this.posZ);
+		int var4 = this.worldObj.getBlockId(var1, var2, var3);
+
+		if (var4 > 0 && (this.motionX > 0.1F || this.motionZ > 0.1F))
+		{
+			this.worldObj.spawnParticle("tilecrack_" + var4, this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.boundingBox.minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, -this.motionX * 4.0D, 1.5D, -this.motionZ * 4.0D);
+		}
 
         super.onLivingUpdate();
     }
