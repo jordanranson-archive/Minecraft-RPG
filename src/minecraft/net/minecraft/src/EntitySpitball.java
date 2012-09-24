@@ -30,7 +30,7 @@ public class EntitySpitball extends EntityThrowable
 				entity.addPotionEffect(new PotionEffect(19, 71, 0));
 			}
 			
-			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.thrower), 1);
+			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.thrower), 2);
         }
 
         for (int var3 = 0; var3 < 8; ++var3)

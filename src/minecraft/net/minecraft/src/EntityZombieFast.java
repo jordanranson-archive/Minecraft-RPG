@@ -5,7 +5,7 @@ public class EntityZombieFast extends EntityMob
     public EntityZombieFast(World par1World)
     {
         super(par1World);
-        this.texture = "/mob/zombie.png";
+        this.texture = "/mob/zombie_fast.png";
         this.moveSpeed = 0.1F;
         this.attackStrength = 4;
         this.getNavigator().setBreakDoors(true);
@@ -87,7 +87,7 @@ public class EntityZombieFast extends EntityMob
 		int var3 = MathHelper.floor_double(this.posZ);
 		int var4 = this.worldObj.getBlockId(var1, var2, var3);
 
-		if (var4 > 0 && (this.motionX > 0.1F || this.motionZ > 0.1F))
+		if (var4 > 0 && (this.motionX > 0.03F || this.motionZ > 0.03F))
 		{
 			this.worldObj.spawnParticle("tilecrack_" + var4, this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, this.boundingBox.minY + 0.1D, this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width, -this.motionX * 4.0D, 1.5D, -this.motionZ * 4.0D);
 		}

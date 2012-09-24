@@ -7,7 +7,7 @@ public class EntityZombieSpitter extends EntityMob
     public EntityZombieSpitter(World par1World)
     {
         super(par1World);
-        this.texture = "/mob/zombie.png";
+        this.texture = "/mob/zombie_spitter.png";
         this.moveSpeed = 0.23F;
         this.getNavigator().setBreakDoors(false);
 		this.tasks.addTask(1, new EntityAISwimming(this));
