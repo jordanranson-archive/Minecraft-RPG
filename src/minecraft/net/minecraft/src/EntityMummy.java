@@ -122,7 +122,8 @@ public class EntityMummy extends EntityMob
      */
     protected int getDropItemId()
     {
-        return Item.rottenFlesh.shiftedIndex;
+		int next = this.rand.nextInt(2);
+        return (next == 0) ? Item.silk.shiftedIndex : ((next == 1) ? Block.cloth.blockID : Item.rottenFlesh.shiftedIndex);
     }
 
     /**
@@ -135,22 +136,18 @@ public class EntityMummy extends EntityMob
 
     protected void dropRareDrop(int par1)
     {
-        switch (this.rand.nextInt(4))
+        switch (this.rand.nextInt(3))
         {
             case 0:
-                this.dropItem(Item.swordSteel.shiftedIndex, 1);
+                this.dropItem(Item.ingotGold.shiftedIndex, 1);
                 break;
 
             case 1:
-                this.dropItem(Item.helmetSteel.shiftedIndex, 1);
-                break;
-
+                this.dropItem(Item.treasureSack.shiftedIndex, 1);
+				break;
+				
             case 2:
-                this.dropItem(Item.ingotIron.shiftedIndex, 1);
-                break;
-
-            case 3:
-                this.dropItem(Item.shovelSteel.shiftedIndex, 1);
+                this.dropItem(Item.junkSack.shiftedIndex, 1);
         }
     }
 }
