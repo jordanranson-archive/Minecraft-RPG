@@ -201,7 +201,8 @@ public class Block
 	
     public static final Block prospectingTable = (new BlockProspectingTable(249)).setHardness(5.0F).setResistance(2000.0F).setBlockName("prospectingTable"); 
 	public static final Block quicksand = (new BlockQuicksand(248, 201)).setStepSound(soundSandFootstep).setBlockUnbreakable().setBlockName("quicksand");
-    
+    public static final Block scarab = (new BlockScarab(247)).setHardness(0.75F).setBlockName("monsterSandEgg");
+	
 	/**
      * The index of the texture to be displayed for this block. May vary based on graphics settings. Mostly seems to
      * come from terrain.png, and the index is 0-based (grass is 0).
@@ -1185,6 +1186,9 @@ public class Block
         Item.itemsList[waterlily.blockID] = new ItemLilyPad(waterlily.blockID - 256);
         Item.itemsList[pistonBase.blockID] = new ItemPiston(pistonBase.blockID - 256);
         Item.itemsList[pistonStickyBase.blockID] = new ItemPiston(pistonStickyBase.blockID - 256);
+		
+		// Minecraft RPG
+        Item.itemsList[scarab.blockID] = (new ItemBlockScarab(scarab.blockID - 256)).setItemName("monsterSandEgg");
 
         for (int var0 = 0; var0 < 256; ++var0)
         {
