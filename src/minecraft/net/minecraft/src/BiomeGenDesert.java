@@ -42,7 +42,7 @@ public class BiomeGenDesert extends BiomeGenBase
         }
 		else 
 		{
-			if(par2Random.nextInt(21) == 0)
+			if(par2Random.nextInt(17) == 0)
 			{
 				int x = 0;
 				int z = 0;
@@ -84,7 +84,7 @@ public class BiomeGenDesert extends BiomeGenBase
 				}
 			}
 			
-			if(par2Random.nextInt(15) == 0)
+			if(par2Random.nextInt(13) == 0)
 			{
 				int x = 0;
 				int z = 0;
