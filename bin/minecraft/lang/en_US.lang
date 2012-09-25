@@ -990,6 +990,7 @@ entity.ZombieFast.name=Fast Zombie
 entity.ZombieTorso.name=Zombie Torso
 entity.ZombieSpitter.name=Spitting Zombie 
 entity.Mummy.name=Mummy
+entity.Scarab.name=Scarab
 
 inventory.binSlot=Destroy Item
 

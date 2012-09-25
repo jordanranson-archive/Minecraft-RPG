@@ -4,7 +4,7 @@ public class RenderScarab extends RenderLiving
 {
     public RenderScarab()
     {
-        super(new ModelSilverfish(), 0.3F);
+        super(new ModelScarab(), 0.15F);
     }
 
     /**
