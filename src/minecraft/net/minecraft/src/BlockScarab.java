@@ -40,7 +40,7 @@ public class BlockScarab extends Block
 	
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
-		spawnScarabs(par1World, par2, par3, par4, 4);
+		spawnScarabs(par1World, par2, par3, par4, 2);
         super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
 	
