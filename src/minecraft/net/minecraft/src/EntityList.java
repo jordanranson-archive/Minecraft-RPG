@@ -212,7 +212,8 @@ public class EntityList
         addMapping(EntityZombieFast.class, "ZombieFast", 127, 44975, 5002027);
         addMapping(EntityMummy.class, "Mummy", 126, 14601638, 5450325);
         addMapping(EntityZombieSpitter.class, "ZombieSpitter", 125, 44975, 4677461);
-        addMapping(EntityScarab.class, "Scarab", 124, 58, 5450325);
+        addMapping(EntityScarab.class, "Scarab", 124, 921103, 2039586);
+        addMapping(EntityScarabGolden.class, "GoldenScarab", 123, 11836928, 15458963);
         //addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
     }
 }

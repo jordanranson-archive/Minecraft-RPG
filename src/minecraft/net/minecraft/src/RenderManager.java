@@ -93,6 +93,7 @@ public class RenderManager
         this.entityRenderMap.put(EntityMummy.class, new RenderBiped(new ModelZombie(), 0.5F));
         this.entityRenderMap.put(EntityZombieSpitter.class, new RenderBiped(new ModelZombie(), 0.5F));
 		this.entityRenderMap.put(EntityScarab.class, new RenderScarab());
+		this.entityRenderMap.put(EntityScarabGolden.class, new RenderScarab());
 		
         Iterator var1 = this.entityRenderMap.values().iterator();
 

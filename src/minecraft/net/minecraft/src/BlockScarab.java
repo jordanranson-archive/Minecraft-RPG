@@ -28,9 +28,16 @@ public class BlockScarab extends Block
 	{
 		if (!world.isRemote)
         {
+			Random random = new Random();
+			
 			for(int i = 0; i < numScarabs; i++)
 			{
-				EntityScarab scarab = new EntityScarab(world);
+				EntityScarab scarab;
+				if(random.nextInt(999) == 0)
+					scarab = (EntityScarab)(new EntityScarabGolden(world));
+				else
+					scarab = new EntityScarab(world);
+					
 				scarab.setLocationAndAngles((double)x + 0.5D, (double)y + 1.0D, (double)z + 0.5D, 0.0F, 0.0F);
 				world.spawnEntityInWorld(scarab);
 				scarab.spawnExplosionParticle();
@@ -40,13 +47,17 @@ public class BlockScarab extends Block
 	
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
-		spawnScarabs(par1World, par2, par3, par4, 2);
+		Random random = new Random();
+        spawnScarabs(par1World, par2, par3, par4, random.nextInt(3) + 2);
+		
         super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
 	
 	public void onEntityWalking(World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
-        spawnScarabs(par1World, par2, par3, par4, 1);
+		Random random = new Random();
+        spawnScarabs(par1World, par2, par3, par4, random.nextInt(2) + 1);
+		
         super.onEntityWalking(par1World, par2, par3, par4, par5Entity);
     }
 

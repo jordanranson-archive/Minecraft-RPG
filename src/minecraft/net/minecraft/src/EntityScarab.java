@@ -11,11 +11,11 @@ public class EntityScarab extends EntityMob
     {
         super(par1World);
         this.texture = "/mob/scarab.png";
-        this.setSize(0.2F, 0.35F);
+        this.setSize(0.25F, 0.35F);
         this.moveSpeed = 0.6F;
         this.attackStrength = 1;
     }
-
+	
     public int getMaxHealth()
     {
         return 2;

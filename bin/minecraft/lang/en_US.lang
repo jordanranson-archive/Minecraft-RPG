@@ -991,6 +991,7 @@ entity.ZombieTorso.name=Zombie Torso
 entity.ZombieSpitter.name=Spitting Zombie 
 entity.Mummy.name=Mummy
 entity.Scarab.name=Scarab
+entity.GoldenScarab.name=Golden Scarab
 
 inventory.binSlot=Destroy Item
 
