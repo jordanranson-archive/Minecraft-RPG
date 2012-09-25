@@ -30,7 +30,7 @@ public class BlockScarab extends Block
         {
 			for(int i = 0; i < numScarabs; i++)
 			{
-				EntitySilverfish scarab = new EntitySilverfish(world);
+				EntityScarab scarab = new EntityScarab(world);
 				scarab.setLocationAndAngles((double)x + 0.5D, (double)y + 1.0D, (double)z + 0.5D, 0.0F, 0.0F);
 				world.spawnEntityInWorld(scarab);
 				scarab.spawnExplosionParticle();

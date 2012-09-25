@@ -209,9 +209,10 @@ public class EntityList
         addMapping(EntitySackJunk.class, "JunkSack", 253);
         addMapping(EntitySpitball.class, "Spitball", 252);
 		
-        addMapping(EntityZombieFast.class, "ZombieFast", 127, 44975, 7969893);
+        addMapping(EntityZombieFast.class, "ZombieFast", 127, 44975, 5002027);
         addMapping(EntityMummy.class, "Mummy", 126, 14601638, 5450325);
-        addMapping(EntityZombieSpitter.class, "ZombieSpitter", 125, 44975, 7969893);
+        addMapping(EntityZombieSpitter.class, "ZombieSpitter", 125, 44975, 4677461);
+        addMapping(EntityScarab.class, "Scarab", 124, 58, 5450325);
         //addMapping(EntityThrowingKnife.class, "ThrowingKnife", 199);
     }
 }
