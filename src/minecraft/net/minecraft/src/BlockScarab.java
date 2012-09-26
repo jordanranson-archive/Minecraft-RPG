@@ -13,7 +13,6 @@ public class BlockScarab extends Block
         super(par1, 1, Material.clay);
         this.setHardness(0.0F);
         this.setCreativeTab(CreativeTabs.tabDeco);
-		this.experienceValue = 0;
     }
 
     /**

@@ -14,6 +14,7 @@ public class EntityScarab extends EntityMob
         this.setSize(0.25F, 0.35F);
         this.moveSpeed = 0.6F;
         this.attackStrength = 1;
+		this.experienceValue = 0;
     }
 	
     public int getMaxHealth()
