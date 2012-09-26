@@ -74,8 +74,8 @@ public class EntityScarabGolden extends EntityScarab
                                 if (var8 == Block.scarab.blockID)
                                 {
                                     this.worldObj.playAuxSFX(2001, var1 + var6, var2 + var5, var3 + var7, Block.scarab.blockID + (this.worldObj.getBlockMetadata(var1 + var6, var2 + var5, var3 + var7) << 12));
-                                    //this.worldObj.setBlockWithNotify(var1 + var6, var2 + var5, var3 + var7, 0);
-                                    Block.scarab.onBlockDestroyedByPlayer(this.worldObj, var1 + var6, var2 + var5, var3 + var7, 0);
+                                    this.worldObj.setBlockWithNotify(var1 + var6, var2 + var5, var3 + var7, this.worldObj.getBlockMetadata(var1 + var6, var2 + var5, var3 + var7) == 1 ? Block.sand.blockID : Block.sandstone.blockID);
+                                    Block.scarab.spawnScarabs(this.worldObj, var1 + var6, var2 + var5, var3 + var7, 1);
 
                                     if (this.rand.nextBoolean())
                                     {

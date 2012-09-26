@@ -24,7 +24,7 @@ public class BlockScarab extends Block
 			   par1 == 1 ? Block.sandStone.blockIndexInTexture - 16 : (par1 == 0 ? Block.sandStone.blockIndexInTexture + 16 : Block.sandStone.blockIndexInTexture));
     }
 
-    private void spawnScarabs(World world, int x, int y, int z, int numScarabs) 
+    public void spawnScarabs(World world, int x, int y, int z, int numScarabs) 
 	{
 		if (!world.isRemote)
         {
@@ -48,15 +48,14 @@ public class BlockScarab extends Block
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
 		Random random = new Random();
-        spawnScarabs(par1World, par2, par3, par4, random.nextInt(3) + 2);
+        spawnScarabs(par1World, par2, par3, par4, random.nextInt(1) + 1);
 		
         super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
 	
 	public void onEntityWalking(World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
-		Random random = new Random();
-        spawnScarabs(par1World, par2, par3, par4, random.nextInt(2) + 1);
+        spawnScarabs(par1World, par2, par3, par4, 1);
 		
         super.onEntityWalking(par1World, par2, par3, par4, par5Entity);
     }
@@ -120,7 +119,7 @@ public class BlockScarab extends Block
      */
     public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-        for (int var4 = 0; var4 < 3; ++var4)
+        for (int var4 = 0; var4 < 2; ++var4)
         {
             par3List.add(new ItemStack(par1, 1, var4));
         }
