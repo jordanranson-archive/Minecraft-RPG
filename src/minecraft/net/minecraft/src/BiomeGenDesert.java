@@ -73,7 +73,7 @@ public class BiomeGenDesert extends BiomeGenBase
 									blockReplaced != 0
 								)
 								{
-									for(int m = 0; m < par2Random.nextInt(2) + 1; m++) 
+									for(int m = 0; m < par2Random.nextInt(3) + 2; m++) 
 									{
 										par1World.setBlock(x + k, y - m, z + j, Block.quicksand.blockID);
 									}
