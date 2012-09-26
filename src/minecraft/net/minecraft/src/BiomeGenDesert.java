@@ -26,7 +26,7 @@ public class BiomeGenDesert extends BiomeGenBase
         this.spawnableMonsterList.add(new SpawnListEntry(EntityZombieFast.class, 10, 2, 4));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityZombieSpitter.class, 8, 2, 4));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityMummy.class, 10, 2, 3));
-        this.spawnableMonsterList.add(new SpawnListEntry(EntityScarab.class, 2, 1, 2));
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityScarab.class, 4, 1, 2));
     }
 
     public void decorate(World par1World, Random par2Random, int par3, int par4)
