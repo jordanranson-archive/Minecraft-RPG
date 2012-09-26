@@ -13,6 +13,7 @@ public class BlockScarab extends Block
         super(par1, 1, Material.clay);
         this.setHardness(0.0F);
         this.setCreativeTab(CreativeTabs.tabDeco);
+		this.experienceValue = 0;
     }
 
     /**
@@ -48,14 +49,15 @@ public class BlockScarab extends Block
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
 		Random random = new Random();
-        spawnScarabs(par1World, par2, par3, par4, random.nextInt(1) + 1);
+        spawnScarabs(par1World, par2, par3, par4, random.nextInt(2) + 1);
 		
         super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
     }
 	
 	public void onEntityWalking(World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
-        spawnScarabs(par1World, par2, par3, par4, 1);
+		Random random = new Random();
+        spawnScarabs(par1World, par2, par3, par4, random.nextInt(1) + 1);
 		
         super.onEntityWalking(par1World, par2, par3, par4, par5Entity);
     }

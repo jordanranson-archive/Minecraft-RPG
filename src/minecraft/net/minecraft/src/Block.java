@@ -579,6 +579,9 @@ public class Block
      * their own) Args: x, y, z, neighbor blockID
      */
     public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {}
+	
+	// Minecraft RPG
+    public void spawnScarabs(World par1World, int par2, int par3, int par4, int par5) {}
 
     /**
      * How many world ticks before ticking

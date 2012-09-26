@@ -93,10 +93,10 @@ public class BiomeGenDesert extends BiomeGenBase
 				int blockReplaced = 0;
 				
 				// scarab block gen
-				for(int i = 0; i < par2Random.nextInt(4) + 2; i++)
+				for(int i = 0; i < par2Random.nextInt(6) + 3; i++)
 				{
-					x = par3 + par2Random.nextInt(16) - 8;
-					z = par4 + par2Random.nextInt(16) - 8;
+					x = par3 + par2Random.nextInt(11) - 5;
+					z = par4 + par2Random.nextInt(11) - 5;
 					y = par1World.getHeightValue(x, z) - 1;
 					
 					if(y < 71)
@@ -116,6 +116,7 @@ public class BiomeGenDesert extends BiomeGenBase
 								)
 								{
 									par1World.setBlock(x + k, y, z + j, Block.scarab.blockID);
+									par1World.setBlockMetadata(x + k, y, z + j, 1);
 								}
 							}
 						}
