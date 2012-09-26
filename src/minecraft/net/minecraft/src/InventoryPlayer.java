@@ -373,11 +373,16 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var3 = this.mainInventory;
 
-        if (par1 >= this.mainInventory.length)
+        if (par1 >= this.mainInventory.length && par1 < this.mainInventory.length + this.extraInventory.length)
         {
             var3 = this.armorInventory;
             par1 -= this.mainInventory.length;
         }
+		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		{
+			var3 = this.extraInventory;
+            par1 -= this.mainInventory.length;
+		}
 
         if (var3[par1] != null)
         {
@@ -415,11 +420,16 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var2 = this.mainInventory;
 
-        if (par1 >= this.mainInventory.length)
+        if (par1 >= this.mainInventory.length && par1 < this.mainInventory.length + this.extraInventory.length)
         {
             var2 = this.armorInventory;
             par1 -= this.mainInventory.length;
         }
+		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		{
+			var2 = this.extraInventory;
+            par1 -= this.mainInventory.length;
+		}
 
         if (var2[par1] != null)
         {
@@ -440,11 +450,16 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var3 = this.mainInventory;
 
-        if (par1 >= var3.length)
+        if (par1 >= var3.length && par1 < this.mainInventory.length + this.extraInventory.length)
         {
             par1 -= var3.length;
             var3 = this.armorInventory;
         }
+		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		{
+			par1 -= var3.length;
+            var3 = this.extraInventory;
+		}
 
         var3[par1] = par2ItemStack;
     }
@@ -494,6 +509,17 @@ public class InventoryPlayer implements IInventory
                 par1NBTTagList.appendTag(var3);
             }
         }
+		
+		for (var2 = 0; var2 < this.extraInventory.length; ++var2)
+        {
+            if (this.extraInventory[var2] != null)
+            {
+                var3 = new NBTTagCompound();
+                var3.setByte("Slot", (byte)(var2 + 120));
+                this.extraInventory[var2].writeToNBT(var3);
+                par1NBTTagList.appendTag(var3);
+            }
+        }
 
         return par1NBTTagList;
     }
@@ -505,6 +531,7 @@ public class InventoryPlayer implements IInventory
     {
         this.mainInventory = new ItemStack[36];
         this.armorInventory = new ItemStack[4];
+        this.extraInventory = new ItemStack[4];
 
         for (int var2 = 0; var2 < par1NBTTagList.tagCount(); ++var2)
         {
@@ -522,6 +549,11 @@ public class InventoryPlayer implements IInventory
                 if (var4 >= 100 && var4 < this.armorInventory.length + 100)
                 {
                     this.armorInventory[var4 - 100] = var5;
+                }
+
+                if (var4 >= 120 && var4 < this.extraInventory.length + 120)
+                {
+                    this.extraInventory[var4 - 120] = var5;
                 }
             }
         }
@@ -542,11 +574,16 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var2 = this.mainInventory;
 
-        if (par1 >= var2.length)
+        if (par1 >= var2.length && par1 < this.mainInventory.length + this.extraInventory.length)
         {
             par1 -= var2.length;
             var2 = this.armorInventory;
         }
+		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		{
+            par1 -= var2.length;
+            var2 = this.extraInventory;
+		}
 
         return var2[par1];
     }
@@ -599,6 +636,11 @@ public class InventoryPlayer implements IInventory
     public ItemStack armorItemInSlot(int par1)
     {
         return this.armorInventory[par1];
+    }
+	
+	public ItemStack extraItemInSlot(int par1)
+    {
+        return this.extraInventory[par1];
     }
 
     /**
@@ -674,6 +716,15 @@ public class InventoryPlayer implements IInventory
                 this.armorInventory[var1] = null;
             }
         }
+		
+		for (var1 = 0; var1 < this.extraInventory.length; ++var1)
+        {
+            if (this.extraInventory[var1] != null)
+            {
+                this.player.dropPlayerItemWithRandomChoice(this.extraInventory[var1], true);
+                this.extraInventory[var1] = null;
+            }
+        }
     }
 
     /**
@@ -721,6 +772,19 @@ public class InventoryPlayer implements IInventory
                 return true;
             }
         }
+		
+        var2 = this.extraInventory;
+        var3 = var2.length;
+		
+		for (var4 = 0; var4 < var3; ++var4)
+        {
+            var5 = var2[var4];
+
+            if (var5 != null && var5.isStackEqual(par1ItemStack))
+            {
+                return true;
+            }
+        }
 
         var2 = this.mainInventory;
         var3 = var2.length;
@@ -757,6 +821,11 @@ public class InventoryPlayer implements IInventory
         for (var2 = 0; var2 < this.armorInventory.length; ++var2)
         {
             this.armorInventory[var2] = ItemStack.copyItemStack(par1InventoryPlayer.armorInventory[var2]);
+        }
+		
+		for (var2 = 0; var2 < this.extraInventory.length; ++var2)
+        {
+            this.extraInventory[var2] = ItemStack.copyItemStack(par1InventoryPlayer.extraInventory[var2]);
         }
     }
 }
