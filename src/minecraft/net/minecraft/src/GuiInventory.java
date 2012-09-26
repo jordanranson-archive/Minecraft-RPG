@@ -56,7 +56,7 @@ public class GuiInventory extends InventoryEffectRenderer
      */
     protected void drawGuiContainerForegroundLayer()
     {
-        this.fontRenderer.drawString(StatCollector.translateToLocal("container.crafting"), 86, 16, 4210752);
+        //this.fontRenderer.drawString(StatCollector.translateToLocal("container.crafting"), 86, 16, 4210752);
     }
 
     /**

@@ -9,6 +9,7 @@ public class InventoryPlayer implements IInventory
 
     /** An array of 4 item stacks containing the currently worn armor pieces. */
     public ItemStack[] armorInventory = new ItemStack[4];
+    public ItemStack[] extraInventory = new ItemStack[4];
 
     /** The index of the currently held item (0-8). */
     public int currentItem = 0;

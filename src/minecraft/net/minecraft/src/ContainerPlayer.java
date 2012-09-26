@@ -20,7 +20,7 @@ public class ContainerPlayer extends Container
         this.craftResult = new InventoryCraftResult();
         this.isLocalWorld = false;
         this.isLocalWorld = par2;
-        this.addSlotToContainer(new SlotCrafting(par1InventoryPlayer.player, this.craftMatrix, this.craftResult, 0, 144, 36));
+        this.addSlotToContainer(new SlotCrafting(par1InventoryPlayer.player, this.craftMatrix, this.craftResult, 0, 126, 62));
         int var3;
         int var4;
 
@@ -28,13 +28,18 @@ public class ContainerPlayer extends Container
         {
             for (var4 = 0; var4 < 2; ++var4)
             {
-                this.addSlotToContainer(new Slot(this.craftMatrix, var4 + var3 * 2, 88 + var4 * 18, 26 + var3 * 18));
+                this.addSlotToContainer(new Slot(this.craftMatrix, var4 + var3 * 2, 118 + var4 * 18, 8 + var3 * 18));
             }
         }
 
         for (var3 = 0; var3 < 4; ++var3)
         {
             this.addSlotToContainer(new SlotArmor(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - var3, 8, 8 + var3 * 18, var3));
+        }
+
+		for (var3 = 0; var3 < 4; ++var3)
+        {
+            this.addSlotToContainer(new SlotExtra(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - (var3 + 3), 80, 8 + var3 * 18));
         }
 
         for (var3 = 0; var3 < 3; ++var3)
