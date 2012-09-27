@@ -373,15 +373,15 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var3 = this.mainInventory;
 
-        if (par1 >= this.mainInventory.length && par1 < this.mainInventory.length + this.extraInventory.length)
+        if (par1 >= this.mainInventory.length && par1 < this.mainInventory.length + this.armorInventory.length)
         {
             var3 = this.armorInventory;
             par1 -= this.mainInventory.length;
         }
-		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		else if(par1 >= this.mainInventory.length + this.armorInventory.length)
 		{
 			var3 = this.extraInventory;
-            par1 -= this.mainInventory.length;
+            par1 -= this.mainInventory.length + 4;
 		}
 
         if (var3[par1] != null)
@@ -420,15 +420,15 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var2 = this.mainInventory;
 
-        if (par1 >= this.mainInventory.length && par1 < this.mainInventory.length + this.extraInventory.length)
+        if (par1 >= this.mainInventory.length && par1 < this.mainInventory.length + this.armorInventory.length)
         {
             var2 = this.armorInventory;
             par1 -= this.mainInventory.length;
         }
-		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		else if(par1 >= this.mainInventory.length + this.armorInventory.length)
 		{
 			var2 = this.extraInventory;
-            par1 -= this.mainInventory.length;
+            par1 -= this.mainInventory.length + 4;
 		}
 
         if (var2[par1] != null)
@@ -450,14 +450,14 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var3 = this.mainInventory;
 
-        if (par1 >= var3.length && par1 < this.mainInventory.length + this.extraInventory.length)
+        if (par1 >= var3.length && par1 < this.mainInventory.length + this.armorInventory.length)
         {
             par1 -= var3.length;
             var3 = this.armorInventory;
         }
-		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		else if(par1 >= this.mainInventory.length + this.armorInventory.length)
 		{
-			par1 -= var3.length;
+			par1 -= var3.length + 4;
             var3 = this.extraInventory;
 		}
 
@@ -564,7 +564,7 @@ public class InventoryPlayer implements IInventory
      */
     public int getSizeInventory()
     {
-        return this.mainInventory.length + 4;
+        return this.mainInventory.length + 8;
     }
 
     /**
@@ -574,14 +574,14 @@ public class InventoryPlayer implements IInventory
     {
         ItemStack[] var2 = this.mainInventory;
 
-        if (par1 >= var2.length && par1 < this.mainInventory.length + this.extraInventory.length)
+        if (par1 >= var2.length && par1 < this.mainInventory.length + this.armorInventory.length)
         {
             par1 -= var2.length;
             var2 = this.armorInventory;
         }
-		else if(par1 >= this.mainInventory.length + this.extraInventory.length)
+		else if(par1 >= this.mainInventory.length + this.armorInventory.length)
 		{
-            par1 -= var2.length;
+            par1 -= var2.length + 4;
             var2 = this.extraInventory;
 		}
 
