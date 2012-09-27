@@ -27,7 +27,6 @@ class SlotExtra extends Slot
      */
     public boolean isItemValid(ItemStack par1ItemStack)
     {
-        return par1ItemStack.itemID == Item.healthGem.shiftedIndex ? true : (
-			   par1ItemStack.itemID == Item.backpack.shiftedIndex ? true : false);
+        return par1ItemStack.itemID == Item.healthGem.shiftedIndex ? true : false;
     }
 }
