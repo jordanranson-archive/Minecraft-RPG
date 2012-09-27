@@ -27,6 +27,21 @@ class SlotExtra extends Slot
      */
     public boolean isItemValid(ItemStack par1ItemStack)
     {
-        return par1ItemStack.itemID == Item.healthGem.shiftedIndex ? true : false;
+		if(par1ItemStack.getItem() == Item.healthGem)
+			return true;
+		if(par1ItemStack.getItem() == Item.frozenGem)
+			return true;
+		if(par1ItemStack.getItem() == Item.cagedMagma)
+			return true;
+		if(par1ItemStack.getItem() == Item.amethystWing)
+			return true;
+		if(par1ItemStack.getItem() == Item.enchantedVial)
+			return true;
+		if(par1ItemStack.getItem() == Item.spiritStone)
+			return true;
+		if(par1ItemStack.getItem() == Item.glowingFeather)
+			return true;
+			
+		return false;
     }
 }

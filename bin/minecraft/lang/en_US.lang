@@ -1032,6 +1032,12 @@ item.healthGem.name=Health Gem
 item.backpack.name=Backpack
 item.bucketQuicksand.name=Quicksand Bucket
 item.spitball.name=Fleshy Spitball
+item.glowingFeather.name=Glowing Feather
+item.frozenGem.name=Frozen Gem
+item.cagedMagma.name=Caged Magma
+item.amethystWing.name=Amethyst Wing
+item.enchantedVial.name=Enchanted Vial
+item.spiritStone.name=Spirit Stone
 
 container.prospect=Prospect
 

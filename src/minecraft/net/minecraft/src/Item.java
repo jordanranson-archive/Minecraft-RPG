@@ -171,41 +171,38 @@ public class Item
 
 	// Minecraft-RPG
 	public static Item crossbow = (new ItemCrossbow(1000)).setIconCoord(14, 14).setItemName("crossbow");
-	
     public static Item ruby = (new Item(999)).setIconCoord(10, 10).setItemName("ruby").setTabToDisplayOn(CreativeTabs.tabMaterials);
     public static Item sapphire = (new Item(998)).setIconCoord(13, 14).setItemName("sapphire").setTabToDisplayOn(CreativeTabs.tabMaterials);
     public static Item amethyst = (new Item(997)).setIconCoord(12, 14).setItemName("amethyst").setTabToDisplayOn(CreativeTabs.tabMaterials);
-	
     public static Item rubyCharged = (Item)(new ItemGem(996)).setIconCoord(8, 14).setItemName("rubyCharged");
     public static Item sapphireCharged = (Item)(new ItemGem(995)).setIconCoord(10, 14).setItemName("sapphireCharged");
     public static Item amethystCharged = (Item)(new ItemGem(994)).setIconCoord(11, 14).setItemName("amethystCharged");
     public static Item emeraldCharged = (Item)(new ItemGem(993)).setIconCoord(9, 14).setItemName("emeraldCharged");
-	
     public static Item powderFragrant = (new Item(992)).setIconCoord(14, 13).setItemName("powderFragrant").setTabToDisplayOn(CreativeTabs.tabMaterials);
     public static Item powderSparkling = (new Item(991)).setIconCoord(15, 13).setItemName("powderSparkling").setTabToDisplayOn(CreativeTabs.tabMaterials);
     public static Item powderMagic = (new Item(990)).setIconCoord(15, 14).setItemName("powderMagic").setTabToDisplayOn(CreativeTabs.tabMisc);
-	
     public static Item plantPurplePod = (new ItemSeeds(989, Block.plantPurple.blockID, Block.dirt.blockID, Block.grass.blockID)).setIconCoord(13, 13).setItemName("plantPurplePod");
-	
     public static Item roughStone = (new Item(988)).setIconCoord(7, 14).setItemName("roughStone").setTabToDisplayOn(CreativeTabs.tabMisc);
     public static Item hugeGeode = (new Item(987)).setIconCoord(6, 14).setItemName("hugeGeode").setTabToDisplayOn(CreativeTabs.tabMisc);
-	
 	public static Item rodRuby = (new ItemMagicRod(986, EnumMagicRodMaterial.ruby)).setIconCoord(9, 13).setItemName("rodRuby");
 	public static Item rodSapphire = (new ItemMagicRod(985, EnumMagicRodMaterial.sapphire)).setIconCoord(11, 13).setItemName("rodSapphire");
 	public static Item rodAmethyst = (new ItemMagicRod(984, EnumMagicRodMaterial.amethyst)).setIconCoord(12, 13).setItemName("rodAmethyst");
 	public static Item rodEmerald = (new ItemMagicRod(983, EnumMagicRodMaterial.emerald)).setIconCoord(10, 13).setItemName("rodEmerald");
-	
 	public static Item runicDiamond = (Item)(new ItemRunicDiamond(982)).setIconCoord(8, 13).setItemName("runicDiamond").setTabToDisplayOn(CreativeTabs.tabMisc);
-	
 	public static Item meatSack = (Item)(new ItemSack(981, "meat")).setIconCoord(7, 13).setItemName("meatSack");
 	public static Item treasureSack = (Item)(new ItemSack(980, "treasure")).setIconCoord(6, 13).setItemName("treasureSack");
 	public static Item junkSack = (Item)(new ItemSack(979, "junk")).setIconCoord(5, 13).setItemName("junkSack");
-	
-	public static Item healthGem = (new Item(978)).setIconCoord(5, 14).setItemName("healthGem").setTabToDisplayOn(CreativeTabs.tabMisc);
 	public static Item backpack = (new Item(977)).setIconCoord(4, 14).setItemName("backpack").setTabToDisplayOn(CreativeTabs.tabMisc);
-	
     public static Item bucketQuicksand = (new ItemBucket(976, Block.quicksand.blockID)).setIconCoord(4, 13).setItemName("bucketQuicksand").setContainerItem(bucketEmpty);
     public static Item spitball = (new ItemSpitball(975)).setIconCoord(10, 8).setItemName("spitball");
+	// trinkets
+	public static Item healthGem = (new ItemTrinket(978)).setIconCoord(5, 14).setItemName("healthGem");
+    public static Item frozenGem = (new ItemTrinket(974)).setIconCoord(3, 14).setItemName("frozenGem");
+    public static Item cagedMagma = (new ItemTrinket(973)).setIconCoord(2, 14).setItemName("cagedMagma");
+    public static Item amethystWing = (new ItemTrinket(972)).setIconCoord(3, 13).setItemName("amethystWing");
+    public static Item enchantedVial = (new ItemTrinket(971)).setIconCoord(1, 14).setItemName("enchantedVial");
+    public static Item spiritStone = (new ItemTrinket(970)).setIconCoord(0, 14).setItemName("spiritStone");
+    public static Item glowingFeather = (new ItemTrinket(969)).setIconCoord(2, 13).setItemName("glowingFeather");
 	
     //public static Item throwingKnifeStone = (new ItemThrowingKnife(981, EnumToolMaterial.STONE)).setIconCoord(0, 9).setItemName("throwingKnifeStone");
     //public static Item throwingKnifeIron = (new ItemThrowingKnife(980, EnumToolMaterial.IRON)).setIconCoord(0, 10).setItemName("throwingKnifeIron");

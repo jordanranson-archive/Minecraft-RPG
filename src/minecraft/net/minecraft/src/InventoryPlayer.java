@@ -587,6 +587,14 @@ public class InventoryPlayer implements IInventory
 
         return var2[par1];
     }
+	
+	public boolean hasTrinketEquipped(Item trinket)
+	{
+		for(int i = 0; i < this.extraInventory.length; i++)
+			if(this.extraInventory[i].getItem() == trinket) return true;
+		
+		return false;
+	}
 
     /**
      * Returns the name of the inventory.
