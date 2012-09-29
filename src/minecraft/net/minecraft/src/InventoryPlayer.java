@@ -564,37 +564,29 @@ public class InventoryPlayer implements IInventory
      */
     public int getSizeInventory()
     {
-        return this.mainInventory.length + 8;
+        return this.mainInventory.length + 4;
     }
 
     /**
      * Returns the stack in slot i
      */
-    public ItemStack getStackInSlot(int par1)
+    public ItemStack getStackInSlot(int slotIndex)
     {
-        ItemStack[] var2 = this.mainInventory;
+        ItemStack[] inventory = this.mainInventory;
 
-        if (par1 >= var2.length && par1 < this.mainInventory.length + this.armorInventory.length)
+        if (slotIndex >= inventory.length && slotIndex < this.mainInventory.length + this.armorInventory.length)
         {
-            par1 -= var2.length;
-            var2 = this.armorInventory;
+            slotIndex -= inventory.length;
+            inventory = this.armorInventory;
         }
-		else if(par1 >= this.mainInventory.length + this.armorInventory.length)
+		else if(slotIndex >= this.mainInventory.length + this.armorInventory.length)
 		{
-            par1 -= var2.length + 4;
-            var2 = this.extraInventory;
+            slotIndex -= inventory.length + 4;
+            inventory = this.extraInventory;
 		}
 
-        return var2[par1];
+        return inventory[slotIndex] != null ? inventory[slotIndex] : null;
     }
-	
-	public boolean hasTrinketEquipped(Item trinket)
-	{
-		for(int i = 0; i < this.extraInventory.length; i++)
-			if(this.extraInventory[i].getItem() == trinket) return true;
-		
-		return false;
-	}
 
     /**
      * Returns the name of the inventory.

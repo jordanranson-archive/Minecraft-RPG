@@ -2,6 +2,7 @@ package net.minecraft.src;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -1436,6 +1437,35 @@ public abstract class EntityLiving extends Entity
      */
     public void onLivingUpdate()
     {
+		// Minecraft RPG
+		Map<String, Boolean> trinketEffect = new HashMap<String, Boolean>();
+		trinketEffect.put("slowfall", false);
+		trinketEffect.put("leaping", false);
+		trinketEffect.put("extrahealth", false);
+		trinketEffect.put("frozenaura", false);
+		trinketEffect.put("flameaura", false);
+		trinketEffect.put("natureaura", false);
+		trinketEffect.put("swimming", false);
+		
+		if(this instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)this;
+			Item trinketSlot;
+
+			for(int i = 0; i < 4; i++)
+			{
+				if(player.inventory.extraItemInSlot(i) != null)
+				{
+					trinketSlot = player.inventory.extraItemInSlot(i).getItem();
+
+					if(trinketSlot.shiftedIndex == Item.glowingFeather.shiftedIndex)
+						trinketEffect.put("slowfall", true);
+					
+					if(trinketSlot.shiftedIndex == Item.amethystWing.shiftedIndex)
+						trinketEffect.put("leaping", true);
+				}
+			}
+		}
+	
         if (this.jumpTicks > 0)
         {
             --this.jumpTicks;
@@ -1497,15 +1527,17 @@ public abstract class EntityLiving extends Entity
 
         this.worldObj.theProfiler.endSection();
         this.worldObj.theProfiler.startSection("jump");
-
+		
         if (this.isJumping)
         {
             if (!this.isInWater() && !this.handleLavaMovement())
             {
                 if (this.onGround && this.jumpTicks == 0)
                 {
-                    this.jump();
-                    this.jumpTicks = 10;
+					if(trinketEffect.get("leaping")) this.jump(true); // jump distance increase
+					else this.jump();
+						
+					this.jumpTicks = 10;
                 }
             }
             else
@@ -1517,6 +1549,12 @@ public abstract class EntityLiving extends Entity
         {
             this.jumpTicks = 0;
         }
+		
+		// slow fall effect
+		if(trinketEffect.get("slowfall") && !this.onGround && this.jumpTicks == 0)
+		{
+			this.motionY *= 0.55F;
+		}
 
         this.worldObj.theProfiler.endSection();
         this.worldObj.theProfiler.startSection("travel");
@@ -1587,6 +1625,11 @@ public abstract class EntityLiving extends Entity
      */
     protected void jump()
     {
+		this.jump(false);
+	}
+	
+    protected void jump(boolean leapingEffect)
+    {
         this.motionY = 0.41999998688697815D;
 
         if (this.isPotionActive(Potion.jump))
@@ -1594,6 +1637,11 @@ public abstract class EntityLiving extends Entity
             this.motionY += (double)((float)(this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
         }
 
+		if(leapingEffect)
+		{
+			this.motionY += 1.3F;
+		}
+		
         if (this.isSprinting())
         {
             float var1 = this.rotationYaw * 0.017453292F;

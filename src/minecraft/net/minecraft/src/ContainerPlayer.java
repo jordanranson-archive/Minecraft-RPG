@@ -39,7 +39,7 @@ public class ContainerPlayer extends Container
 
 		for (var3 = 0; var3 < 4; ++var3)
         {
-            this.addSlotToContainer(new SlotExtra(this, par1InventoryPlayer, par1InventoryPlayer.getSizeInventory() - 1 - (var3 + 4), 80, 8 + var3 * 18));
+            this.addSlotToContainer(new SlotExtra(this, par1InventoryPlayer, (par1InventoryPlayer.getSizeInventory() + 4) - 1 - var3, 80, 8 + var3 * 18));
         }
 
         for (var3 = 0; var3 < 3; ++var3)
