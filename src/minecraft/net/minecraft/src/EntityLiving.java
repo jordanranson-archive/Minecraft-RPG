@@ -895,6 +895,18 @@ public abstract class EntityLiving extends Entity
                             this.attackingPlayer = null;
                         }
                     }
+					
+					// Minecraft RPG
+					if(trinketEffect.get("flameaura"))
+					{
+						var4.setFire(2);
+					}
+					
+					if(trinketEffect.get("frozenaura") && var4 instanceof EntityLiving)
+					{	
+						EntityLiving attacker = (EntityLiving)var4;
+						attacker.addPotionEffect(new PotionEffect(2, 60, 0));
+					}
                 }
 
                 if (var3)
@@ -1470,8 +1482,21 @@ public abstract class EntityLiving extends Entity
 					if(trinketSlot.shiftedIndex == Item.amethystWing.shiftedIndex)
 						this.trinketEffect.put("leaping", true);
 						
+					if(trinketSlot.shiftedIndex == Item.healthGem.shiftedIndex)
+						this.trinketEffect.put("extrahealth", true);
+						
+					if(trinketSlot.shiftedIndex == Item.frozenGem.shiftedIndex)
+						this.trinketEffect.put("frozenaura", true);
+						
+					if(trinketSlot.shiftedIndex == Item.cagedMagma.shiftedIndex)
+						this.trinketEffect.put("flameaura", true);
+						
+					if(trinketSlot.shiftedIndex == Item.spiritStone.shiftedIndex)
+						this.trinketEffect.put("natureaura", true);
+						
 					if(trinketSlot.shiftedIndex == Item.enchantedVial.shiftedIndex)
 						this.trinketEffect.put("swimming", true);
+						
 				}
 			}
 		}
@@ -1575,6 +1600,74 @@ public abstract class EntityLiving extends Entity
             this.motionZ *= 1.15F;
             this.motionY *= 1.15F;
 		}
+		
+		// nature aura
+		/*Random random = new Random();
+		if (this.trinketEffect.get("natureaura") && random.nextInt(1) == 0 && !this.isInWater() && this.onGround)
+		{
+			if (!this.worldObj.isRemote)
+			{
+				for (int var12 = 0; var12 < 3; ++var12)
+				{
+					int var13 = (int)this.posX;
+					int var14 = (int)this.posY;
+					int var15 = (int)this.posZ;
+					
+					if(this.worldObj.getBlockId(var13, var14 - 1, var15) != Block.grass.blockID && this.worldObj.getBlockId(var13, var14 - 1, var15) != Block.tilledField.blockID)
+					{
+						System.out.println("aborting");
+						break;
+					}
+					
+					var13 += random.nextInt(4) - 1;
+					var14 += (random.nextInt(3) - 1) * random.nextInt(3) / 2;
+					var15 += random.nextInt(4) - 1;
+						
+					if (this.worldObj.getBlockId(var13, var14, var15) == 0 && this.worldObj.getBlockId(var13, var14 - 1, var15) == Block.grass.blockID)
+					{
+						System.out.println("growing grass");
+						if (random.nextInt(10) != 0)
+						{
+							if (Block.tallGrass.canBlockStay(this.worldObj, var13, var14, var15))
+							{
+								this.worldObj.setBlockAndMetadataWithNotify(var13, var14, var15, Block.tallGrass.blockID, 1);
+							}
+						}
+						else if (random.nextInt(3) != 0)
+						{
+							if (Block.plantYellow.canBlockStay(this.worldObj, var13, var14, var15))
+							{
+								this.worldObj.setBlockWithNotify(var13, var14, var15, Block.plantYellow.blockID);
+							}
+						}
+						else if (Block.plantRed.canBlockStay(this.worldObj, var13, var14, var15))
+						{
+							this.worldObj.setBlockWithNotify(var13, var14, var15, Block.plantRed.blockID);
+						}
+					}
+					else
+					{
+						System.out.println("fertilizing");
+						Block block = Block.blocksList[this.worldObj.getBlockId(var13, var14, var15)];
+						
+						if(block instanceof BlockSapling)
+							((BlockSapling)block).growTree(this.worldObj, var13, var14, var15, random);
+						if(block instanceof BlockCrops)
+							((BlockCrops)block).fertilize(this.worldObj, var13, var14, var15);
+						if(block instanceof BlockStem)
+							((BlockStem)block).fertilizeStem(this.worldObj, var13, var14, var15);
+						if(block instanceof BlockMushroom)
+							((BlockMushroom)block).fertilizeMushroom(this.worldObj, var13, var14, var15, random);
+						if(block instanceof BlockGlowFlower)
+							((BlockGlowFlower)block).fertilize(this.worldObj, var13, var14, var15, random);
+						if(block instanceof BlockGlowFlowerSpore)
+							((BlockGlowFlowerSpore)block).fertilize(this.worldObj, var13, var14, var15, random);
+						if(block instanceof BlockNetherBlossom)
+							((BlockNetherBlossom)block).fertilize(this.worldObj, var13, var14, var15);
+					}
+				}
+			}
+		}*/
 
         this.worldObj.theProfiler.endSection();
         this.worldObj.theProfiler.startSection("travel");

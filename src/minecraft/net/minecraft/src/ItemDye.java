@@ -110,7 +110,7 @@ public class ItemDye extends Item
                     return true;
                 }
 				
-				// Minecraft-RPG
+				// Minecraft RPG
 				
 				if (var11 == Block.plantGlow.blockID)
                 {
