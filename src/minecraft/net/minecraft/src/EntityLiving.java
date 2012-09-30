@@ -1197,10 +1197,11 @@ public abstract class EntityLiving extends Entity
             var9 = this.posY;
             this.moveFlying(par1, par2, this.isAIEnabled() ? 0.04F : 0.02F);
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= 0.800000011920929D;
-            this.motionY *= 0.800000011920929D;
-            this.motionZ *= 0.800000011920929D;
-            this.motionY -= 0.02D;
+
+			this.motionX *= 0.800000011920929D;
+			this.motionY *= 0.800000011920929D;
+			this.motionZ *= 0.800000011920929D;
+			this.motionY -= 0.02D;
 
             if (this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + 0.6000000238418579D - this.posY + var9, this.motionZ))
             {
@@ -1468,6 +1469,9 @@ public abstract class EntityLiving extends Entity
 					
 					if(trinketSlot.shiftedIndex == Item.amethystWing.shiftedIndex)
 						this.trinketEffect.put("leaping", true);
+						
+					if(trinketSlot.shiftedIndex == Item.enchantedVial.shiftedIndex)
+						this.trinketEffect.put("swimming", true);
 				}
 			}
 		}
@@ -1557,10 +1561,19 @@ public abstract class EntityLiving extends Entity
         }
 		
 		// slow fall effect
-		if(this.trinketEffect.get("slowfall") && !this.onGround && this.jumpTicks == 0)
+		if(this.trinketEffect.get("slowfall") && !this.isInWater() && 
+		!this.onGround && this.jumpTicks == 0 && !((EntityPlayer)this).capabilities.isFlying)
 		{
-			this.motionY *= 0.65F;
-			// 0.45F for level 2
+			this.motionY *= 0.7F;
+			// 0.5F for level 2
+		}
+		
+		// swimming movement speed
+		if(this.trinketEffect.get("swimming") && this.isInWater())
+		{
+            this.motionX *= 1.15F;
+            this.motionZ *= 1.15F;
+            this.motionY *= 1.15F;
 		}
 
         this.worldObj.theProfiler.endSection();
