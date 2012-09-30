@@ -189,7 +189,8 @@ public abstract class EntityLiving extends Entity
 
     /** How long to keep a specific target entity */
     protected int numTicksToChaseTarget = 0;
-
+	public Map<String, Boolean> trinketEffect = new HashMap<String, Boolean>();
+	
     public EntityLiving(World par1World)
     {
         super(par1World);
@@ -1166,8 +1167,14 @@ public abstract class EntityLiving extends Entity
             {
                 this.worldObj.playSoundAtEntity(this, "damage.fallsmall", 1.0F, 1.0F);
             }
-
-            this.attackEntityFrom(DamageSource.fall, var2);
+			
+			if(this.trinketEffect.get("slowfall"))
+				this.attackEntityFrom(DamageSource.fall, var2 - (int)(var2 * 0.33)); // 33% less fall damage
+			else if(this.trinketEffect.get("leaping"))
+				this.attackEntityFrom(DamageSource.fall, var2 - 1); // so jumping doesn't fuck you
+			else
+				this.attackEntityFrom(DamageSource.fall, var2);
+			
             int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset), MathHelper.floor_double(this.posZ));
 
             if (var3 > 0)
@@ -1438,14 +1445,13 @@ public abstract class EntityLiving extends Entity
     public void onLivingUpdate()
     {
 		// Minecraft RPG
-		Map<String, Boolean> trinketEffect = new HashMap<String, Boolean>();
-		trinketEffect.put("slowfall", false);
-		trinketEffect.put("leaping", false);
-		trinketEffect.put("extrahealth", false);
-		trinketEffect.put("frozenaura", false);
-		trinketEffect.put("flameaura", false);
-		trinketEffect.put("natureaura", false);
-		trinketEffect.put("swimming", false);
+		this.trinketEffect.put("slowfall", false);
+		this.trinketEffect.put("leaping", false);
+		this.trinketEffect.put("extrahealth", false);
+		this.trinketEffect.put("frozenaura", false);
+		this.trinketEffect.put("flameaura", false);
+		this.trinketEffect.put("natureaura", false);
+		this.trinketEffect.put("swimming", false);
 		
 		if(this instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)this;
@@ -1458,10 +1464,10 @@ public abstract class EntityLiving extends Entity
 					trinketSlot = player.inventory.extraItemInSlot(i).getItem();
 
 					if(trinketSlot.shiftedIndex == Item.glowingFeather.shiftedIndex)
-						trinketEffect.put("slowfall", true);
+						this.trinketEffect.put("slowfall", true);
 					
 					if(trinketSlot.shiftedIndex == Item.amethystWing.shiftedIndex)
-						trinketEffect.put("leaping", true);
+						this.trinketEffect.put("leaping", true);
 				}
 			}
 		}
@@ -1534,7 +1540,7 @@ public abstract class EntityLiving extends Entity
             {
                 if (this.onGround && this.jumpTicks == 0)
                 {
-					if(trinketEffect.get("leaping")) this.jump(true); // jump distance increase
+					if(this.trinketEffect.get("leaping")) this.jump(true); // jump distance increase
 					else this.jump();
 						
 					this.jumpTicks = 10;
@@ -1551,9 +1557,10 @@ public abstract class EntityLiving extends Entity
         }
 		
 		// slow fall effect
-		if(trinketEffect.get("slowfall") && !this.onGround && this.jumpTicks == 0)
+		if(this.trinketEffect.get("slowfall") && !this.onGround && this.jumpTicks == 0)
 		{
-			this.motionY *= 0.55F;
+			this.motionY *= 0.65F;
+			// 0.45F for level 2
 		}
 
         this.worldObj.theProfiler.endSection();
@@ -1639,7 +1646,11 @@ public abstract class EntityLiving extends Entity
 
 		if(leapingEffect)
 		{
-			this.motionY += 1.3F;
+			this.motionY += 0.35F;
+			
+			float var1 = this.rotationYaw * 0.017453292F;
+			this.motionX -= (double)(MathHelper.sin(var1) * 0.4F);
+            this.motionZ += (double)(MathHelper.cos(var1) * 0.4F);
 		}
 		
         if (this.isSprinting())
