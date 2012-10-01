@@ -380,19 +380,15 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 if (var5 >= 5 && var5 < 9)
                 {
                     var7 = var5 - 5;
-                    var8 = var7 / 2;
-                    var9 = var7 % 2;
-                    var6.xDisplayPosition = 9 + var8 * 54;
-                    var6.yDisplayPosition = 6 + var9 * 27;
+                    var6.xDisplayPosition = 45 + (var7 * 18);
+                    var6.yDisplayPosition = 9;
                 }
 				// trinket slots
 				else if (var5 >= 9 && var5 < 13)
                 {
-                    var7 = var5 - 5;
-                    var8 = var7 / 2;
-                    var9 = var7 % 2;
-                    var6.xDisplayPosition = 27 + var8 * 27;
-                    var6.yDisplayPosition = 6 + var9 * 27;
+                    var7 = var5 - 9;
+                    var6.xDisplayPosition = 45 + (var7 * 18);
+                    var6.yDisplayPosition = 30;
                 }
 				// crafting matrix
                 else if (var5 >= 0 && var5 < 5)
@@ -596,7 +592,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
         if (var5 == CreativeTabs.tabInventory)
         {
-            GuiInventory.func_74223_a(this.mc, this.guiLeft + 43, this.guiTop + 45, 20, (float)(this.guiLeft + 43 - par2), (float)(this.guiTop + 45 - 30 - par3));
+            GuiInventory.func_74223_a(this.mc, this.guiLeft + 25, this.guiTop + 47, 20, (float)(this.guiLeft + 25 - par2), (float)(this.guiTop + 45 - 30 - par3));
         }
     }
 

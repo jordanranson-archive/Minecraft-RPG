@@ -44,4 +44,9 @@ class SlotExtra extends Slot
 			
 		return false;
     }
+	
+	public int getBackgroundIconIndex()
+    {
+        return 209;
+    }
 }
