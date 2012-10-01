@@ -1757,6 +1757,26 @@ public abstract class EntityLiving extends Entity
 			float var1 = this.rotationYaw * 0.017453292F;
 			this.motionX -= (double)(MathHelper.sin(var1) * 0.4F);
             this.motionZ += (double)(MathHelper.cos(var1) * 0.4F);
+			
+			int x = MathHelper.floor_double(this.posX);
+            int y = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset);
+            int z = MathHelper.floor_double(this.posZ);
+			
+			int b = this.worldObj.getBlockId(x, y, z);
+            if (b > 0)
+            {
+				for(int i = 0; i < 13; i++)
+				{
+					this.worldObj.spawnParticle(
+						"tilecrack_" + b,
+						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+						this.boundingBox.minY + 0.1D, 
+						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+						-this.motionX * 8.0D, 2.0D,
+						-this.motionZ * 8.0D
+					);
+				}
+			}
 		}
 		
         if (this.isSprinting())
