@@ -31,9 +31,13 @@ public class RecipesMinecraftRPG
 		par1CraftingManager.addRecipe(new ItemStack(Item.rodAmethyst), new Object[] {"#", "G", "S", '#', Item.amethystCharged, 'G', Item.ingotGold, 'S', Item.stick});
 		par1CraftingManager.addRecipe(new ItemStack(Item.rodEmerald), new Object[] {"#", "G", "S", '#', Item.emeraldCharged, 'G', Item.ingotGold, 'S', Item.stick});
 		
-		par1CraftingManager.addShapelessRecipe(new ItemStack(Item.runicDiamond, 1), new Object[] {Item.diamond, Item.rubyCharged, Item.sapphireCharged, Item.amethystCharged, Item.emeraldCharged});
+		par1CraftingManager.addShapelessRecipe(new ItemStack(Item.runicDiamond, 1), new Object[] {Block.blockDiamond, Item.rubyCharged, Item.sapphireCharged, Item.amethystCharged, Item.emeraldCharged});
 		
-        par1CraftingManager.addRecipe(new ItemStack(Item.healthGem), new Object[] {" O ", "GRG", " O ", 'O', Block.obsidian, 'G', Item.ingotGold, 'R', Item.rubyCharged});
-        par1CraftingManager.addRecipe(new ItemStack(Item.backpack), new Object[] {"###", "# #", "#I#", '#', Item.leather, 'I', Item.ingotIron});
+        par1CraftingManager.addRecipe(new ItemStack(Item.healthGem), new Object[] {"OOO", "G#G", "OOO", 'O', Block.obsidian, 'G', Block.blockGold, '#', Item.rubyCharged});
+        par1CraftingManager.addRecipe(new ItemStack(Item.frozenGem), new Object[] {"OOO", "G#G", "OOO", 'O', Block.obsidian, 'G', Block.blockGold, '#', Item.sapphireCharged});
+        par1CraftingManager.addRecipe(new ItemStack(Item.cagedMagma), new Object[] {"PSP", "S#S", "PNP", 'P', Item.powderMagic, 'S', Block.netherBrick, '#', Item.bucketLava, 'N', Block.netherrack});
+        par1CraftingManager.addRecipe(new ItemStack(Item.amethystWing), new Object[] {" AA", "A#A", "#A ", 'A', Item.amethyst, '#', Item.amethystCharged});
+        par1CraftingManager.addRecipe(new ItemStack(Item.glowingFeather), new Object[] {"PGP", "GF#", "F#P", '#', Block.glowStone, 'P', Item.powderMagic, 'G', Block.blockGold, 'F', Item.feather});
+        par1CraftingManager.addRecipe(new ItemStack(Item.enchantedVial), new Object[] {"PPP", "D#D", " D ", '#', Item.bucketWater, 'P', Item.powderMagic, 'D', Block.blockDiamond});
 	}
 }
