@@ -63,7 +63,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
             if (par1Slot == this.field_74235_v && par4)
             {
-                for (var5 = 0; var5 < this.mc.thePlayer.inventorySlots.getInventory().size(); ++var5)
+                for (var5 = 0; var5 < this.mc.thePlayer.inventorySlots.getInventory().size() - 4; ++var5)
                 {
                     this.mc.playerController.sendSlotPacket((ItemStack)null, var5);
                 }
@@ -147,7 +147,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 {
                     this.inventorySlots.slotClick(par1Slot.slotNumber, par3, par4, this.mc.thePlayer);
                     ItemStack var10 = this.inventorySlots.getSlot(par1Slot.slotNumber).getStack();
-                    this.mc.playerController.sendSlotPacket(var10, par1Slot.slotNumber - this.inventorySlots.inventorySlots.size() + 9 + 36);
+                    this.mc.playerController.sendSlotPacket(var10, par1Slot.slotNumber - (this.inventorySlots.inventorySlots.size() - 4) + 9 + 36);
                 }
             }
         }
@@ -376,6 +376,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 int var8;
                 int var9;
 
+				// armor slots
                 if (var5 >= 5 && var5 < 9)
                 {
                     var7 = var5 - 5;
@@ -384,25 +385,36 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                     var6.xDisplayPosition = 9 + var8 * 54;
                     var6.yDisplayPosition = 6 + var9 * 27;
                 }
+				// trinket slots
+				else if (var5 >= 9 && var5 < 13)
+                {
+                    var7 = var5 - 5;
+                    var8 = var7 / 2;
+                    var9 = var7 % 2;
+                    var6.xDisplayPosition = 27 + var8 * 27;
+                    var6.yDisplayPosition = 6 + var9 * 27;
+                }
+				// crafting matrix
                 else if (var5 >= 0 && var5 < 5)
                 {
                     var6.yDisplayPosition = -2000;
                     var6.xDisplayPosition = -2000;
                 }
+				// player inventory
                 else if (var5 < var4.inventorySlots.size())
                 {
-                    var7 = var5 - 9;
+                    var7 = (var5 - 4) - 9;
                     var8 = var7 % 9;
                     var9 = var7 / 9;
                     var6.xDisplayPosition = 9 + var8 * 18;
 
-                    if (var5 >= 36)
+                    if ((var5 - 4) >= 36)
                     {
-                        var6.yDisplayPosition = 112;
+                        var6.yDisplayPosition = 112; // action bar
                     }
                     else
                     {
-                        var6.yDisplayPosition = 54 + var9 * 18;
+                        var6.yDisplayPosition = 54 + var9 * 18; // inventory
                     }
                 }
             }
