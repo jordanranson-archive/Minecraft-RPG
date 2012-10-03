@@ -86,7 +86,7 @@ public class RenderManager
 		
 		// Minecraft RPG
         this.entityRenderMap.put(EntitySpitball.class, new RenderSnowball(Item.spitball.getIconFromDamage(0)));
-        this.entityRenderMap.put(EntityMagicRodProjectile.class, new RenderMagicRodProjectile(Item.diamond.getIconFromDamage(0)));
+        this.entityRenderMap.put(EntityMagicRodProjectile.class, new RenderMagicRodProjectile());
         this.entityRenderMap.put(EntitySackMeat.class, new RenderSnowball(Item.meatSack.getIconFromDamage(0)));
         this.entityRenderMap.put(EntitySackTreasure.class, new RenderSnowball(Item.treasureSack.getIconFromDamage(0)));
         this.entityRenderMap.put(EntitySackJunk.class, new RenderSnowball(Item.junkSack.getIconFromDamage(0)));
