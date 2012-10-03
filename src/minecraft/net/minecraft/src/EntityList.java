@@ -208,6 +208,7 @@ public class EntityList
         addMapping(EntitySackTreasure.class, "TreasureSack", 254);
         addMapping(EntitySackJunk.class, "JunkSack", 253);
         addMapping(EntitySpitball.class, "Spitball", 252);
+        addMapping(EntityMagicRodProjectile.class, "MagicBolt", 251);
 		
         addMapping(EntityZombieFast.class, "ZombieFast", 127, 44975, 5002027);
         addMapping(EntityMummy.class, "Mummy", 126, 14601638, 5450325);

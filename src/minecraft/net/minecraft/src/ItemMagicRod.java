@@ -24,48 +24,38 @@ public class ItemMagicRod extends Item
 		float var7 = (float)var6 / 20.0F;
 		var7 = (var7 * var7 + var7 * 2.0F) / 3.0F;
 		
-		if ((double)var7 < 0.05D)
-		{
-			return;
-		}
-		
-		if (var7 > 0.8F)
-		{
-			var7 = 0.8F;
-		}
+		if ((double)var7 < 0.05D) { return; }
+		if (var7 > 0.8F){ var7 = 0.8F; }
 		
 		par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + var7 * 0.5F);
 		par1ItemStack.damageItem(1, par3EntityPlayer);
 		
-		EntityArrow arrow = new EntityArrow(par2World, par3EntityPlayer, (var7 * 1.2F) + 0.4F);
-		arrow.setMagicProjectile(true);
-		double multiplier = (double)(var7 * 3.0D);
-		if(multiplier < 1.0D)
-		{
-			multiplier = 1.0D;
-		}
-		arrow.setEffectMultiplier(multiplier);
+		EntityMagicRodProjectile magicBolt = new EntityMagicRodProjectile(par2World, par3EntityPlayer);
+		magicBolt.setShootingEntity(par3EntityPlayer);
 		
+		double multiplier = (double)(var7 * 2.4D);
+		if(multiplier < 1.0D) { multiplier = 1.0D; }
+		magicBolt.setEffectMultiplier(multiplier);
+
 		switch(this.magicRodMaterial.getMaterialId())
 		{
 			case 1:
-				arrow.setMagicEffect(EnumMagicEffect.flame);
-				//arrow.setFire(100);
+				magicBolt.setMagicEffect(EnumMagicEffect.flame);
 				break;
 			case 2:
-				arrow.setMagicEffect(EnumMagicEffect.freeze);
+				magicBolt.setMagicEffect(EnumMagicEffect.freeze);
 				break;
 			case 3:
-				arrow.setMagicEffect(EnumMagicEffect.lifesteal);
+				magicBolt.setMagicEffect(EnumMagicEffect.lifesteal);
 				break;
 			case 4:
-				arrow.setMagicEffect(EnumMagicEffect.flee);
+				magicBolt.setMagicEffect(EnumMagicEffect.flee);
 				break;
 		}
 		
 		if (!par2World.isRemote)
 		{
-			par2World.spawnEntityInWorld(arrow);
+			par2World.spawnEntityInWorld(magicBolt);
 		}
     }
 

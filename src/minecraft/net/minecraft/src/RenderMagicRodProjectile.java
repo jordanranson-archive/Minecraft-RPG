@@ -5,65 +5,15 @@ import org.lwjgl.opengl.GL12;
 
 public class RenderMagicRodProjectile extends Render
 {
-    public void RenderMagicRodProjectile(EntityMagicRodProjectile par1EntityArrow, double par2, double par4, double par6, float par8, float par9)
+    /**
+     * Have the icon index (in items.png) that will be used to render the image. Currently, eggs and snowballs uses this
+     * classes.
+     */
+    private int itemIconIndex;
+
+    public RenderMagicRodProjectile(int par1)
     {
-        this.loadTexture("/item/magicRodProjectile.png");
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float)par2, (float)par4, (float)par6);
-        GL11.glRotatef(par1EntityArrow.prevRotationYaw + (par1EntityArrow.rotationYaw - par1EntityArrow.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(par1EntityArrow.prevRotationPitch + (par1EntityArrow.rotationPitch - par1EntityArrow.prevRotationPitch) * par9, 0.0F, 0.0F, 1.0F);
-        Tessellator var10 = Tessellator.instance;
-        byte var11 = 0;
-        float var12 = 0.0F;
-        float var13 = 0.5F;
-        float var14 = (float)(0 + var11 * 10) / 32.0F;
-        float var15 = (float)(5 + var11 * 10) / 32.0F;
-        float var16 = 0.0F;
-        float var17 = 0.15625F;
-        float var18 = (float)(5 + var11 * 10) / 32.0F;
-        float var19 = (float)(10 + var11 * 10) / 32.0F;
-        float var20 = 0.05625F;
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        float var21 = (float)par1EntityArrow.projectileShake - par9;
-
-        if (var21 > 0.0F)
-        {
-            float var22 = -MathHelper.sin(var21 * 3.0F) * var21;
-            GL11.glRotatef(var22, 0.0F, 0.0F, 1.0F);
-        }
-
-        GL11.glRotatef(45.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glScalef(var20, var20, var20);
-        GL11.glTranslatef(-4.0F, 0.0F, 0.0F);
-        GL11.glNormal3f(var20, 0.0F, 0.0F);
-        var10.startDrawingQuads();
-        var10.addVertexWithUV(-7.0D, -2.0D, -2.0D, (double)var16, (double)var18);
-        var10.addVertexWithUV(-7.0D, -2.0D, 2.0D, (double)var17, (double)var18);
-        var10.addVertexWithUV(-7.0D, 2.0D, 2.0D, (double)var17, (double)var19);
-        var10.addVertexWithUV(-7.0D, 2.0D, -2.0D, (double)var16, (double)var19);
-        var10.draw();
-        GL11.glNormal3f(-var20, 0.0F, 0.0F);
-        var10.startDrawingQuads();
-        var10.addVertexWithUV(-7.0D, 2.0D, -2.0D, (double)var16, (double)var18);
-        var10.addVertexWithUV(-7.0D, 2.0D, 2.0D, (double)var17, (double)var18);
-        var10.addVertexWithUV(-7.0D, -2.0D, 2.0D, (double)var17, (double)var19);
-        var10.addVertexWithUV(-7.0D, -2.0D, -2.0D, (double)var16, (double)var19);
-        var10.draw();
-
-        for (int var23 = 0; var23 < 4; ++var23)
-        {
-            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glNormal3f(0.0F, 0.0F, var20);
-            var10.startDrawingQuads();
-            var10.addVertexWithUV(-8.0D, -2.0D, 0.0D, (double)var12, (double)var14);
-            var10.addVertexWithUV(8.0D, -2.0D, 0.0D, (double)var13, (double)var14);
-            var10.addVertexWithUV(8.0D, 2.0D, 0.0D, (double)var13, (double)var15);
-            var10.addVertexWithUV(-8.0D, 2.0D, 0.0D, (double)var12, (double)var15);
-            var10.draw();
-        }
-
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        GL11.glPopMatrix();
+        this.itemIconIndex = par1;
     }
 
     /**
@@ -74,6 +24,48 @@ public class RenderMagicRodProjectile extends Render
      */
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.RenderMagicRodProjectile((EntityMagicRodProjectile)par1Entity, par2, par4, par6, par8, par9);
+        GL11.glPushMatrix();
+        GL11.glTranslatef((float)par2, (float)par4, (float)par6);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glScalef(0.5F, 0.5F, 0.5F);
+        this.loadTexture("/gui/items.png");
+        Tessellator var10 = Tessellator.instance;
+
+        if (this.itemIconIndex == 154)
+        {
+            int var11 = PotionHelper.func_77915_a(((EntityPotion)par1Entity).getPotionDamage(), false);
+            float var12 = (float)(var11 >> 16 & 255) / 255.0F;
+            float var13 = (float)(var11 >> 8 & 255) / 255.0F;
+            float var14 = (float)(var11 & 255) / 255.0F;
+            GL11.glColor3f(var12, var13, var14);
+            GL11.glPushMatrix();
+            this.func_77026_a(var10, 141);
+            GL11.glPopMatrix();
+            GL11.glColor3f(1.0F, 1.0F, 1.0F);
+        }
+
+        this.func_77026_a(var10, this.itemIconIndex);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glPopMatrix();
+    }
+
+    private void func_77026_a(Tessellator par1Tessellator, int par2)
+    {
+        float var3 = (float)(par2 % 16 * 16 + 0) / 256.0F;
+        float var4 = (float)(par2 % 16 * 16 + 16) / 256.0F;
+        float var5 = (float)(par2 / 16 * 16 + 0) / 256.0F;
+        float var6 = (float)(par2 / 16 * 16 + 16) / 256.0F;
+        float var7 = 1.0F;
+        float var8 = 0.5F;
+        float var9 = 0.25F;
+        GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        par1Tessellator.startDrawingQuads();
+        par1Tessellator.setNormal(0.0F, 1.0F, 0.0F);
+        par1Tessellator.addVertexWithUV((double)(0.0F - var8), (double)(0.0F - var9), 0.0D, (double)var3, (double)var6);
+        par1Tessellator.addVertexWithUV((double)(var7 - var8), (double)(0.0F - var9), 0.0D, (double)var4, (double)var6);
+        par1Tessellator.addVertexWithUV((double)(var7 - var8), (double)(var7 - var9), 0.0D, (double)var4, (double)var5);
+        par1Tessellator.addVertexWithUV((double)(0.0F - var8), (double)(var7 - var9), 0.0D, (double)var3, (double)var5);
+        par1Tessellator.draw();
     }
 }

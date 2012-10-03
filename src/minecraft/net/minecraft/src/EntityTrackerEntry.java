@@ -418,6 +418,10 @@ public class EntityTrackerEntry
                 {
                     return new Packet23VehicleSpawn(this.myEntity, 96);
                 }
+                else if (this.myEntity instanceof EntityMagicRodProjectile)
+                {
+                    return new Packet23VehicleSpawn(this.myEntity, 95);
+                }
 				
                 else
                 {
