@@ -306,11 +306,12 @@ public class EntityArrow extends Entity
 						EntityLiving entityHit = (EntityLiving)var4.entityHit;
 						if(this.isMagicProjectile)
 						{
-							entityHit.attackEntityFrom(DamageSource.magic, (int)this.damage / 2);
+							entityHit.attackEntityFrom(DamageSource.magic, 1);
 						}
 						
 						EntityLiving player = (EntityLiving)this.shootingEntity;
-						player.heal((int)Math.floor(0.75D * this.effectMultiplier));
+						int healAmount = (int)Math.floor(0.75D * this.effectMultiplier);
+						player.heal(healAmount >= 1 ? healAmount : 1);
 					}
 					
 					// Flee
