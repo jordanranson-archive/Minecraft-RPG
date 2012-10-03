@@ -194,7 +194,7 @@ public class Item
 	public static Item junkSack = (Item)(new ItemSack(979, "junk")).setIconCoord(5, 13).setItemName("junkSack");
 	public static Item backpack = (new Item(977)).setIconCoord(4, 14).setItemName("backpack").setTabToDisplayOn(CreativeTabs.tabMisc);
     public static Item bucketQuicksand = (new ItemBucket(976, Block.quicksand.blockID)).setIconCoord(4, 13).setItemName("bucketQuicksand").setContainerItem(bucketEmpty);
-    public static Item spitball = (new ItemSpitball(975)).setIconCoord(10, 8).setItemName("spitball");
+    public static Item spitball = (new ItemSpitball(975)).setIconCoord(0, 13).setItemName("spitball");
 	// trinkets
 	public static Item healthGem = (new ItemTrinket(978)).setIconCoord(5, 14).setItemName("healthGem");
     public static Item frozenGem = (new ItemTrinket(974)).setIconCoord(3, 14).setItemName("frozenGem");
