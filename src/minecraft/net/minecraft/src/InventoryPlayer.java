@@ -42,7 +42,7 @@ public class InventoryPlayer implements IInventory
 
     public static int func_70451_h()
     {
-        return 9;
+        return 9 + 4;
     }
 
     /**
