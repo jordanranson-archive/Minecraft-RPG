@@ -234,6 +234,11 @@ public class EnchantmentHelper
     {
         return getEnchantmentLevel(Enchantment.fleeWeapon.effectId, par0InventoryPlayer.getCurrentItem());
     }
+	
+	public static int getRuned(InventoryPlayer par0InventoryPlayer, int slot)
+    {
+        return getEnchantmentLevel(Enchantment.runed.effectId, par0InventoryPlayer.extraItemInSlot(slot));
+    }
 
     /**
      * Returns the enchantability of itemstack, it's uses a singular formula for each index (2nd parameter: 0, 1 and 2),
@@ -282,7 +287,7 @@ public class EnchantmentHelper
     }
 
     /**
-     * Create a list of random EnchantmentData (enchantments) that can be added together to the ItemStack, the 3rd
+     * Create a list of random EnchantmentData (enchantments) that can be added together to the ItemStack, the 4th
      * parameter is the total enchantability level.
      */
     public static List buildEnchantmentList(Random par0Random, ItemStack par1ItemStack, int effectId, int par2)
@@ -370,6 +375,22 @@ public class EnchantmentHelper
 					var8.add(newEnchant);
 				}
 			}
+			
+			// trinket enchanting
+			if (par1ItemStack.getItem() instanceof ItemTrinket)
+			{
+				var8 = new ArrayList();
+				
+				EnchantmentData newEnchant = null;
+				newEnchant = new EnchantmentData(Enchantment.runed, 1);
+				
+				if(newEnchant != null)
+				{
+					var8.add(newEnchant);
+				}
+				
+				return var8;
+			}
 
             if (var9 != null && !var9.isEmpty()) // we have a list of available enchantments
             {
@@ -432,7 +453,7 @@ public class EnchantmentHelper
 	
 	private static boolean isSword(ItemStack item)
 	{
-		int[] itemId = new int[5];
+		/*int[] itemId = new int[5];
 		itemId[0] = Item.swordWood.shiftedIndex;
 		itemId[1] = Item.swordStone.shiftedIndex;
 		itemId[2] = Item.swordSteel.shiftedIndex;
@@ -445,9 +466,9 @@ public class EnchantmentHelper
 			{
 				return true;
 			}
-		}
+		}*/
 		
-		return false;
+		return item.getItem() instanceof ItemSword;
 	}
 
     /**
@@ -462,7 +483,7 @@ public class EnchantmentHelper
         int numEnchantments = enchantmentList.length;
 		
 		// excluded enchants
-		int[] excludedEnchantments = new int[8];
+		int[] excludedEnchantments = new int[9];
 		excludedEnchantments[0] = Enchantment.flame.effectId;
 		excludedEnchantments[1] = Enchantment.fireAspect.effectId;
 		excludedEnchantments[2] = Enchantment.frozen.effectId;
@@ -471,6 +492,7 @@ public class EnchantmentHelper
 		excludedEnchantments[5] = Enchantment.lifestealWeapon.effectId;
 		excludedEnchantments[6] = Enchantment.flee.effectId;
 		excludedEnchantments[7] = Enchantment.fleeWeapon.effectId;
+		excludedEnchantments[8] = Enchantment.runed.effectId;
 		
         for (int i = 0; i < numEnchantments; ++i)
         {

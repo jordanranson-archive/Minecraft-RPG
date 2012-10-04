@@ -10,7 +10,8 @@ public enum EnumEnchantmentType
     armor_head,
     weapon,
     digger,
-    bow;
+    bow,
+	trinket;
 
     /**
      * Return true if the item passed can be enchanted by a enchantment of this type.
@@ -35,7 +36,7 @@ public enum EnumEnchantmentType
         }
         else
         {
-            return par1Item instanceof ItemSword ? this == weapon : (par1Item instanceof ItemTool ? this == digger : (par1Item instanceof ItemBow || par1Item instanceof ItemCrossbow ? this == bow : false));
+            return par1Item instanceof ItemSword ? this == weapon : (par1Item instanceof ItemTool ? this == digger : (par1Item instanceof ItemBow || par1Item instanceof ItemCrossbow ? this == bow : (par1Item instanceof ItemTrinket ? this == trinket : false)));
         }
     }
 }

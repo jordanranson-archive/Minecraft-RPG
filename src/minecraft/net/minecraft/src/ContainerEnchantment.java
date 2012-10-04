@@ -184,6 +184,14 @@ public class ContainerEnchantment extends Container
 				this.updateCraftingResults();
 			}
 		}
+		else if(var2 != null && gemSlot != null && var2.getItem() instanceof ItemTrinket && gemSlot.getItem() instanceof ItemRunicDiamond)
+		{
+			this.enchantLevels[0] = 1;
+			this.enchantLevels[1] = 0;
+			this.enchantLevels[2] = 0;
+			
+			this.updateCraftingResults();
+		}
 		else
 		{
 			for (var3 = 0; var3 < 3; ++var3)
@@ -366,7 +374,7 @@ public class ContainerEnchantment extends Container
 	
 	private boolean isGem(ItemStack item)
 	{
-		int[] itemId = new int[4];
+		/*int[] itemId = new int[4];
 		itemId[0] = Item.rubyCharged.shiftedIndex;
 		itemId[1] = Item.sapphireCharged.shiftedIndex;
 		itemId[2] = Item.amethystCharged.shiftedIndex;
@@ -378,9 +386,9 @@ public class ContainerEnchantment extends Container
 			{
 				return true;
 			}
-		}
+		}*/
 		
-		return false;
+		return item.getItem() instanceof ItemGem;
 	}
 	
 	private void setEffectByItem(ItemStack item)

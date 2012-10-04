@@ -189,7 +189,7 @@ public abstract class EntityLiving extends Entity
 
     /** How long to keep a specific target entity */
     protected int numTicksToChaseTarget = 0;
-	public Map<String, Boolean> trinketEffect = new HashMap<String, Boolean>();
+	public Map<String, Integer> trinketEffect = new HashMap<String, Integer>();
 	
     public EntityLiving(World par1World)
     {
@@ -897,12 +897,12 @@ public abstract class EntityLiving extends Entity
                     }
 					
 					// Minecraft RPG
-					if(trinketEffect.get("flameaura"))
+					if(trinketEffect.get("flameaura") > 0)
 					{
 						var4.setFire(2);
 					}
 					
-					if(trinketEffect.get("frozenaura") && var4 instanceof EntityLiving)
+					if(trinketEffect.get("frozenaura") > 0 && var4 instanceof EntityLiving)
 					{	
 						EntityLiving attacker = (EntityLiving)var4;
 						attacker.addPotionEffect(new PotionEffect(2, 60, 0));
@@ -1180,10 +1180,10 @@ public abstract class EntityLiving extends Entity
                 this.worldObj.playSoundAtEntity(this, "damage.fallsmall", 1.0F, 1.0F);
             }
 			
-			if(this.trinketEffect.get("slowfall"))
+			if(this.trinketEffect.get("slowfall") > 0)
 				this.attackEntityFrom(DamageSource.fall, var2 - (int)(var2 * 0.33)); // 33% less fall damage
-			else if(this.trinketEffect.get("leaping"))
-				this.attackEntityFrom(DamageSource.fall, var2 - 1); // so jumping doesn't fuck you
+			else if(this.trinketEffect.get("leaping") > 0)
+				this.attackEntityFrom(DamageSource.fall, var2 - this.trinketEffect.get("leaping")); // so jumping doesn't fuck you
 			else
 				this.attackEntityFrom(DamageSource.fall, var2);
 			
@@ -1458,44 +1458,46 @@ public abstract class EntityLiving extends Entity
     public void onLivingUpdate()
     {
 		// Minecraft RPG
-		this.trinketEffect.put("slowfall", false);
-		this.trinketEffect.put("leaping", false);
-		this.trinketEffect.put("extrahealth", false);
-		this.trinketEffect.put("frozenaura", false);
-		this.trinketEffect.put("flameaura", false);
-		this.trinketEffect.put("natureaura", false);
-		this.trinketEffect.put("swimming", false);
+		this.trinketEffect.put("slowfall", 0);
+		this.trinketEffect.put("leaping", 0);
+		this.trinketEffect.put("extrahealth", 0);
+		this.trinketEffect.put("frozenaura", 0);
+		this.trinketEffect.put("flameaura", 0);
+		this.trinketEffect.put("natureaura", 0);
+		this.trinketEffect.put("swimming", 0);
 		
 		if(this instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)this;
 			Item trinketSlot;
-
+			int multiplier;
+			
 			for(int i = 0; i < 4; i++)
 			{
 				if(player.inventory.extraItemInSlot(i) != null)
 				{
 					trinketSlot = player.inventory.extraItemInSlot(i).getItem();
-
+					multiplier = EnchantmentHelper.getRuned(player.inventory, i);
+					
 					if(trinketSlot.shiftedIndex == Item.glowingFeather.shiftedIndex)
-						this.trinketEffect.put("slowfall", true);
+						this.trinketEffect.put("slowfall", 1 + multiplier);
 					
 					if(trinketSlot.shiftedIndex == Item.amethystWing.shiftedIndex)
-						this.trinketEffect.put("leaping", true);
-						
+						this.trinketEffect.put("leaping", 1 + multiplier);
+					
 					if(trinketSlot.shiftedIndex == Item.healthGem.shiftedIndex)
-						this.trinketEffect.put("extrahealth", true);
+						this.trinketEffect.put("extrahealth", 1);
 						
 					if(trinketSlot.shiftedIndex == Item.frozenGem.shiftedIndex)
-						this.trinketEffect.put("frozenaura", true);
+						this.trinketEffect.put("frozenaura", 1);
 						
 					if(trinketSlot.shiftedIndex == Item.cagedMagma.shiftedIndex)
-						this.trinketEffect.put("flameaura", true);
+						this.trinketEffect.put("flameaura", 1);
 						
 					if(trinketSlot.shiftedIndex == Item.spiritStone.shiftedIndex)
-						this.trinketEffect.put("natureaura", true);
+						this.trinketEffect.put("natureaura", 1);
 						
 					if(trinketSlot.shiftedIndex == Item.enchantedVial.shiftedIndex)
-						this.trinketEffect.put("swimming", true);
+						this.trinketEffect.put("swimming", 1);
 						
 				}
 			}
@@ -1569,7 +1571,7 @@ public abstract class EntityLiving extends Entity
             {
                 if (this.onGround && this.jumpTicks == 0)
                 {
-					if(this.trinketEffect.get("leaping")) this.jump(true); // jump distance increase
+					if(this.trinketEffect.get("leaping") > 0) this.jump(this.trinketEffect.get("leaping")); // jump distance increase
 					else this.jump();
 						
 					this.jumpTicks = 10;
@@ -1586,15 +1588,15 @@ public abstract class EntityLiving extends Entity
         }
 		
 		// slow fall effect
-		if(this.trinketEffect.get("slowfall") && !this.isInWater() && 
+		if(this.trinketEffect.get("slowfall") > 0 && !this.isInWater() && 
 		!this.onGround && this.jumpTicks == 0 && !((EntityPlayer)this).capabilities.isFlying)
 		{
-			this.motionY *= 0.7F;
+			this.motionY *= this.trinketEffect.get("slowfall") == 2 ? 0.6F : 0.8F;
 			// 0.5F for level 2
 		}
 		
 		// swimming movement speed
-		if(this.trinketEffect.get("swimming") && this.isInWater())
+		if(this.trinketEffect.get("swimming") > 0 && this.isInWater())
 		{
             this.motionX *= 1.15F;
             this.motionZ *= 1.15F;
@@ -1738,10 +1740,10 @@ public abstract class EntityLiving extends Entity
      */
     protected void jump()
     {
-		this.jump(false);
+		this.jump(0);
 	}
 	
-    protected void jump(boolean leapingEffect)
+    protected void jump(int leapingEffect)
     {
         this.motionY = 0.41999998688697815D;
 
@@ -1750,13 +1752,13 @@ public abstract class EntityLiving extends Entity
             this.motionY += (double)((float)(this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
         }
 
-		if(leapingEffect)
+		if(leapingEffect > 0)
 		{
-			this.motionY += 0.35F;
+			this.motionY += (double)(0.35D * (float)leapingEffect);
 			
 			float var1 = this.rotationYaw * 0.017453292F;
-			this.motionX -= (double)(MathHelper.sin(var1) * 0.4F);
-            this.motionZ += (double)(MathHelper.cos(var1) * 0.4F);
+			this.motionX -= (double)(MathHelper.sin(var1) * (0.2F + ((float)leapingEffect * 0.2F)));
+            this.motionZ += (double)(MathHelper.cos(var1) * (0.2F + ((float)leapingEffect * 0.2F)));
 			
 			int x = MathHelper.floor_double(this.posX);
             int y = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset);

@@ -88,6 +88,7 @@ public abstract class Enchantment
     public static final Enchantment lifestealWeapon = new EnchantmentSword(96, 2, "lifesteal");
     public static final Enchantment flee = new EnchantmentArrow(95, 2, "arrowFlee");
     public static final Enchantment fleeWeapon = new EnchantmentSword(94, 2, "flee");
+    public static final Enchantment runed = new EnchantmentRuned(93, 1, "runed");
 	
     public final int effectId;
     private final int weight;

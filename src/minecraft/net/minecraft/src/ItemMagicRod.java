@@ -63,11 +63,6 @@ public class ItemMagicRod extends Item
     {
         return par1ItemStack;
     }
-	
-	public boolean hasEffect(ItemStack par1ItemStack)
-    {
-        return true;
-    }
 
     /**
      * How long it takes to use or consume an item

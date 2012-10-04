@@ -17,13 +17,18 @@ public class ItemTrinket extends Item
 		return EnumRarity.rare;
 	}
 	
-	public boolean hasEffect(ItemStack par1ItemStack)
+	/*public boolean hasEffect(ItemStack par1ItemStack)
     {
         return false;
-    }
+    }*/
 	
 	public void addInformation(ItemStack par1ItemStack, List par2List)
     {
         par2List.add("Trinket");
+    }
+	
+	public int getItemEnchantability()
+    {
+        return 1;
     }
 }
