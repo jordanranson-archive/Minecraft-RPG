@@ -1180,20 +1180,31 @@ public abstract class EntityLiving extends Entity
                 this.worldObj.playSoundAtEntity(this, "damage.fallsmall", 1.0F, 1.0F);
             }
 			
-			if(this.trinketEffect.get("slowfall") > 0)
-				this.attackEntityFrom(DamageSource.fall, var2 - (int)(var2 * 0.33)); // 33% less fall damage
-			else if(this.trinketEffect.get("leaping") > 0)
-				this.attackEntityFrom(DamageSource.fall, var2 - this.trinketEffect.get("leaping")); // so jumping doesn't fuck you
-			else
-				this.attackEntityFrom(DamageSource.fall, var2);
-			
-            int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset), MathHelper.floor_double(this.posZ));
+			if(this instanceof EntityPlayer)
+			{
+				EntityPlayer player = (EntityPlayer)this;
+				
+				if(this.trinketEffect.get("leaping") > 0)
+				{
+					this.attackEntityFrom(DamageSource.fall, var2 - (this.trinketEffect.get("leaping") + 1)); // so jumping doesn't fuck you
+				}
+				else if(this.trinketEffect.get("slowfall") > 0)
+				{
+					this.attackEntityFrom(DamageSource.fall, var2 >= player.getHealth() ? player.getHealth() - (this.trinketEffect.get("slowfall") * 2) : var2); // 33% less fall damage
+				}
+				else
+				{
+					this.attackEntityFrom(DamageSource.fall, var2);
+				}
+				
+				int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - 0.20000000298023224D - (double)this.yOffset), MathHelper.floor_double(this.posZ));
 
-            if (var3 > 0)
-            {
-                StepSound var4 = Block.blocksList[var3].stepSound;
-                this.worldObj.playSoundAtEntity(this, var4.getStepSound(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
-            }
+				if (var3 > 0)
+				{
+					StepSound var4 = Block.blocksList[var3].stepSound;
+					this.worldObj.playSoundAtEntity(this, var4.getStepSound(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
+				}
+			}
         }
     }
 
@@ -1485,19 +1496,19 @@ public abstract class EntityLiving extends Entity
 						this.trinketEffect.put("leaping", 1 + multiplier);
 					
 					if(trinketSlot.shiftedIndex == Item.healthGem.shiftedIndex)
-						this.trinketEffect.put("extrahealth", 1);
+						this.trinketEffect.put("extrahealth", 1 + multiplier);
 						
 					if(trinketSlot.shiftedIndex == Item.frozenGem.shiftedIndex)
-						this.trinketEffect.put("frozenaura", 1);
+						this.trinketEffect.put("frozenaura", 1 + multiplier);
 						
 					if(trinketSlot.shiftedIndex == Item.cagedMagma.shiftedIndex)
-						this.trinketEffect.put("flameaura", 1);
+						this.trinketEffect.put("flameaura", 1 + multiplier);
 						
 					if(trinketSlot.shiftedIndex == Item.spiritStone.shiftedIndex)
-						this.trinketEffect.put("natureaura", 1);
+						this.trinketEffect.put("natureaura", 1 + multiplier);
 						
 					if(trinketSlot.shiftedIndex == Item.enchantedVial.shiftedIndex)
-						this.trinketEffect.put("swimming", 1);
+						this.trinketEffect.put("swimming", 1 + multiplier);
 						
 				}
 			}
@@ -1592,15 +1603,18 @@ public abstract class EntityLiving extends Entity
 		!this.onGround && this.jumpTicks == 0 && !((EntityPlayer)this).capabilities.isFlying)
 		{
 			this.motionY *= this.trinketEffect.get("slowfall") == 2 ? 0.6F : 0.8F;
-			// 0.5F for level 2
-		}
-		
-		// swimming movement speed
-		if(this.trinketEffect.get("swimming") > 0 && this.isInWater())
-		{
-            this.motionX *= 1.15F;
-            this.motionZ *= 1.15F;
-            this.motionY *= 1.15F;
+			
+			for(int i = 0; i < 2; i++)
+			{
+				this.worldObj.spawnParticle(
+					"goldenglow",
+					this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+					this.boundingBox.minY + 0.3D, 
+					this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+					-this.motionX * 8.0D, 1.2D,
+					-this.motionZ * 8.0D
+				);
+			}
 		}
 		
 		// nature aura
@@ -1673,6 +1687,43 @@ public abstract class EntityLiving extends Entity
 
         this.worldObj.theProfiler.endSection();
         this.worldObj.theProfiler.startSection("travel");
+		
+		// swimming movement speed
+		if(this.trinketEffect.get("swimming") > 0 && this.isInWater() && !((EntityPlayer)this).capabilities.isFlying)
+		{
+			double multiplier = this.trinketEffect.get("swimming") == 2 ? 1.18D : 1.13D ;
+            this.motionX *= multiplier;
+            this.motionZ *= multiplier;
+            this.motionY *= multiplier;
+			
+			int sparkle = this.rand.nextInt(8);
+			if(sparkle == 0)
+			{
+				for(int i = 0; i < 2; i++)
+				{
+					this.worldObj.spawnParticle(
+						"glowflower",
+						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+						this.boundingBox.minY + 0.3D, 
+						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+						-this.motionX * 8.0D, 0.8D,
+						-this.motionZ * 8.0D
+					);
+				}
+			}
+			for(int i = 0; i < 2; i++)
+			{
+				this.worldObj.spawnParticle(
+					"bubble",
+					this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+					this.boundingBox.minY + 0.3D, 
+					this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+					-this.motionX * 8.0D, 0.5D,
+					-this.motionZ * 8.0D
+				);
+			}
+		}
+		
         this.moveStrafing *= 0.98F;
         this.moveForward *= 0.98F;
         this.randomYawVelocity *= 0.9F;
@@ -1767,7 +1818,7 @@ public abstract class EntityLiving extends Entity
 			int b = this.worldObj.getBlockId(x, y, z);
             if (b > 0)
             {
-				for(int i = 0; i < 13; i++)
+				for(int i = 0; i < 19; i++)
 				{
 					this.worldObj.spawnParticle(
 						"tilecrack_" + b,
@@ -1777,6 +1828,18 @@ public abstract class EntityLiving extends Entity
 						-this.motionX * 8.0D, 2.0D,
 						-this.motionZ * 8.0D
 					);
+					
+					if(i % 4 == 0)
+					{
+						this.worldObj.spawnParticle(
+							"lifesteal",
+							this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+							this.boundingBox.minY + 0.1D, 
+							this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+							-this.motionX * 8.0D, 2.0D,
+							-this.motionZ * 8.0D
+						);
+					}
 				}
 			}
 		}

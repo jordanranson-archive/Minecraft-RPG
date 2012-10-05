@@ -186,7 +186,7 @@ public class ContainerEnchantment extends Container
 		}
 		else if(var2 != null && gemSlot != null && var2.getItem() instanceof ItemTrinket && gemSlot.getItem() instanceof ItemRunicDiamond)
 		{
-			this.enchantLevels[0] = 1;
+			this.enchantLevels[0] = 10;
 			this.enchantLevels[1] = 0;
 			this.enchantLevels[2] = 0;
 			
@@ -226,7 +226,7 @@ public class ContainerEnchantment extends Container
                         var3.addEnchantment(var6.enchantmentobj, var6.enchantmentLevel);
                     }
 
-					if(this.effectId != 0)
+					if(gemSlot != null)
 					{
 						this.craftMatrix.decrStackSize(0, 1);
                     }
@@ -296,7 +296,7 @@ public class ContainerEnchantment extends Container
             }
             else
             {
-				if(this.isGem(var4)) // inventory to gem slot
+				if(this.isGem(var4) || var4.getItem() instanceof ItemRunicDiamond) // inventory to gem slot
 				{
 					if (((Slot)this.inventorySlots.get(1)).getHasStack() || !((Slot)this.inventorySlots.get(1)).isItemValid(var4))
 					{

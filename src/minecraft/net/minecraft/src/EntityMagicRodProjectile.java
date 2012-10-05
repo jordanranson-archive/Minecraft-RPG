@@ -76,6 +76,8 @@ public class EntityMagicRodProjectile extends EntityThrowable
         {
             this.worldObj.spawnParticle("meatsplash", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
         }
+		
+		this.worldObj.playAuxSFX(9999, (int)Math.round(this.posX), (int)Math.round(this.posY), (int)Math.round(this.posZ), this.getMagicEffectId());
 
         if (!this.worldObj.isRemote)
         {
