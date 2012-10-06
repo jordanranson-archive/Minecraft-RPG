@@ -45,6 +45,7 @@ public class Potion
 	
 	// Minecraft RPG
     public static final Potion flee = (new Potion(31, true, 5149489)).setPotionName("potion.flee").setIconIndex(7, 2);
+    public static final Potion frozen = (new Potion(30, true, 9679601)).setPotionName("potion.frozen").setIconIndex(6, 2);
 	
     public static final Potion field_76435_v = null;
     public static final Potion field_76434_w = null;

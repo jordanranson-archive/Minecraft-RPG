@@ -1186,7 +1186,7 @@ public abstract class EntityPlayer extends EntityLiving implements ICommandSende
 					if(var9 > 0)
 					{
 						EntityLiving entityHit = (EntityLiving)par1Entity;
-						entityHit.addPotionEffect(new PotionEffect(2, 71 * var9, 0));
+						entityHit.addPotionEffect(new PotionEffect(30, 71 * var9, 0));
 					}
 					
 					

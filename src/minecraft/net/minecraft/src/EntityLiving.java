@@ -901,7 +901,7 @@ public abstract class EntityLiving extends Entity
 					if(trinketEffect.get("frozenaura") > 0 && var4 instanceof EntityLiving)
 					{	
 						EntityLiving attacker = (EntityLiving)var4;
-						attacker.addPotionEffect(new PotionEffect(2, 60, 0));
+						attacker.addPotionEffect(new PotionEffect(30, 35 * trinketEffect.get("frozenaura"), 0));
 					}
                 }
 
@@ -1615,6 +1615,38 @@ public abstract class EntityLiving extends Entity
 				}
 			}
 		}
+		       
+		// frozen potion effect
+		if(this.dataWatcher.getWatchableObjectInt(8) == 9679601)
+		{
+			System.out.println("frozen");
+			for(int i = 0; i < 3; i++)
+			{
+				this.worldObj.spawnParticle(
+					"frozenenchant",
+					this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+					this.posY + (double)this.rand.nextFloat() * (double)this.height, 
+					this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+					-this.motionX * 8.0D, 0.5D,
+					-this.motionZ * 8.0D
+				);
+			}
+			
+			if(this.rand.nextInt(32) == 0)
+			{
+				for (int var1 = 0; var1 < 4; ++var1)
+				{
+					int var2 = MathHelper.floor_double(this.posX + (double)((float)(var1 % 2 * 2 - 1) * 0.25F));
+					int var3 = MathHelper.floor_double(this.posY);
+					int var4 = MathHelper.floor_double(this.posZ + (double)((float)(var1 / 2 % 2 * 2 - 1) * 0.25F));
+
+					if (this.worldObj.getBlockId(var2, var3, var4) == 0 && Block.snow.canPlaceBlockAt(this.worldObj, var2, var3, var4))
+					{
+						this.worldObj.setBlockWithNotify(var2, var3, var4, Block.snow.blockID);
+					}
+				}
+			}
+		}
 		
 		// nature aura
 		/*Random random = new Random();
@@ -2320,14 +2352,13 @@ public abstract class EntityLiving extends Entity
         if (this.rand.nextBoolean())
         {
             var9 = this.dataWatcher.getWatchableObjectInt(8);
-
-            if (var9 > 0)
+            if (var9 > 0 && var9 != 9679601)
             {
                 double var10 = (double)(var9 >> 16 & 255) / 255.0D;
                 double var5 = (double)(var9 >> 8 & 255) / 255.0D;
                 double var7 = (double)(var9 >> 0 & 255) / 255.0D;
                 this.worldObj.spawnParticle("mobSpell", this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - (double)this.yOffset, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, var10, var5, var7);
-            }
+			}
         }
     }
 
@@ -2447,7 +2478,12 @@ public abstract class EntityLiving extends Entity
 
         if (this.isPotionActive(Potion.moveSlowdown))
         {
-            var1 *= 1.0F - 0.35F * (float)(this.getActivePotionEffect(Potion.moveSlowdown).getAmplifier() + 1);
+            var1 *= 1.0F - 0.25F * (float)(this.getActivePotionEffect(Potion.moveSlowdown).getAmplifier() + 1);
+        }
+		
+		if (this.isPotionActive(Potion.frozen))
+        {
+            var1 *= 1.0F - 0.35F * (float)(this.getActivePotionEffect(Potion.frozen).getAmplifier() + 1);
         }
 
         return var1;

@@ -297,7 +297,7 @@ public class EntityArrow extends Entity
 					else if (this.getMagicEffectId() == EnumMagicEffect.freeze.getEffectId() && var4.entityHit instanceof EntityLiving)
 					{
 						EntityLiving entityHit = (EntityLiving)var4.entityHit;
-						entityHit.addPotionEffect(new PotionEffect(2, 71 * (int)this.effectMultiplier, 0));
+						entityHit.addPotionEffect(new PotionEffect(30, 71 * (int)this.effectMultiplier, 0));
 					}
 					
 					// Life steal

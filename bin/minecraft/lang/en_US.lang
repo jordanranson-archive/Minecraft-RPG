@@ -1042,6 +1042,7 @@ item.spiritStone.name=Spirit Stone
 container.prospect=Prospect
 
 potion.flee=Fleeing
+potion.frozen=Frozen
 
 enchantment.arrowFrozen=Frozen
 enchantment.frozen=Frost Aspect

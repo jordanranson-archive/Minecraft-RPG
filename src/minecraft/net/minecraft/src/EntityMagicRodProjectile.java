@@ -49,7 +49,7 @@ public class EntityMagicRodProjectile extends EntityThrowable
 				// Freeze
 				else if (this.getMagicEffectId() == EnumMagicEffect.freeze.getEffectId() && par1MovingObjectPosition.entityHit instanceof EntityLiving)
 				{
-					entityHit.addPotionEffect(new PotionEffect(2, 71 * (int)this.effectMultiplier, 0));
+					entityHit.addPotionEffect(new PotionEffect(30, 71 * (int)this.effectMultiplier, 0));
 				}
 				
 				// Life steal
@@ -71,16 +71,10 @@ public class EntityMagicRodProjectile extends EntityThrowable
 			
 			par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.thrower), 2);
         }
-
-        for (int var3 = 0; var3 < 8; ++var3)
-        {
-            this.worldObj.spawnParticle("meatsplash", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-        }
 		
-		this.worldObj.playAuxSFX(9999, (int)Math.round(this.posX), (int)Math.round(this.posY), (int)Math.round(this.posZ), this.getMagicEffectId());
-
         if (!this.worldObj.isRemote)
         {
+			this.worldObj.playAuxSFX(9999, (int)Math.round(this.posX), (int)Math.round(this.posY), (int)Math.round(this.posZ), this.getMagicEffectId());
             this.setDead();
         }
     }
