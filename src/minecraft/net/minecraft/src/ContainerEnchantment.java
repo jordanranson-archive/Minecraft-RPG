@@ -178,7 +178,12 @@ public class ContainerEnchantment extends Container
 
 				for (var4 = 0; var4 < 3; ++var4)
 				{
-					this.enchantLevels[var4] = EnchantmentHelper.calcItemStackEnchantability(this.rand, var4, var3, var2);
+					int level = EnchantmentHelper.calcItemStackEnchantability(this.rand, var4, var3, var2);
+					if(gemSlot != null && this.isGem(gemSlot) && level < 10)
+					{
+						level = 10;
+					}
+					this.enchantLevels[var4] = level;
 				}
 				
 				this.updateCraftingResults();
@@ -186,7 +191,7 @@ public class ContainerEnchantment extends Container
 		}
 		else if(var2 != null && gemSlot != null && var2.getItem() instanceof ItemTrinket && gemSlot.getItem() instanceof ItemRunicDiamond)
 		{
-			this.enchantLevels[0] = 10;
+			this.enchantLevels[0] = 20;
 			this.enchantLevels[1] = 0;
 			this.enchantLevels[2] = 0;
 			
