@@ -104,29 +104,37 @@ public class ContainerPlayer extends Container
             ItemStack var4 = var3.getStack();
             var2 = var4.copy();
 
-            if (par1 == 0)
+            if (par1 == 0) // crafting output
             {
-                if (!this.mergeItemStack(var4, 9, 45, true))
+                if (!this.mergeItemStack(var4, 13, 49, true))
                 {
                     return null;
                 }
 
                 var3.onSlotChange(var4, var2);
             }
-            else if (par1 >= 1 && par1 < 5)
+            else if (par1 >= 1 && par1 < 5) // crafting matrix
             {
-                if (!this.mergeItemStack(var4, 9, 45, false))
+                if (!this.mergeItemStack(var4, 13, 49, false))
                 {
                     return null;
                 }
             }
-            else if (par1 >= 5 && par1 < 9)
+            else if (par1 >= 5 && par1 < 9) // item out of armor
             {
-                if (!this.mergeItemStack(var4, 9, 45, false))
+                if (!this.mergeItemStack(var4, 13, 49, false))
                 {
                     return null;
                 }
             }
+            else if (par1 >= 9 && par1 < 13) // item out of armor
+            {
+                if (!this.mergeItemStack(var4, 13, 49, false))
+                {
+                    return null;
+                }
+            }
+			// item into armor
             else if (var2.getItem() instanceof ItemArmor && !((Slot)this.inventorySlots.get(5 + ((ItemArmor)var2.getItem()).armorType)).getHasStack())
             {
                 int var5 = 5 + ((ItemArmor)var2.getItem()).armorType;
@@ -136,21 +144,36 @@ public class ContainerPlayer extends Container
                     return null;
                 }
             }
-            else if (par1 >= 9 && par1 < 36)
+			// item into extra
+            else if (var2.getItem() instanceof ItemTrinket)
             {
-                if (!this.mergeItemStack(var4, 36, 45, false))
+				int var5;
+				
+				for(int i = 0; i < 4; i++)
+				{
+					var5 = 9 + i;
+
+					if (!this.mergeItemStack(var4, var5, var5 + 1, false))
+					{
+						return null;
+					}
+				}
+            }
+            else if (par1 >= 13 && par1 < 40) // inventory to hotbar
+            {
+                if (!this.mergeItemStack(var4, 40, 49, false))
                 {
                     return null;
                 }
             }
-            else if (par1 >= 36 && par1 < 45)
+            else if (par1 >= 40 && par1 < 49) // hot bar into inventory
             {
-                if (!this.mergeItemStack(var4, 9, 36, false))
+                if (!this.mergeItemStack(var4, 13, 40, false))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(var4, 9, 45, false))
+            else if (!this.mergeItemStack(var4, 13, 49, false))
             {
                 return null;
             }
