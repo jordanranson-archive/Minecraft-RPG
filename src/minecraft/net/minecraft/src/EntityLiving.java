@@ -190,6 +190,8 @@ public abstract class EntityLiving extends Entity
     /** How long to keep a specific target entity */
     protected int numTicksToChaseTarget = 0;
 	public Map<String, Integer> trinketEffect = new HashMap<String, Integer>();
+	private int maxTrinketAttackCooldown = 170;
+	private int trinketAttackCooldown = 0;
 	
     public EntityLiving(World par1World)
     {
@@ -896,12 +898,6 @@ public abstract class EntityLiving extends Entity
                         }
                     }
 					
-					// Minecraft RPG
-					if(trinketEffect.get("flameaura") > 0)
-					{
-						var4.setFire(2);
-					}
-					
 					if(trinketEffect.get("frozenaura") > 0 && var4 instanceof EntityLiving)
 					{	
 						EntityLiving attacker = (EntityLiving)var4;
@@ -1599,21 +1595,24 @@ public abstract class EntityLiving extends Entity
         }
 		
 		// slow fall effect
-		if(this.trinketEffect.get("slowfall") > 0 && !this.isInWater() && 
-		!this.onGround && this.jumpTicks == 0 && !((EntityPlayer)this).capabilities.isFlying)
+		if(this instanceof EntityPlayer) 
 		{
-			this.motionY *= this.trinketEffect.get("slowfall") == 2 ? 0.6F : 0.8F;
-			
-			for(int i = 0; i < 2; i++)
+			if(this.trinketEffect.get("slowfall") > 0 && !this.isInWater() && 
+			!this.onGround && this.jumpTicks == 0 && !((EntityPlayer)this).capabilities.isFlying)
 			{
-				this.worldObj.spawnParticle(
-					"goldenglow",
-					this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
-					this.boundingBox.minY + 0.3D, 
-					this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
-					-this.motionX * 8.0D, 1.2D,
-					-this.motionZ * 8.0D
-				);
+				this.motionY *= this.trinketEffect.get("slowfall") == 2 ? 0.6F : 0.8F;
+				
+				for(int i = 0; i < 2; i++)
+				{
+					this.worldObj.spawnParticle(
+						"goldenglow",
+						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+						this.boundingBox.minY + 0.3D, 
+						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+						-this.motionX * 8.0D, 1.2D,
+						-this.motionZ * 8.0D
+					);
+				}
 			}
 		}
 		
@@ -1689,38 +1688,41 @@ public abstract class EntityLiving extends Entity
         this.worldObj.theProfiler.startSection("travel");
 		
 		// swimming movement speed
-		if(this.trinketEffect.get("swimming") > 0 && this.isInWater() && !((EntityPlayer)this).capabilities.isFlying)
+		if(this instanceof EntityPlayer) 
 		{
-			double multiplier = this.trinketEffect.get("swimming") == 2 ? 1.18D : 1.13D ;
-            this.motionX *= multiplier;
-            this.motionZ *= multiplier;
-            this.motionY *= multiplier;
-			
-			int sparkle = this.rand.nextInt(8);
-			if(sparkle == 0)
+			if(this.trinketEffect.get("swimming") > 0 && this.isInWater() && !((EntityPlayer)this).capabilities.isFlying)
 			{
+				double multiplier = this.trinketEffect.get("swimming") == 2 ? 1.18D : 1.13D ;
+				this.motionX *= multiplier;
+				this.motionZ *= multiplier;
+				this.motionY *= multiplier;
+				
+				int sparkle = this.rand.nextInt(8);
+				if(sparkle == 0)
+				{
+					for(int i = 0; i < 2; i++)
+					{
+						this.worldObj.spawnParticle(
+							"glowflower",
+							this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+							this.boundingBox.minY + 0.3D, 
+							this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
+							-this.motionX * 8.0D, 0.8D,
+							-this.motionZ * 8.0D
+						);
+					}
+				}
 				for(int i = 0; i < 2; i++)
 				{
 					this.worldObj.spawnParticle(
-						"glowflower",
+						"bubble",
 						this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
 						this.boundingBox.minY + 0.3D, 
 						this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
-						-this.motionX * 8.0D, 0.8D,
+						-this.motionX * 8.0D, 0.5D,
 						-this.motionZ * 8.0D
 					);
 				}
-			}
-			for(int i = 0; i < 2; i++)
-			{
-				this.worldObj.spawnParticle(
-					"bubble",
-					this.posX + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
-					this.boundingBox.minY + 0.3D, 
-					this.posZ + ((double)this.rand.nextFloat() - 0.5D) * (double)this.width,
-					-this.motionX * 8.0D, 0.5D,
-					-this.motionZ * 8.0D
-				);
 			}
 		}
 		
@@ -1755,7 +1757,89 @@ public abstract class EntityLiving extends Entity
         }
 
         this.worldObj.theProfiler.endSection();
+		
+		// fire trinket fireball attack
+		if(this instanceof EntityPlayer) {
+			if(this.trinketEffect.get("flameaura") > 0 && !this.isInWater()) {
+				this.doFlameTrinketAttack(6, this.trinketEffect.get("flameaura"));
+			}
+		}
     }
+	
+	private void doFlameTrinketAttack(int radius, int multiplier)
+	{
+		this.trinketAttackCooldown = Math.max(this.trinketAttackCooldown - 1, 0);
+
+		if (this.trinketAttackCooldown <= 0)
+		{
+			radius = radius + (multiplier == 2 ? 3 : 0);
+			int aabbPosX = MathHelper.floor_double(this.posX - (double)radius - 1.0D);
+			int aabbMotionX = MathHelper.floor_double(this.posX + (double)radius + 1.0D);
+			int aabbPosY = MathHelper.floor_double(this.posY - (double)radius - 1.0D);
+			int aabbMotionY = MathHelper.floor_double(this.posY + (double)radius + 1.0D);
+			int aabbPosZ = MathHelper.floor_double(this.posZ - (double)radius - 1.0D);
+			int aabbMotionZ = MathHelper.floor_double(this.posZ + (double)radius + 1.0D);
+			List entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(
+				this, AxisAlignedBB.getAABBPool().addOrModifyAABBInPool(
+					(double)aabbPosX, (double)aabbPosY, (double)aabbPosZ, 
+					(double)aabbMotionX, (double)aabbMotionY, (double)aabbMotionZ
+				)
+			);
+			
+			Entity attackTarget = null;
+			double targetDistance;
+			Entity curTarget = null;
+			double curDistance;
+			
+			for (int i = 0; i < entities.size(); ++i)
+			{	
+				curTarget = (Entity)entities.get(i);
+				
+				if(curTarget instanceof EntityMob || curTarget instanceof EntitySlime)
+				{
+					if(attackTarget != null)
+					{
+						curDistance = curTarget.getDistance(this.posX, this.posY, this.posZ) / (double)radius;
+						targetDistance = attackTarget.getDistance(this.posX, this.posY, this.posZ) / (double)radius;
+						
+						if(curDistance < targetDistance)
+						{
+							attackTarget = curTarget;
+						}
+					}
+					else
+					{
+						attackTarget = curTarget;
+					}
+				}
+			}
+			
+			if(attackTarget != null)
+			{
+				targetDistance = attackTarget.getDistance(this.posX, this.posY, this.posZ) / (double)radius;
+				if (targetDistance <= 1.0D)
+				{
+					EntityMagicRodProjectile magicBolt = new EntityMagicRodProjectile(this.worldObj, this);
+					magicBolt.setEffectMultiplier(multiplier == 2 ? 1.5 : 1.0);
+					magicBolt.setMagicEffect(EnumMagicEffect.flame);
+					
+					double x = attackTarget.posX - this.posX;
+					double y = attackTarget.posY + (double)attackTarget.getEyeHeight() - 1.100000023841858D - magicBolt.posY;
+					double z = attackTarget.posZ - this.posZ;
+					float dist = MathHelper.sqrt_double(x * x + z * z) * 0.2F;
+					magicBolt.setThrowableHeading(x, y + (double)dist, z, 1.6F, 12.0F);
+					this.worldObj.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+					
+					this.trinketAttackCooldown = this.maxTrinketAttackCooldown - (multiplier == 2 ? 50 : 0);
+					
+					if (!this.worldObj.isRemote)
+					{
+						this.worldObj.spawnEntityInWorld(magicBolt);
+					}
+				}
+			}
+		}
+	}
 
     /**
      * Returns true if the newer Entity AI code should be run
