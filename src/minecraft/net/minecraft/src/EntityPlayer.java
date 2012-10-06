@@ -129,7 +129,7 @@ public abstract class EntityPlayer extends EntityLiving implements ICommandSende
 
     public int getMaxHealth()
     {
-        return 20;
+		return 20;
     }
 
     protected void entityInit()
@@ -476,17 +476,17 @@ public abstract class EntityPlayer extends EntityLiving implements ICommandSende
             --this.flyToggleTimer;
         }
 
-        if (this.worldObj.difficultySetting == 0 && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 20 * 12 == 0)
-        {
-            this.heal(1);
-        }
-
         this.inventory.decrementAnimations();
         this.prevCameraYaw = this.cameraYaw;
         super.onLivingUpdate();
         this.landMovementFactor = this.capabilities.getWalkSpeed();
         this.jumpMovementFactor = this.speedInAir;
 
+		if (this.worldObj.difficultySetting == 0 && this.getHealth() < this.getMaxAdjustedHealth() && this.ticksExisted % 20 * 12 == 0)
+        {
+            this.heal(1);
+        }
+		
         if (this.isSprinting())
         {
             this.landMovementFactor = (float)((double)this.landMovementFactor + (double)this.capabilities.getWalkSpeed() * 0.3D);

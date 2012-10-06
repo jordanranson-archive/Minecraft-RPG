@@ -798,18 +798,40 @@ public abstract class EntityLiving extends Entity
     {
         if (this.health > 0)
         {
-            this.health += par1;
-
-            if (this.health > this.getMaxHealth())
-            {
-                this.health = this.getMaxHealth();
-            }
-
-            this.hurtResistantTime = this.maxHurtResistantTime / 2;
+			if(this instanceof EntityPlayer)
+			{
+				int adjustedHealth = this.getMaxHealth() - (this.trinketEffect.get("extrahealth") * 4);
+				if (this.health + par1 >= adjustedHealth)
+				{
+					this.health = adjustedHealth;
+					System.out.println("boop");
+				}
+				else
+				{
+					this.hurtResistantTime = this.maxHurtResistantTime / 2;
+					this.health += par1;
+				}
+			}
+			else
+			{
+				if (this.health + par1 >= this.getMaxHealth())
+				{
+					this.health = this.getMaxHealth();
+				}
+				else
+					this.health += par1;
+				
+				this.hurtResistantTime = this.maxHurtResistantTime / 2;
+			}
         }
     }
 
     public abstract int getMaxHealth();
+	
+	public int getMaxAdjustedHealth()
+	{
+		return this.getMaxHealth() - (this.trinketEffect.get("extrahealth") * 4);
+	}
 
     public int getHealth()
     {
@@ -1467,7 +1489,7 @@ public abstract class EntityLiving extends Entity
 		// Minecraft RPG
 		this.trinketEffect.put("slowfall", 0);
 		this.trinketEffect.put("leaping", 0);
-		this.trinketEffect.put("extrahealth", 0);
+		this.trinketEffect.put("extrahealth", 2);
 		this.trinketEffect.put("frozenaura", 0);
 		this.trinketEffect.put("flameaura", 0);
 		this.trinketEffect.put("natureaura", 0);
@@ -1492,7 +1514,7 @@ public abstract class EntityLiving extends Entity
 						this.trinketEffect.put("leaping", 1 + multiplier);
 					
 					if(trinketSlot.shiftedIndex == Item.healthGem.shiftedIndex)
-						this.trinketEffect.put("extrahealth", 1 + multiplier);
+						this.trinketEffect.put("extrahealth", 1 - multiplier);
 						
 					if(trinketSlot.shiftedIndex == Item.frozenGem.shiftedIndex)
 						this.trinketEffect.put("frozenaura", 1 + multiplier);
@@ -1619,7 +1641,6 @@ public abstract class EntityLiving extends Entity
 		// frozen potion effect
 		if(this.dataWatcher.getWatchableObjectInt(8) == 9679601)
 		{
-			System.out.println("frozen");
 			for(int i = 0; i < 3; i++)
 			{
 				this.worldObj.spawnParticle(
@@ -1790,10 +1811,19 @@ public abstract class EntityLiving extends Entity
 
         this.worldObj.theProfiler.endSection();
 		
-		// fire trinket fireball attack
-		if(this instanceof EntityPlayer) {
-			if(this.trinketEffect.get("flameaura") > 0 && !this.isInWater()) {
+		
+		if(this instanceof EntityPlayer) 
+		{
+			// fire trinket fireball attack
+			if(this.trinketEffect.get("flameaura") > 0 && !this.isInWater()) 
+			{
 				this.doFlameTrinketAttack(6, this.trinketEffect.get("flameaura"));
+			}
+
+			int adjustedHealth = this.getMaxHealth() - (this.trinketEffect.get("extrahealth") * 4);
+			if(this.getHealth() > adjustedHealth)
+			{
+				this.health = adjustedHealth;
 			}
 		}
     }
