@@ -9,7 +9,7 @@ public class ItemTrinket extends Item
         super(par1);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setTabToDisplayOn(CreativeTabs.tabMisc);
+        this.setTabToDisplayOn(CreativeTabs.tabCombat);
     }
 	
 	public EnumRarity getRarity(ItemStack par1ItemStack)
