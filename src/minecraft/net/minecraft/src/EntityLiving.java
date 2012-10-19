@@ -804,7 +804,6 @@ public abstract class EntityLiving extends Entity
 				if (this.health + par1 >= adjustedHealth)
 				{
 					this.health = adjustedHealth;
-					System.out.println("boop");
 				}
 				else
 				{
@@ -923,7 +922,7 @@ public abstract class EntityLiving extends Entity
 					if(trinketEffect.get("frozenaura") > 0 && var4 instanceof EntityLiving)
 					{	
 						EntityLiving attacker = (EntityLiving)var4;
-						attacker.addPotionEffect(new PotionEffect(30, 35 * trinketEffect.get("frozenaura"), 0));
+						attacker.addPotionEffect(new PotionEffect(30, 35 * trinketEffect.get("frozenaura"), trinketEffect.get("frozenaura") * 2));
 					}
                 }
 
@@ -1641,7 +1640,12 @@ public abstract class EntityLiving extends Entity
 		// frozen potion effect
 		if(this.dataWatcher.getWatchableObjectInt(8) == 9679601)
 		{
-			for(int i = 0; i < 3; i++)
+			double multiplier = this.trinketEffect.get("frozenaura") == 2 ? 0.5D : 0.25D;
+			this.motionX *= multiplier;
+			this.motionZ *= multiplier;
+			this.motionY *= multiplier;
+		
+			for(int i = 0; i < 4; i++)
 			{
 				this.worldObj.spawnParticle(
 					"frozenenchant",
@@ -1653,9 +1657,9 @@ public abstract class EntityLiving extends Entity
 				);
 			}
 			
-			if(this.rand.nextInt(32) == 0)
+			if(this.rand.nextInt(95) == 0)
 			{
-				for (int var1 = 0; var1 < 4; ++var1)
+				for (int var1 = 0; var1 < 3; ++var1)
 				{
 					int var2 = MathHelper.floor_double(this.posX + (double)((float)(var1 % 2 * 2 - 1) * 0.25F));
 					int var3 = MathHelper.floor_double(this.posY);
@@ -1810,7 +1814,6 @@ public abstract class EntityLiving extends Entity
         }
 
         this.worldObj.theProfiler.endSection();
-		
 		
 		if(this instanceof EntityPlayer) 
 		{
@@ -2509,11 +2512,6 @@ public abstract class EntityLiving extends Entity
         if (this.isPotionActive(Potion.moveSlowdown))
         {
             var1 *= 1.0F - 0.25F * (float)(this.getActivePotionEffect(Potion.moveSlowdown).getAmplifier() + 1);
-        }
-		
-		if (this.isPotionActive(Potion.frozen))
-        {
-            var1 *= 1.0F - 0.35F * (float)(this.getActivePotionEffect(Potion.frozen).getAmplifier() + 1);
         }
 
         return var1;
